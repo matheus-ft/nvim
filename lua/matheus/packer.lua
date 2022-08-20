@@ -54,6 +54,7 @@ return packer.startup{function(use)
     config = function() require('numb').setup{} end
   }
   use 'karb94/neoscroll.nvim'               -- smooth scrolling with <C-u> and <C-d> in terminal
+  use 'norcalli/nvim-colorizer.lua'         -- colorize hexcodes
 
   -- Actually useful
   use {
@@ -66,10 +67,10 @@ return packer.startup{function(use)
   }
   use 'numToStr/Comment.nvim'               -- toggle comments easily
   use 'NvChad/nvterm'                       -- floating terminal
-  use {
-    'rmagatti/auto-session',                -- restores last session
-    config = function() require('auto-session').setup{} end
-  }
+  -- use {
+  --   'rmagatti/auto-session',                -- restores last session
+  --   config = function() require('auto-session').setup{} end
+  -- }
   use {
     'stevearc/aerial.nvim',                 -- lists all functions in the file
     config = function() require('aerial').setup{} end
