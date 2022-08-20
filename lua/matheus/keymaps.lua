@@ -36,7 +36,7 @@ vim.keymap.set('n', '<leader>c',     ':bdelete<CR>',    noremap)
 vim.keymap.set('n', '<leader><S-c>', ':bdelete!<CR>',   noremap)
 vim.keymap.set('n', '<leader><S-q>', ':q!<CR>',         noremap)
 vim.keymap.set('n', '<leader>q',     ':q<CR>',          noremap)
-vim.keymap.set('n', '<leader>w',     ':w<CR>',          noremap)
+vim.keymap.set('n', '<leader>w',     ':up<CR>',         noremap) -- same as `write` but only if there are actual changes
 vim.keymap.set('n', '<leader>e',     ':edit<Space>',    noremap)
 
 -- vim.keymap.set('n', '<leader>bp', ':bprevious<CR>', noremap)
@@ -44,7 +44,7 @@ vim.keymap.set('n', '<leader>e',     ':edit<Space>',    noremap)
 -- vim.keymap.set('n', '<leader>bd', ':bdelete<CR>',   noremap)
 
 -- Replacing
-vim.keymap.set('n', '<leader>r', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>', noremap)
+vim.keymap.set('n', '<leader>r', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>', noremap) -- this becomes `refactor` if a language server is active
 vim.keymap.set('n', '<leader>s', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>', noremap)
 
 -- indent/unindent with tab/shift-tab
@@ -83,4 +83,8 @@ vim.keymap.set(visual, 'L', '$', noremap)
 vim.keymap.set('n', 'yH', 'y^', noremap) -- Y already does y$
 vim.keymap.set('n', 'dH', 'd^', noremap) -- D already does d$
 vim.keymap.set('n', 'cH', 'c^', noremap) -- C already does c$
+
+-- paste what was last yanked, not what was deleted
+vim.keymap.set('n', 'yp', '"0p', noremap)
+vim.keymap.set('n', 'yP', '"0P', noremap)
 
