@@ -28,11 +28,11 @@ local autocmd = vim.api.nvim_create_autocmd
 
 PYTHON = augroup('PYTHON', { clear = true })
 
--- this formats all python files in the current vim session
+-- this formats the current python buffer with black (and docformatter)
 -- make sure your local virtual environment is named .env
 autocmd('BufWritePost', {
         pattern = '*.py',
-        command = '!source .env/bin/activate && docformatter -ir . && black .',
+        command = '!source .env/bin/activate && docformatter -ir % && black %',
         group = PYTHON
 })
 
