@@ -35,7 +35,7 @@ require('bufferline').setup {
 
     offsets = {{filetype = 'NvimTree', text = 'File Tree', text_align = 'center'}},
     show_close_icon = false, -- removes an useless icon in the right corner of the line
-    separator_style = 'slant',
+    -- separator_style = 'slant',
   }
 }
 
