@@ -5,6 +5,7 @@ local all_modes = { 'n', 'i', 'v', 'x' }
 local visual = { 'v', 'x' }
 
 vim.keymap.set('n', '<leader><leader>', ':', noremap)
+vim.keymap.set({'n', 'i'}, '<F9>', '<cmd>so %<cr>', noremap)
 vim.keymap.set('i', '<C-c>', '<Esc>', noremap)
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<cr>', noremap)
 
