@@ -19,5 +19,5 @@ Structure:
 
   - `plugin` contains only the `packer_compiled.lua` file, which is automatically generated after a new `:PackerCompile`
 
-For other system config files, check out my [dots](https://github.com/matheus-ft/.dotfiles).
+For other system config files and installation info, check out my [dots](https://github.com/matheus-ft/.dotfiles).
 
