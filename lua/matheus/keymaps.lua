@@ -19,7 +19,6 @@ vim.keymap.set(all_modes, '<C-Left>',   ':vertical resize -2<CR>',  noremap)
 vim.keymap.set(all_modes, '<C-Right>',  ':vertical resize +2<CR>',  noremap)
 
 -- Make splits
-vim.keymap.set('n', '<leader>v', '<C-w>v', noremap)
 vim.keymap.set('n', '<leader>y', '<C-w>v', noremap)
 vim.keymap.set('n', '<leader>x', '<C-w>s', noremap)
 vim.keymap.set('n', '<leader>o', '<C-w>o', noremap)
@@ -60,10 +59,6 @@ vim.keymap.set('n', '<Down>',   '<C-e>', noremap)
 vim.keymap.set('n', '<Up>',     '<C-y>', noremap)
 vim.keymap.set('n', '<Left>',   'nop',   noremap)
 vim.keymap.set('n', '<Right>',  'nop',   noremap)
-
--- Opens line below or above the current line
-vim.keymap.set('i', '<S-CR>', '<C-O>o', noremap)
-vim.keymap.set('i', '<C-CR>', '<C-O>O', noremap)
 
 -- Move lines up and down
 vim.keymap.set('i', '<A-j>', '<Esc>:m .+1<CR>==gi', noremap)
