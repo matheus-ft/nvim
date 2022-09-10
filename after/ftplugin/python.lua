@@ -4,7 +4,7 @@
 vim.opt_local.colorcolumn = '80'
 vim.cmd([[ highlight ColorColumn guibg=yellow ]])
 
-vim.keymap.set({'n', 'i'}, '<F9>', '<cmd>!python3 %<cr>', { noremap = true })
+vim.keymap.set({'n', 'i'}, '<F9>', '<cmd>!source .env/bin/activate && python3 %<cr>', { noremap = true })
 
 -------------
 -- Auto pairs
