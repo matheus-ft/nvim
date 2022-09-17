@@ -47,3 +47,5 @@ else
   require('neoscroll').setup{}
 end
 
+vim.g.python3_host_prog = os.getenv("HOME") .. "/.local/venv/nvim/bin/python"
+

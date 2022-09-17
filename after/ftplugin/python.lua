@@ -4,7 +4,8 @@
 vim.opt_local.colorcolumn = '80'
 vim.cmd([[ highlight ColorColumn guibg=yellow ]])
 
-vim.keymap.set({'n', 'i'}, '<F9>', '<cmd>!source .env/bin/activate && python3 %<cr>', { noremap = true })
+-- make sure you activate your venv before entering nvim!!
+vim.keymap.set({'n', 'i'}, '<F9>', '<cmd>!python3 %<cr>', { noremap = true })
 
 -------------
 -- Auto pairs
@@ -31,10 +32,15 @@ local autocmd = vim.api.nvim_create_autocmd
 PYTHON = augroup('PYTHON', { clear = true })
 
 -- this formats the current python buffer with black (and docformatter)
--- make sure your local virtual environment is named .env
 autocmd('BufWritePost', {
         pattern = '*.py',
-        command = '!source .env/bin/activate && docformatter -ir % && black %',
+        command = ':!docformatter -ir % && black %',
         group = PYTHON
 })
+
+-- autocmd('BufEnter', {
+--         pattern = '*.py',
+--         command = ':MagmaInit python3',
+--         group = PYTHON
+-- })
 
