@@ -86,8 +86,8 @@ local on_attach = function(client, bufnr)
   -- vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
   vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
 
-  vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next, bufopts)
-  vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev, bufopts)
+  vim.keymap.set('n', '<leader>nd', vim.diagnostic.goto_next, bufopts)
+  vim.keymap.set('n', '<leader>Nd', vim.diagnostic.goto_prev, bufopts)
 end
 
 ---------------------------------------------------------------------------------------
@@ -118,4 +118,5 @@ require('lspconfig')['sumneko_lua'].setup {
 -- Snippets
 ---------------------------------------------------------------------------------------
 
--- TODO
+require("luasnip.loaders.from_vscode").lazy_load()
+

@@ -1,11 +1,10 @@
 -------------------
 -- Specific settings
 -------------------
-vim.opt_local.colorcolumn = '80'
-vim.cmd([[ highlight ColorColumn guibg=yellow ]])
 
 -- make sure you activate your venv before entering nvim!!
 vim.keymap.set({'n', 'i'}, '<F9>', '<cmd>!python3 %<cr>', { noremap = true })
+vim.keymap.set('n', '<leader>f', ':w<cr><cmd>!docformatter -ir % && black %<cr>', { noremap = true })
 
 -------------
 -- Auto pairs
@@ -30,13 +29,6 @@ local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
 PYTHON = augroup('PYTHON', { clear = true })
-
--- this formats the current python buffer with black (and docformatter)
-autocmd('BufWritePost', {
-        pattern = '*.py',
-        command = ':!docformatter -ir % && black %',
-        group = PYTHON
-})
 
 -- autocmd('BufEnter', {
 --         pattern = '*.py',

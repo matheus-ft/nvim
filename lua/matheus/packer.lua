@@ -55,6 +55,7 @@ return packer.startup{function(use)
   }
   use 'karb94/neoscroll.nvim'               -- smooth scrolling with <C-u> and <C-d> in terminal
   use 'norcalli/nvim-colorizer.lua'         -- colorize hexcodes
+  use { 'rcarriga/nvim-notify', config = function() vim.notify = require('notify') end }
 
   -- Actually useful
   use {
@@ -82,9 +83,10 @@ return packer.startup{function(use)
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-nvim-lua'
-  -- use 'saadparwaiz1/cmp_luasnip'
-  -- use 'L3MON4D3/LuaSnip'
-  -- use 'rafamadriz/friendly-snippets'
+  use 'L3MON4D3/LuaSnip'
+  use 'saadparwaiz1/cmp_luasnip'
+  use 'rafamadriz/friendly-snippets'
+  use { 'kkoomen/vim-doge', run = ':call doge#install()' } -- docs
 
   -- LSP stuff
   use 'neovim/nvim-lspconfig'
