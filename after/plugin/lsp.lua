@@ -7,16 +7,11 @@ local cmp = require'cmp'
 
 cmp.setup({
   mapping = {
-      ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert }, -- default vim behavior
-      ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert }, -- default vim behavior
-      ["<Tab>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
+      ["<C-n>"]   = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert }, -- default vim behavior
+      ["<C-p>"]   = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert }, -- default vim behavior
+      ["<Tab>"]   = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
       ["<S-Tab>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
-
-      ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-      ["<C-d>"] = cmp.mapping.scroll_docs(4),
-
-      ["<C-e>"] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = false }), -- accept the explicitly selected item
+      ['<CR>']    = cmp.mapping.confirm({ select = false }), -- accept the explicitly selected item
 
       ["<c-y>"] = cmp.mapping( -- borrowed from Teej
         cmp.mapping.confirm {
@@ -25,6 +20,10 @@ cmp.setup({
         },
         { "i", "c" }
       ),
+
+      ["<c-e>"] = cmp.mapping.abort(),
+      ["<c-b>"] = cmp.mapping.scroll_docs(-4),
+      ["<c-f>"] = cmp.mapping.scroll_docs(4),
   },
 
   -- sources of autocompletion (in order of priority)
@@ -63,26 +62,23 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protoco
 -- LSP general configs
 ---------------------------------------------------------------------------------------
 local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-
   require('illuminate').on_attach(client)
 
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
   vim.keymap.set('n', '<A-n>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', bufopts)
   vim.keymap.set('n', '<A-p>', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', bufopts)
   vim.keymap.set('n', '<S-k>', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)
   -- vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-
   -- vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
   vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
 
@@ -117,6 +113,5 @@ require('lspconfig')['sumneko_lua'].setup {
 ---------------------------------------------------------------------------------------
 -- Snippets
 ---------------------------------------------------------------------------------------
-
 require("luasnip.loaders.from_vscode").lazy_load()
 

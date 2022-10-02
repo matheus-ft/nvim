@@ -30,9 +30,3 @@ local autocmd = vim.api.nvim_create_autocmd
 
 PYTHON = augroup('PYTHON', { clear = true })
 
--- autocmd('BufEnter', {
---         pattern = '*.py',
---         command = ':MagmaInit python3',
---         group = PYTHON
--- })
-
