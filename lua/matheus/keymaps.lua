@@ -45,7 +45,9 @@ vim.keymap.set('n', '<leader>e',     ':edit<Space>',    noremap)
 
 -- Replacing
 vim.keymap.set('n', '<leader>r', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>', noremap) -- this becomes `refactor` if a language server is active
-vim.keymap.set('n', '<leader>s', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>', noremap)
+vim.keymap.set('n', '<leader>s', ':%s/\\<<C-r><C-w>\\>//gI<Left><Left><Left>', noremap)
+vim.keymap.set('v', '<leader>r', 'y:%s/\\<<C-r>0\\>/<C-r>0/gI<Left><Left><Left>', noremap)
+vim.keymap.set('v', '<leader>s', 'y:%s/\\<<C-r>0\\>//gI<Left><Left><Left>', noremap)
 
 -- indent/unindent with tab/shift-tab
 vim.keymap.set('n', '<Tab>',    '>>',       noremap)
