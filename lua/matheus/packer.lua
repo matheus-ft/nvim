@@ -55,7 +55,7 @@ return packer.startup{function(use)
   }
   use 'karb94/neoscroll.nvim'               -- smooth scrolling with <C-u> and <C-d> in terminal
   use 'norcalli/nvim-colorizer.lua'         -- colorize hexcodes
-  use { 'rcarriga/nvim-notify', config = function() vim.notify = require('notify') end }
+  use 'rcarriga/nvim-notify'
 
   -- Actually useful
   use {
