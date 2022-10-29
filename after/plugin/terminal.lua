@@ -26,8 +26,8 @@ require('nvterm').setup {
 
 local toggle_modes = {'n', 't'}
 local mappings = {
-  { toggle_modes, '<A-y>', function () require("nvterm.terminal").toggle("horizontal") end },
-  { toggle_modes, '<A-x>', function () require("nvterm.terminal").toggle("vertical") end },
+  { toggle_modes, '<A-x>', function () require("nvterm.terminal").toggle("horizontal") end },
+  { toggle_modes, '<A-y>', function () require("nvterm.terminal").toggle("vertical") end },
   { 'n', '<A-i>', '<cmd>lua require("nvterm.terminal").toggle("float")<cr><C-\\><C-n><cmd>set winblend=10<cr>i' },
   { 't', '<A-i>', '<cmd>lua require("nvterm.terminal").toggle("float")<cr><C-\\><C-n><cmd>set winblend=10<cr>' },
 }
