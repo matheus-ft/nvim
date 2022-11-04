@@ -1,4 +1,5 @@
-vim.opt.termguicolors = true
-require 'colorizer'.setup{}
-vim.notify = require('notify')
+require 'colorizer'.setup()
 
+local notify = require("notify")
+notify.setup({ background_colour = "#000000" })
+vim.notify = notify

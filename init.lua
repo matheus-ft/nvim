@@ -7,6 +7,7 @@ require('matheus.packer')
 -- Keymaps
 --------------------------------------------------------------------------------------
 require('matheus.keymaps')
+require('matheus.options')
 
 --------------------------------------------------------------------------------------
 -- Auto commands
@@ -23,8 +24,7 @@ autocmd('BufWritePre', { pattern = '*', command = '%s/\\s\\+$//e', group = MATHE
 autocmd('TextYankPost', {
   pattern  = '*',
   callback = function()
-    vim.highlight.on_yank({ timeout=200, higroup='IncSearch' })
+    vim.highlight.on_yank({ timeout = 200, higroup = 'IncSearch' })
   end,
-  group = MATHEUS
+  group    = MATHEUS
 })
-

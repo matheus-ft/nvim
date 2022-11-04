@@ -81,4 +81,3 @@ require('nvim-tree').setup {
 }
 
 vim.keymap.set("n", "<leader>pt", ":NvimTreeToggle<CR>", { noremap = "true" })
-

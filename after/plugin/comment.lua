@@ -1,41 +1,41 @@
 require('Comment').setup({
-    mappings = {
-        ---Operator-pending mapping
-        ---Includes `gcc`, `gbc`, `gc[count]{motion}` and `gb[count]{motion}`
-        ---NOTE: These mappings can be changed individually by `opleader` and `toggler` config
-        basic = true,
+  mappings = {
+    ---Operator-pending mapping
+    ---Includes `gcc`, `gbc`, `gc[count]{motion}` and `gb[count]{motion}`
+    ---NOTE: These mappings can be changed individually by `opleader` and `toggler` config
+    basic = true,
 
-        extra = true,
+    extra = true,
 
-        ---Disabled by default. Includes `g>`, `g<`, `g>[count]{motion}` and `g<[count]{motion}`
-        extended = true,
-    },
+    ---Disabled by default. Includes `g>`, `g<`, `g>[count]{motion}` and `g<[count]{motion}`
+    extended = true,
+  },
 
-    ---LHS of toggle mappings in NORMAL + VISUAL mode
-    toggler = {
-        ---Line-comment toggle keymap
-        line = 'gcc',
-        ---Block-comment toggle keymap
-        block = 'gbc',
-    },
+  ---LHS of toggle mappings in NORMAL + VISUAL mode
+  toggler = {
+    ---Line-comment toggle keymap
+    line = 'gcc',
+    ---Block-comment toggle keymap
+    block = 'gbc',
+  },
 
-    ---LHS of operator-pending mappings in NORMAL + VISUAL mode
-    opleader = {
-        ---Line-comment keymap
-        line = 'gc',
-        ---Block-comment keymap
-        block = 'gb',
-    },
+  ---LHS of operator-pending mappings in NORMAL + VISUAL mode
+  opleader = {
+    ---Line-comment keymap
+    line = 'gc',
+    ---Block-comment keymap
+    block = 'gb',
+  },
 
-    ---LHS of the extra mappings
-    extra = {
-        ---Add comment on the line above
-        above = 'gcO',
-        ---Add comment on the line below
-        below = 'gco',
-        ---Add comment at the end of line
-        eol = 'gcA',
-    },
+  ---LHS of the extra mappings
+  extra = {
+    ---Add comment on the line above
+    above = 'gcO',
+    ---Add comment on the line below
+    below = 'gco',
+    ---Add comment at the end of line
+    eol = 'gcA',
+  },
 })
 
 local api = require('Comment.api')
@@ -51,12 +51,11 @@ map('n', 'g<c', api.call('uncomment.linewise.current', 'g@$'), { expr = true, de
 map('n', 'g<b', api.call('uncomment.blockwise.current', 'g@$'), { expr = true, desc = 'Uncomment current block' })
 
 map('x', 'g>', function(vim)
-    vim.api.nvim_feedkeys(esc, 'nx', false)
-    api.locked('comment.linewise')(vim.fn.visualmode())
+  vim.api.nvim_feedkeys(esc, 'nx', false)
+  api.locked('comment.linewise')(vim.fn.visualmode())
 end, { desc = 'Comment region linewise (visual)' })
 
 map('x', 'g<', function(vim)
-    vim.api.nvim_feedkeys(esc, 'nx', false)
-    api.locked('uncomment.linewise')(vim.fn.visualmode())
+  vim.api.nvim_feedkeys(esc, 'nx', false)
+  api.locked('uncomment.linewise')(vim.fn.visualmode())
 end, { desc = 'Uncomment region linewise (visual)' })
-

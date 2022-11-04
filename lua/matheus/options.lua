@@ -7,9 +7,9 @@ vim.opt.smartindent = true
 vim.opt.wrap = false
 
 vim.opt.nu = true
-vim.opt.relativenumber = true  -- to easily jump vertically in the file
+vim.opt.relativenumber = true -- to easily jump vertically in the file
 
-vim.opt.hidden = true  -- keeps edited buffers in the background, so there's no need to always save before navigating away from it
+vim.opt.hidden = true -- keeps edited buffers in the background, so there's no need to always save before navigating away from it
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undofile = true
@@ -22,12 +22,12 @@ vim.opt.incsearch = true
 vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 8
 
-vim.opt.clipboard:append { "unnamedplus" }  -- to copy and paste easily
+vim.opt.clipboard:append { "unnamedplus" } -- to copy and paste easily
 
 -- allows for 'native fuzzy finding' if nvim is opened at project root
 vim.opt.path:append { "**" }
 vim.opt.wildmenu = true
-vim.opt.completeopt = { "menuone", "preview", "noinsert"}
+vim.opt.completeopt = { "menuone", "preview", "noinsert" }
 
 vim.opt.title = true -- to show file name in titlebar
 vim.opt.cmdheight = 1
@@ -44,8 +44,8 @@ vim.cmd [[set iskeyword+=-]] -- makes hifen separated "words" a single word
 if vim.g.neovide then
   require("matheus.neovide")
 else
-  require('neoscroll').setup{}
+  require('neoscroll').setup()
 end
 
 vim.g.python3_host_prog = os.getenv("HOME") .. "/.local/venv/nvim/bin/python"
-
+vim.opt.termguicolors = true

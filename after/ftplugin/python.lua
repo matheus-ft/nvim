@@ -3,7 +3,7 @@
 -------------------
 
 -- make sure you activate your venv before entering nvim!!
-vim.keymap.set({'n', 'i'}, '<F9>', '<cmd>!python3 %<cr>', { noremap = true })
+vim.keymap.set({ 'n', 'i' }, '<F9>', '<cmd>!python3 %<cr>', { noremap = true })
 vim.keymap.set('n', '<leader>f', ':w<cr><cmd>!docformatter -ir % && black %<cr>', { noremap = true })
 
 -------------
@@ -29,4 +29,3 @@ local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
 PYTHON = augroup('PYTHON', { clear = true })
-
