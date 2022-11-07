@@ -115,6 +115,20 @@ require('lspconfig')['pyright'].setup({
   on_attach = on_attach,
 })
 
+-- little hack to have formatting with pyright
+require('lspconfig')['diagnosticls'].setup({
+  filetypes = { "python" },
+  init_options = {
+    formatters = {
+      black = { command = "black", args = { "-" } },
+      docformatter = { command = "docformatter", args = { "-" } },
+    },
+    formatFiletypes = {
+      python = { "black", "docformatter" }
+    }
+  }
+})
+
 require('lspconfig')['marksman'].setup({
   capabilities = capabilities,
   on_attach = on_attach,

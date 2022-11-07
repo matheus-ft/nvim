@@ -4,7 +4,6 @@
 
 -- make sure you activate your venv before entering nvim!!
 vim.keymap.set({ 'n', 'i' }, '<F9>', '<cmd>!python3 %<cr>', { noremap = true })
-vim.keymap.set('n', '<leader>f', ':w<cr><cmd>!docformatter -ir % && black %<cr>', { noremap = true })
 
 -------------
 -- Auto pairs
