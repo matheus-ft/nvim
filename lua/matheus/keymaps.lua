@@ -1,22 +1,23 @@
 vim.g.mapleader = ' '
 
 local noremap = { noremap = true }
+local silent_noremap = { noremap = true, silent = true }
 local all_modes = { 'n', 'i', 'v', 'x' }
 local visual = { 'v', 'x' }
 
 vim.keymap.set('n', '<leader><leader>', ':', noremap)
 vim.keymap.set({ 'n', 'i' }, '<F9>', '<cmd>so %<cr>', noremap)
-vim.keymap.set('i', '<C-c>', '<Esc>', noremap)
+vim.keymap.set('i', '<C-c>', '<Esc>')
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<cr>', noremap)
 
 -- to enter normal mode with a terminal open
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', noremap)
 
 -- Resize with arrows
-vim.keymap.set(all_modes, '<C-Up>', ':resize -2<CR>', noremap)
-vim.keymap.set(all_modes, '<C-Down>', ':resize +2<CR>', noremap)
-vim.keymap.set(all_modes, '<C-Left>', ':vertical resize -2<CR>', noremap)
-vim.keymap.set(all_modes, '<C-Right>', ':vertical resize +2<CR>', noremap)
+vim.keymap.set(all_modes, '<C-Up>', ':resize -2<CR>', silent_noremap)
+vim.keymap.set(all_modes, '<C-Down>', ':resize +2<CR>', silent_noremap)
+vim.keymap.set(all_modes, '<C-Left>', ':vertical resize -2<CR>', silent_noremap)
+vim.keymap.set(all_modes, '<C-Right>', ':vertical resize +2<CR>', silent_noremap)
 
 -- Make splits
 vim.keymap.set('n', '<leader>y', '<C-w>v', noremap)
@@ -30,18 +31,18 @@ vim.keymap.set('n', '<C-k>', '<C-w>k', noremap)
 vim.keymap.set('n', '<C-l>', '<C-w>l', noremap)
 
 -- Buffer handling
-vim.keymap.set('n', '<A-h>', ':bprevious<CR>', noremap)
-vim.keymap.set('n', '<A-l>', ':bnext<CR>', noremap)
-vim.keymap.set('n', '<leader>c', ':bdelete<CR>', noremap)
-vim.keymap.set('n', '<leader><S-c>', ':bdelete!<CR>', noremap)
-vim.keymap.set('n', '<leader><S-q>', ':q!<CR>', noremap)
-vim.keymap.set('n', '<leader>q', ':q<CR>', noremap)
-vim.keymap.set('n', '<leader>w', ':up<CR>', noremap) -- same as `write` but only if there are actual changes
+vim.keymap.set('n', '<A-h>', ':bprevious<CR>', silent_noremap)
+vim.keymap.set('n', '<A-l>', ':bnext<CR>', silent_noremap)
+vim.keymap.set('n', '<leader>cb', ':bdelete<CR>', silent_noremap)
+vim.keymap.set('n', '<leader><S-c>', ':bdelete!<CR>', silent_noremap)
+vim.keymap.set('n', '<leader><S-q>', ':q!<CR>', silent_noremap)
+vim.keymap.set('n', '<leader>q', ':q<CR>', silent_noremap)
+vim.keymap.set('n', '<leader>w', ':w<CR>', silent_noremap)
 vim.keymap.set('n', '<leader>e', ':edit<Space>', noremap)
 
 -- vim.keymap.set('n', '<leader>bp', ':bprevious<CR>', noremap)
--- vim.keymap.set('n', '<leader>bn', ':bnext<CR>',     noremap)
--- vim.keymap.set('n', '<leader>bd', ':bdelete<CR>',   noremap)
+-- vim.keymap.set('n', '<leader>bn', ':bnext<CR>', noremap)
+vim.keymap.set('n', '<leader>bd', ':bdelete<CR>', silent_noremap)
 
 -- Replacing
 vim.keymap.set('n', '<leader>r', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>', noremap) -- this becomes `refactor` if a language server is active
