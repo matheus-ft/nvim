@@ -6,9 +6,6 @@ require('Comment').setup({
     basic = true,
 
     extra = true,
-
-    ---Disabled by default. Includes `g>`, `g<`, `g>[count]{motion}` and `g<[count]{motion}`
-    extended = true,
   },
 
   ---LHS of toggle mappings in NORMAL + VISUAL mode
