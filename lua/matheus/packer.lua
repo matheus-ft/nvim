@@ -43,7 +43,15 @@ return packer.startup({ function(use)
   use {
     "williamboman/mason.nvim",
     config = function()
-      require("mason").setup()
+      require("mason").setup({
+        ui = {
+          icons = {
+            package_pending = " ",
+            package_installed = " ",
+            package_uninstalled = " ﮊ",
+          },
+        }
+      })
     end
   }
 
@@ -75,10 +83,6 @@ return packer.startup({ function(use)
   }
   use 'numToStr/Comment.nvim' -- toggle comments easily
   use 'NvChad/nvterm' -- floating terminal
-  -- use {
-  --   'rmagatti/auto-session',                -- restores last session
-  --   config = function() require('auto-session').setup() end
-  -- }
   use {
     'stevearc/aerial.nvim', -- lists all functions in the file
     config = function() require('aerial').setup() end
@@ -134,6 +138,7 @@ return packer.startup({ function(use)
 
   -- Themes
   use 'navarasu/onedark.nvim'
+  use { "catppuccin/nvim", as = "catppuccin" }
 
   if BOOTSTRAP then
     require('packer').sync()
