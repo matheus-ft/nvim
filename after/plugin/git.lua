@@ -7,10 +7,11 @@ require('gitsigns').setup({
     delete       = { hl = 'GitSignsDelete', text = '_', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
     topdelete    = { hl = 'GitSignsDelete', text = '‾', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
     changedelete = { hl = 'GitSignsChange', text = '~', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
+    untracked    = { hl = 'GitSignsAdd', text = '┆', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
   },
   numhl = true,
 
-  current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+  current_line_blame = true,
   current_line_blame_opts = {
     delay = 0,
     ignore_whitespace = false,
@@ -27,3 +28,9 @@ require('gitsigns').setup({
     col = 1
   },
 })
+
+local noremap = { noremap = true }
+vim.keymap.set("n", "zi", "<cmd>Gitsigns preview_hunk<CR>", noremap)
+vim.keymap.set("n", "zd", "<cmd>Gitsigns diffthis<CR>", noremap)
+vim.keymap.set("n", "zj", "<cmd>Gitsigns next_hunk<CR>", noremap)
+vim.keymap.set("n", "zk", "<cmd>Gitsigns prev_hunk<CR>", noremap)
