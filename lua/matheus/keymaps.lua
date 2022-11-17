@@ -34,15 +34,9 @@ vim.keymap.set('n', '<C-l>', '<C-w>l', noremap)
 vim.keymap.set('n', '<A-h>', ':bprevious<CR>', silent_noremap)
 vim.keymap.set('n', '<A-l>', ':bnext<CR>', silent_noremap)
 vim.keymap.set('n', '<leader>cb', ':bdelete<CR>', silent_noremap)
-vim.keymap.set('n', '<leader><S-c>', ':bdelete!<CR>', silent_noremap)
-vim.keymap.set('n', '<leader><S-q>', ':q!<CR>', silent_noremap)
 vim.keymap.set('n', '<leader>q', ':q<CR>', silent_noremap)
 vim.keymap.set('n', '<leader>w', ':w<CR>', silent_noremap)
 vim.keymap.set('n', '<leader>e', ':edit<Space>', noremap)
-
--- vim.keymap.set('n', '<leader>bp', ':bprevious<CR>', noremap)
--- vim.keymap.set('n', '<leader>bn', ':bnext<CR>', noremap)
-vim.keymap.set('n', '<leader>bd', ':bdelete<CR>', silent_noremap)
 
 -- Replacing
 vim.keymap.set('n', '<leader>r', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>', noremap) -- this becomes `refactor` if a language server is active
@@ -75,7 +69,7 @@ vim.keymap.set('i', '<C-j>', '<Down>', noremap)
 vim.keymap.set('i', '<C-k>', '<Up>', noremap)
 vim.keymap.set('i', '<C-l>', '<Right>', noremap)
 vim.keymap.set('i', '<C-b>', '<Esc>^i', noremap)
-vim.keymap.set('i', '<C-f>', '<Esc>$a', noremap)
+vim.keymap.set('i', '<C-e>', '<Esc>$a', noremap)
 
 vim.keymap.set(visual, 'H', '^', noremap)
 vim.keymap.set(visual, 'L', '$', noremap)
