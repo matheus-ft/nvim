@@ -22,8 +22,6 @@ vim.opt.incsearch = true
 vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 8
 
-vim.opt.clipboard:append { "unnamedplus" } -- to copy and paste easily
-
 -- allows for 'native fuzzy finding' if nvim is opened at project root
 vim.opt.path:append { "**" }
 vim.opt.wildmenu = true

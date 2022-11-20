@@ -80,3 +80,11 @@ vim.keymap.set('n', 'cH', 'c^', noremap) -- C already does c$
 -- paste what was last yanked, not what was deleted
 vim.keymap.set('n', 'yp', '"0p', noremap)
 vim.keymap.set('n', 'yP', '"0P', noremap)
+
+-- Interacting with system clipboard (don't forget to install utility to activate the register)
+vim.keymap.set(visual, '<C-c>', '"+y', noremap) -- copies into clipboard
+vim.keymap.set('i', '<C-v>', '<C-r>+', noremap) -- pastes from clipboard
+vim.keymap.set('n', 'cy', '"+y', noremap)
+vim.keymap.set('n', 'cY', '"+Y', noremap)
+vim.keymap.set('n', 'cp', '"+p', noremap)
+vim.keymap.set('n', 'cP', '"+P', noremap)
