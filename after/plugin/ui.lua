@@ -3,7 +3,7 @@
 vim.cmd([[ syntax on ]])
 vim.cmd([[ filetype plugin indent on ]])
 
-local theme = require('matheus.themes.onedark')
+local theme = require('matheus.themes.doom_one')
 
 vim.api.nvim_set_hl(0, "IndentBlanklineChar", { fg = "#42464e" })
 vim.api.nvim_set_hl(0, "IndentBlanklineContextChar", { fg = "#5b606b" })

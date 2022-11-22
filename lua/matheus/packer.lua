@@ -139,6 +139,7 @@ return packer.startup({ function(use)
   -- Themes
   use 'navarasu/onedark.nvim'
   use { "catppuccin/nvim", as = "catppuccin" }
+  use 'NTBBloodbath/doom-one.nvim'
 
   if BOOTSTRAP then
     require('packer').sync()
