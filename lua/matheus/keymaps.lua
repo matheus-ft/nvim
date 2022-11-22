@@ -60,8 +60,8 @@ vim.keymap.set('n', '<Right>', 'nop', noremap)
 -- Move lines up and down
 vim.keymap.set('i', '<A-j>', '<Esc>:m .+1<CR>==gi', noremap)
 vim.keymap.set('i', '<A-k>', '<Esc>:m .-2<CR>==gi', noremap)
-vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", noremap)
-vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", noremap)
+vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", silent_noremap)
+vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", silent_noremap)
 
 -- Some insert mode keybindings that might be useful
 vim.keymap.set('i', '<C-h>', '<Left>', noremap)
