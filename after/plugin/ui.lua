@@ -13,7 +13,7 @@ vim.api.nvim_set_hl(0, "IndentBlanklineSpaceChar", { fg = "#42464e" })
 -------------------------------------------------------------------------------
 -- Indentline
 vim.opt.list = true
-vim.opt.listchars:append "lead:⋅" -- only shows leading spaces (amonst them, indentation)
+vim.opt.listchars:append "lead:⋅,tab:> ,trail: " -- only shows leading spaces (amonst them, indentation)
 -- vim.opt.listchars:append "eol:↴"
 
 require("indent_blankline").setup({
