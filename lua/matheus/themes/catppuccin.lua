@@ -51,4 +51,6 @@ if ok then
   })
 end
 
+vim.api.nvim_set_hl(0, "LineNr", { fg = "#5b6268" }) -- original grey was too light
+
 return "catppuccin"

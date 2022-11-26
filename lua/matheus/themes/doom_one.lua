@@ -1,5 +1,5 @@
 -- Add color to cursor
-vim.g.doom_one_cursor_coloring = false -- terminal already does it
+vim.g.doom_one_cursor_coloring = true
 -- Set :terminal colors
 vim.g.doom_one_terminal_colors = true
 -- Enable italic comments
@@ -27,4 +27,4 @@ vim.cmd("colorscheme doom-one")
 vim.api.nvim_set_hl(0, "LineNr", { bg = "bg", fg = "#5b6268" }) -- original grey was too light
 vim.api.nvim_set_hl(0, "Comment", { fg = "#5b6268", italic = true }) -- original grey was too light
 
-return "auto" -- this is used by lualine, as it does not recognize doom-one as theme
+return "auto" -- this is used by lualine, as it does not recognize "doom-one" as theme

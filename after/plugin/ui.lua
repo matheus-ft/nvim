@@ -3,7 +3,7 @@
 vim.cmd([[ syntax on ]])
 vim.cmd([[ filetype plugin indent on ]])
 
-local theme = require('matheus.themes.doom_one')
+local theme = require('matheus.themes.onedark')
 
 vim.api.nvim_set_hl(0, "IndentBlanklineChar", { fg = "#42464e" })
 vim.api.nvim_set_hl(0, "IndentBlanklineContextChar", { fg = "#5b606b" })
@@ -28,6 +28,11 @@ require("indent_blankline").setup({
 -- Statusbar
 vim.opt.laststatus = 3 -- globalstatus for any bar
 
+local y_section = {}
+if theme == "onedark" then
+  y_section = { 'buffers' }
+end
+
 require('lualine').setup({
   options = {
     component_separators = { left = '', right = '' },
@@ -40,7 +45,7 @@ require('lualine').setup({
     lualine_b = { 'branch' },
     lualine_c = { 'diff', 'filename', 'diagnostics' },
     lualine_x = { 'encoding', 'fileformat', },
-    lualine_y = { 'buffers' },
+    lualine_y = y_section,
     lualine_z = { 'location' }
   },
 
@@ -51,21 +56,23 @@ require('lualine').setup({
 -- "Tabs"
 vim.opt.termguicolors = true
 
-require('bufferline').setup({
-  options = {
-    close_command = 'bdelete %d',
-    right_mouse_command = nil,
-    left_mouse_command = 'buffer %d',
-    middle_mouse_command = 'write',
+if theme ~= "onedark" then
+  require('bufferline').setup({
+    options = {
+      close_command = 'bdelete %d',
+      right_mouse_command = nil,
+      left_mouse_command = 'buffer %d',
+      middle_mouse_command = 'write',
 
-    diagnostics = 'nvim_lsp',
-    diagnostics_indicator = function(count, level)
-      local icon = level:match('error') and ' ' or ''
-      return icon .. count
-    end,
+      diagnostics = 'nvim_lsp',
+      diagnostics_indicator = function(count, level)
+        local icon = level:match('error') and ' ' or ''
+        return icon .. count
+      end,
 
-    offsets = { { filetype = 'NvimTree', text = 'File Tree', text_align = 'center' } },
-    show_close_icon = false, -- removes an useless icon in the right corner of the line
-    separator_style = "slant"
-  },
-})
+      offsets = { { filetype = 'NvimTree', text = 'File Tree', text_align = 'center' } },
+      show_close_icon = false, -- removes an useless icon in the right corner of the line
+      separator_style = "slant"
+    },
+  })
+end
