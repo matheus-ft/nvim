@@ -1,9 +1,13 @@
+local keymap = vim.keymap.set
+local cmp = require('cmp')
+local lspconfig = require("lspconfig")
+local saga = require('lspsaga')
+
 ---------------------------------------------------------------------------------------
 -- Autocompletion with nvim-cmp
 ---------------------------------------------------------------------------------------
 vim.opt.completeopt:append { 'menu', 'menuone', 'noselect' }
 
-local cmp = require('cmp')
 
 -- borrowed from NvChad
 local function border(hl_name)
@@ -73,6 +77,8 @@ cmp.setup({
   },
 })
 
+require("luasnip.loaders.from_vscode").lazy_load() -- funny, huh?
+
 -- Set configuration for specific filetype
 -- cmp.setup.filetype()
 
@@ -90,22 +96,127 @@ local on_attach = function(client, bufnr)
 
   -- Mappings
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
-  vim.keymap.set('n', '<A-n>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', bufopts)
-  vim.keymap.set('n', '<A-N>', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', bufopts)
-  vim.keymap.set('n', '<S-k>', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, bufopts)
-  vim.keymap.set('n', '<C><S-k>', vim.lsp.buf.signature_help, bufopts) -- never works
-
-  vim.keymap.set('n', '<leader>nd', vim.diagnostic.goto_next, bufopts)
-  vim.keymap.set('n', '<leader>Nd', vim.diagnostic.goto_prev, bufopts)
+  keymap('n', '<A-n>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', bufopts)
+  keymap('n', '<A-N>', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', bufopts)
+  keymap('n', '<S-k>', vim.lsp.buf.hover, bufopts)
+  keymap('n', 'gt', vim.lsp.buf.type_definition, bufopts)
+  keymap('n', 'gd', vim.lsp.buf.definition, bufopts)
+  keymap('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  keymap('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  keymap('n', 'gr', vim.lsp.buf.references, bufopts)
+  keymap('n', '<leader>f', vim.lsp.buf.format, bufopts)
+  -- keymap('n', '<A-k>', vim.lsp.buf.signature_help, bufopts) -- never works
 end
+
+local opts = { noremap = true, silent = true }
+
+-- keymap("n", "gpt", "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>", opts)
+-- keymap("n", "gpi", "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>", opts)
+keymap("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>", opts) -- Only set if you have telescope installed
+keymap("n", "gP", "<cmd>lua require('goto-preview').close_all_win()<CR>", opts)
+keymap("n", "gpd", "<cmd>Lspsaga peek_definition<CR>", opts)
+keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", opts) -- use <C-t> to jump back
+
+keymap("n", "<leader>r", "<cmd>Lspsaga rename<CR>", opts)
+keymap({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts)
+
+keymap("n", "<leader>nd", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
+keymap("n", "<leader>Nd", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
+keymap("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
+keymap("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts)
+-- Only jump to error
+keymap("n", "<leader>ne",
+  function() require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, opts)
+keymap("n", "<leader>Ne",
+  function() require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR }) end, opts)
+
+keymap("n", "<leader>out", "<cmd>LSoutlineToggle<CR>", opts) -- functions on the right hand side
+
+keymap("n", "<A-d>", "<cmd>Lspsaga open_floaterm<CR>", opts) -- if you want pass somc cli command into terminal you can put before <CR>
+keymap("t", "<A-d>", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], opts)
+
+saga.init_lsp_saga {
+  border_style = "single", -- "single" | "double" | "rounded" | "bold" | "plus"
+  saga_winblend = 0, -- transparecy between 0-100 (no need for extra imo)
+  move_in_saga = { prev = '<C-p>', next = '<C-n>' }, -- when cursor in saga window you config these to move
+  -- Error, Warn, Info, Hint
+  -- use emoji like
+  -- { "🙀", "😿", "😾", "😺" }
+  -- or
+  -- { "😡", "😥", "😤", "😐" }
+  -- and diagnostic_header can be a function type
+  -- must return a string and when diagnostic_header
+  -- is function type it will have a param `entry`
+  -- entry is a table type has these filed
+  -- { bufnr, code, col, end_col, end_lnum, lnum, message, severity, source }
+  diagnostic_header = { " ", " ", " ", "ﴞ " },
+  preview_lines_above = 0, -- preview lines above of lsp_finder
+  max_preview_lines = 10, -- preview lines of lsp_finder and definition preview
+  code_action_icon = "💡", -- use emoji lightbulb in default
+  code_action_num_shortcut = true, -- if true can press number to execute the codeaction in codeaction window
+  code_action_lightbulb = { -- same as nvim-lightbulb but async
+    enable = true,
+    enable_in_insert = true,
+    cache_code_action = true,
+    sign = true,
+    update_time = 150,
+    sign_priority = 20,
+    virtual_text = true,
+  },
+  finder_icons = { -- finder icons
+    def = '  ',
+    ref = '諭 ',
+    link = '  ',
+  },
+  finder_request_timeout = 1500, -- finder do lsp request timeout -- if your project big enough or your server very slow you may need to increase this value
+  finder_action_keys = {
+    open = { 'o', '<CR>' },
+    vsplit = 's',
+    split = 'i',
+    tabe = 't',
+    quit = { 'q', '<ESC>' },
+  },
+  code_action_keys = {
+    quit = 'q',
+    exec = '<CR>',
+  },
+  definition_action_keys = {
+    edit = '<C-c>o',
+    vsplit = '<C-c>v',
+    split = '<C-c>i',
+    tabe = '<C-c>t',
+    quit = 'q',
+  },
+  rename_action_quit = '<C-c>',
+  rename_in_select = true,
+  symbol_in_winbar = { -- show symbols in winbar must nightly
+    in_custom = true, -- mean use lspsaga api to get symbols and set it to your custom winbar or some winbar plugins.
+    enable = false, -- if in_custom = true you must set enable to false
+    separator = ' ',
+    show_file = true,
+    -- define how to customize filename, eg: %:., %
+    -- if not set, use default value `%:t`
+    -- more information see `vim.fn.expand` or `expand`
+    -- ## only valid after set `show_file = true`
+    file_formatter = "",
+    click_support = false,
+  },
+  show_outline = {
+    win_position = 'right',
+    --set special filetype win that outline window split.like NvimTree neotree
+    -- defx, db_ui
+    win_with = '',
+    win_width = 30,
+    auto_enter = true,
+    auto_preview = true,
+    virt_text = '┃',
+    jump_key = 'o',
+    -- auto refresh when change buffer
+    auto_refresh = true,
+  },
+  custom_kind = {}, -- custom lsp kind -- usage { Field = 'color code'} or {Field = {your icon, your color code}}
+  server_filetype_map = {}, -- if you don't use nvim-lspconfig you must pass your server name and the related filetypes into this table
+}
 
 ---------------------------------------------------------------------------------------
 -- Languages settings
@@ -127,14 +238,14 @@ require("mason-lspconfig").setup({
 })
 
 for _, server in ipairs(servers) do
-  require("lspconfig")[server].setup({
+  lspconfig[server].setup({
     capabilities = capabilities,
     on_attach = on_attach,
   })
 end
 
 -- borrowed from NvChad
-require("lspconfig")["sumneko_lua"].setup({
+lspconfig["sumneko_lua"].setup({
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
@@ -155,7 +266,7 @@ require("lspconfig")["sumneko_lua"].setup({
 })
 
 -- little hack to have personalized formatting
-require('lspconfig')['diagnosticls'].setup({
+lspconfig['diagnosticls'].setup({
   filetypes = { "python" },
   init_options = {
     formatters = {
@@ -167,8 +278,3 @@ require('lspconfig')['diagnosticls'].setup({
     }
   }
 })
-
----------------------------------------------------------------------------------------
--- Snippets
----------------------------------------------------------------------------------------
-require("luasnip.loaders.from_vscode").lazy_load() -- funny, huh?

@@ -4,87 +4,90 @@ local noremap = { noremap = true }
 local silent_noremap = { noremap = true, silent = true }
 local all_modes = { 'n', 'i', 'v', 'x' }
 local visual = { 'v', 'x' }
+local keymap = vim.keymap.set
 
-vim.keymap.set('n', '<leader><leader>', ':', noremap)
-vim.keymap.set({ 'n', 'i' }, '<F9>', '<cmd>so %<cr>', noremap)
-vim.keymap.set('i', '<C-c>', '<Esc>')
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<cr>', noremap)
+keymap('n', '<leader><leader>', ':', noremap)
+keymap({ 'n', 'i' }, '<F9>', '<cmd>so %<cr>', noremap)
+keymap('i', '<C-c>', '<Esc>')
+keymap('n', '<Esc>', '<cmd>nohlsearch<cr>', noremap)
 
 -- to enter normal mode with a terminal open
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', noremap)
+keymap('t', '<Esc>', '<C-\\><C-n>', noremap)
 
 -- Resize with arrows
-vim.keymap.set(all_modes, '<C-Up>', ':resize -2<CR>', silent_noremap)
-vim.keymap.set(all_modes, '<C-Down>', ':resize +2<CR>', silent_noremap)
-vim.keymap.set(all_modes, '<C-Left>', ':vertical resize -2<CR>', silent_noremap)
-vim.keymap.set(all_modes, '<C-Right>', ':vertical resize +2<CR>', silent_noremap)
+keymap(all_modes, '<C-Up>', ':resize -2<CR>', silent_noremap)
+keymap(all_modes, '<C-Down>', ':resize +2<CR>', silent_noremap)
+keymap(all_modes, '<C-Left>', ':vertical resize -2<CR>', silent_noremap)
+keymap(all_modes, '<C-Right>', ':vertical resize +2<CR>', silent_noremap)
 
 -- Make splits
-vim.keymap.set('n', '<leader>y', '<C-w>v', noremap)
-vim.keymap.set('n', '<leader>x', '<C-w>s', noremap)
-vim.keymap.set('n', '<leader>o', '<C-w>o', noremap)
+keymap('n', '<leader>y', '<C-w>v', noremap)
+keymap('n', '<leader>x', '<C-w>s', noremap)
+keymap('n', '<leader>o', '<C-w>o', noremap)
 
 -- Splits navigation
-vim.keymap.set('n', '<C-h>', '<C-w>h', noremap)
-vim.keymap.set('n', '<C-j>', '<C-w>j', noremap)
-vim.keymap.set('n', '<C-k>', '<C-w>k', noremap)
-vim.keymap.set('n', '<C-l>', '<C-w>l', noremap)
+keymap('n', '<C-h>', '<C-w>h', noremap)
+keymap('n', '<C-j>', '<C-w>j', noremap)
+keymap('n', '<C-k>', '<C-w>k', noremap)
+keymap('n', '<C-l>', '<C-w>l', noremap)
 
 -- Buffer handling
-vim.keymap.set('n', '<A-h>', ':bprevious<CR>', silent_noremap)
-vim.keymap.set('n', '<A-l>', ':bnext<CR>', silent_noremap)
-vim.keymap.set('n', '<leader>cb', ':bdelete<CR>', silent_noremap)
-vim.keymap.set('n', '<leader>q', ':q<CR>', silent_noremap)
-vim.keymap.set('n', '<leader>w', ':w<CR>', silent_noremap)
-vim.keymap.set('n', '<leader>e', ':edit<Space>', noremap)
+keymap('n', '<A-h>', ':bprevious<CR>', silent_noremap)
+keymap('n', '<A-l>', ':bnext<CR>', silent_noremap)
+keymap('n', '<leader>cb', ':bdelete<CR>', silent_noremap)
+keymap('n', '<leader>q', ':q<CR>', silent_noremap)
+keymap('n', '<leader>w', ':w<CR>', silent_noremap)
+keymap('n', '<leader>e', ':edit<Space>', noremap)
 
--- Replacing
-vim.keymap.set('n', '<leader>r', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>', noremap) -- this becomes `refactor` if a language server is active
-vim.keymap.set('n', '<leader>s', ':%s/\\<<C-r><C-w>\\>//gI<Left><Left><Left>', noremap)
-vim.keymap.set('v', '<leader>r', 'y:%s/\\<<C-r>0\\>/<C-r>0/gI<Left><Left><Left>', noremap)
-vim.keymap.set('v', '<leader>s', 'y:%s/\\<<C-r>0\\>//gI<Left><Left><Left>', noremap)
+-- Search and replace
+keymap('n', '<leader>r', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>', noremap) -- this becomes `rename` if a language server is active
+keymap('n', '<leader>s', ':%s/\\<<C-r><C-w>\\>//gI<Left><Left><Left>', noremap)
+keymap(visual, '<leader>r', '"ry:%s/\\<<C-r>r\\>/<C-r>r/gI<Left><Left><Left>', noremap) -- trying to replace selection text (using 'r' register)
+keymap(visual, '<leader>s', '"ry:%s/\\<<C-r>r\\>//gI<Left><Left><Left>', noremap)
+keymap({ 'n', 'i' }, '<C-f>', '<Esc>/', noremap)
+keymap(visual, '<C-f>', '"sy/<C-r>s', noremap) -- using the 's' register
 
 -- indent/unindent with tab/shift-tab
-vim.keymap.set('n', '<Tab>', '>>', noremap)
-vim.keymap.set('n', '<S-tab>', '<<', noremap)
-vim.keymap.set('i', '<S-Tab>', '<Esc><<i', noremap)
-vim.keymap.set('v', '<Tab>', '>gv', noremap)
-vim.keymap.set('v', '<S-Tab>', '<gv', noremap)
+keymap('n', '<Tab>', '>>', noremap)
+keymap('n', '<S-tab>', '<<', noremap)
+keymap('i', '<S-Tab>', '<Esc><<i', noremap)
+keymap('v', '<Tab>', '>gv', noremap)
+keymap('v', '<S-Tab>', '<gv', noremap)
 
 -- Move the page but not the cursor with the arrow keys
-vim.keymap.set('n', '<Down>', '<C-e>', noremap)
-vim.keymap.set('n', '<Up>', '<C-y>', noremap)
-vim.keymap.set('n', '<Left>', 'nop', noremap)
-vim.keymap.set('n', '<Right>', 'nop', noremap)
+keymap('n', '<Down>', '<C-e>', noremap)
+keymap('n', '<Up>', '<C-y>', noremap)
+keymap('n', '<Left>', 'nop', noremap)
+keymap('n', '<Right>', 'nop', noremap)
 
 -- Move lines up and down
-vim.keymap.set('i', '<A-j>', '<Esc>:m .+1<CR>==gi', noremap)
-vim.keymap.set('i', '<A-k>', '<Esc>:m .-2<CR>==gi', noremap)
-vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", silent_noremap)
-vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", silent_noremap)
+keymap('i', '<A-j>', '<Esc>:m .+1<CR>==gi', noremap)
+keymap('i', '<A-k>', '<Esc>:m .-2<CR>==gi', noremap)
+keymap('v', '<A-j>', ":m '>+1<CR>gv=gv", silent_noremap)
+keymap('v', '<A-k>', ":m '<-2<CR>gv=gv", silent_noremap)
 
 -- Some insert mode keybindings that might be useful
-vim.keymap.set('i', '<C-h>', '<Left>', noremap)
-vim.keymap.set('i', '<C-j>', '<Down>', noremap)
-vim.keymap.set('i', '<C-k>', '<Up>', noremap)
-vim.keymap.set('i', '<C-l>', '<Right>', noremap)
-vim.keymap.set('i', '<C-b>', '<Esc>^i', noremap)
-vim.keymap.set('i', '<C-e>', '<Esc>$a', noremap)
+keymap('i', '<C-h>', '<Left>', noremap)
+keymap('i', '<C-j>', '<Down>', noremap)
+keymap('i', '<C-k>', '<Up>', noremap)
+keymap('i', '<C-l>', '<Right>', noremap)
+keymap('i', '<C-b>', '<Esc>^i', noremap)
+keymap('i', '<C-e>', '<Esc>$a', noremap)
 
-vim.keymap.set(visual, 'H', '^', noremap)
-vim.keymap.set(visual, 'L', '$', noremap)
-vim.keymap.set('n', 'yH', 'y^', noremap) -- Y already does y$
-vim.keymap.set('n', 'dH', 'd^', noremap) -- D already does d$
-vim.keymap.set('n', 'cH', 'c^', noremap) -- C already does c$
+keymap(visual, 'H', '^', noremap)
+keymap(visual, 'L', '$', noremap)
+keymap('n', 'yH', 'y^', noremap) -- Y already does y$
+keymap('n', 'dH', 'd^', noremap) -- D already does d$
+keymap('n', 'cH', 'c^', noremap) -- C already does c$
 
 -- paste what was last yanked, not what was deleted
-vim.keymap.set('n', 'yp', '"0p', noremap)
-vim.keymap.set('n', 'yP', '"0P', noremap)
+keymap('n', 'yp', '"0p', noremap)
+keymap('n', 'yP', '"0P', noremap)
 
--- Interacting with system clipboard (don't forget to install utility to activate the register)
-vim.keymap.set(visual, '<C-c>', '"+y', noremap) -- copies into clipboard
-vim.keymap.set('i', '<C-v>', '<C-r>+', noremap) -- pastes from clipboard
-vim.keymap.set('n', 'cy', '"+y', noremap)
-vim.keymap.set('n', 'cY', '"+Y', noremap)
-vim.keymap.set('n', 'cp', '"+p', noremap)
-vim.keymap.set('n', 'cP', '"+P', noremap)
+-- Interacting with system clipboard (don't forget to install utility to activate the registers)
+keymap(visual, '<C-c>', '"+y', noremap) -- copies into clipboard
+keymap('i', '<C-v>', '<C-r>+', noremap) -- pastes from clipboard
+keymap('n', 'cy', '"+y', noremap)
+keymap('n', 'cY', '"+Y', noremap)
+keymap('n', 'cp', '"+p', noremap)
+keymap('n', 'cP', '"+P', noremap)

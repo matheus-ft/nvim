@@ -83,10 +83,11 @@ return packer.startup({ function(use)
   }
   use 'numToStr/Comment.nvim' -- toggle comments easily
   use 'NvChad/nvterm' -- floating terminal
-  use {
-    'stevearc/aerial.nvim', -- lists all functions in the file
-    config = function() require('aerial').setup() end
-  }
+  -- use {
+  --   'stevearc/aerial.nvim', -- lists all functions in the file
+  --   config = function() require('aerial').setup() end
+  -- }
+  use { "cshuaimin/ssr.nvim", module = "ssr" }
 
   -- Autocompletion stuff
   use 'hrsh7th/nvim-cmp'
@@ -104,10 +105,11 @@ return packer.startup({ function(use)
   use "williamboman/mason-lspconfig.nvim"
   use 'folke/trouble.nvim' -- lists problems like most IDEs
   use 'RRethy/vim-illuminate' -- highlights same words in scope
-  use {
-    'ray-x/lsp_signature.nvim', -- adds function signature helper pop-up
-    config = function() require('lsp_signature').setup() end
-  }
+  use { "glepnir/lspsaga.nvim", branch = "main" }
+  -- use {
+  --   'ray-x/lsp_signature.nvim', -- adds function signature helper pop-up
+  --   config = function() require('lsp_signature').setup() end
+  -- }
   use {
     'rmagatti/goto-preview', -- opens definitions/declarations/etc in a pop-up window
     config = function() require('goto-preview').setup({ default_mappings = true }) end
@@ -115,7 +117,7 @@ return packer.startup({ function(use)
 
   -- Sintax highlighting
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-  use 'romgrk/nvim-treesitter-context'
+  -- use 'romgrk/nvim-treesitter-context'
 
   -- Markdown, latex, etc.
   use {
