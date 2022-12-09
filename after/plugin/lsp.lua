@@ -8,7 +8,6 @@ local saga = require('lspsaga')
 ---------------------------------------------------------------------------------------
 vim.opt.completeopt:append { 'menu', 'menuone', 'noselect' }
 
-
 -- borrowed from NvChad
 local function border(hl_name)
   return {
@@ -132,8 +131,8 @@ keymap("n", "<leader>Ne",
 
 keymap("n", "<leader>out", "<cmd>LSoutlineToggle<CR>", opts) -- functions on the right hand side
 
-keymap("n", "<A-d>", "<cmd>Lspsaga open_floaterm<CR>", opts) -- if you want pass somc cli command into terminal you can put before <CR>
-keymap("t", "<A-d>", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], opts)
+keymap("n", "<A-i>", "<cmd>Lspsaga open_floaterm<CR>", opts) -- if you want pass somc cli command into terminal you can put before <CR>
+keymap("t", "<A-i>", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], opts)
 
 saga.init_lsp_saga {
   border_style = "single", -- "single" | "double" | "rounded" | "bold" | "plus"
@@ -171,27 +170,27 @@ saga.init_lsp_saga {
   finder_request_timeout = 1500, -- finder do lsp request timeout -- if your project big enough or your server very slow you may need to increase this value
   finder_action_keys = {
     open = { 'o', '<CR>' },
-    vsplit = 's',
-    split = 'i',
-    tabe = 't',
+    vsplit = { 'v', 'y' },
+    split = { 's', 'x' },
+    tabe = { 't', 'i' },
     quit = { 'q', '<ESC>' },
   },
   code_action_keys = {
-    quit = 'q',
     exec = '<CR>',
+    quit = { 'q', '<Esc>' },
   },
   definition_action_keys = {
-    edit = '<C-c>o',
-    vsplit = '<C-c>v',
-    split = '<C-c>i',
-    tabe = '<C-c>t',
+    edit = { '<C-c>o', '<C-w>' },
+    vsplit = { '<C-c>v', '<C-c>y' },
+    split = { '<C-c>s', '<C-c>x' },
+    tabe = { '<C-c>t', '<C-c>i' },
     quit = 'q',
   },
   rename_action_quit = '<C-c>',
   rename_in_select = true,
   symbol_in_winbar = { -- show symbols in winbar must nightly
-    in_custom = true, -- mean use lspsaga api to get symbols and set it to your custom winbar or some winbar plugins.
-    enable = false, -- if in_custom = true you must set enable to false
+    in_custom = false, -- mean use lspsaga api to get symbols and set it to your custom winbar or some winbar plugins.
+    enable = true, -- if in_custom = true you must set enable to false
     separator = ' ',
     show_file = true,
     -- define how to customize filename, eg: %:., %
