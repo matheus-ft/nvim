@@ -111,7 +111,10 @@ return packer.startup({ function(use)
     config = function() require('lsp_signature').setup() end
   }
   use { 'glepnir/lspsaga.nvim', branch = 'main' }
-  use { 'RishabhRD/nvim-lsputils', requires = 'RishabhRD/popfix' }
+  use { 'RishabhRD/nvim-lsputils',
+    requires = 'RishabhRD/popfix', -- also requires `bat` to work properly
+    config = function() require('matheus.lsputils') end -- this makes the lsp actions behave a lil better (but I don't actually understand it)
+  }
   use {
     'rmagatti/goto-preview', -- opens definitions/declarations/etc in a pop-up window
     config = function() require('goto-preview').setup({ default_mappings = true }) end

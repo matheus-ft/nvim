@@ -109,10 +109,10 @@ end
 
 local opts = { noremap = true, silent = true }
 
--- keymap("n", "gpt", "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>", opts)
--- keymap("n", "gpi", "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>", opts)
-keymap("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>", opts) -- Only set if you have telescope installed
 keymap("n", "gP", "<cmd>lua require('goto-preview').close_all_win()<CR>", opts)
+keymap("n", "gpt", "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>", opts)
+keymap("n", "gpi", "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>", opts)
+keymap("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>", opts) -- Only set if you have telescope installed
 keymap("n", "gpd", "<cmd>Lspsaga peek_definition<CR>", opts)
 keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", opts) -- use <C-t> to jump back
 
@@ -134,12 +134,32 @@ keymap("n", "<leader>out", "<cmd>LSoutlineToggle<CR>", opts) -- functions on the
 keymap("n", "<A-i>", "<cmd>Lspsaga open_floaterm<CR>", opts) -- if you want pass somc cli command into terminal you can put before <CR>
 keymap("t", "<A-i>", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], opts)
 
-require('matheus.lsputils')
-
 saga.init_lsp_saga {
+  --- Keybindings ---
+  move_in_saga = { prev = '<C-p>', next = '<C-n>' }, -- when cursor in saga window you config these to move
+  finder_action_keys = { -- apparently, tables work here...
+    open = { 'o', '<CR>' },
+    vsplit = { 'v', 'y' },
+    split = { 's', 'x' },
+    tabe = { 't', 'i', 'b' },
+    quit = { 'q', '<ESC>' },
+  },
+  code_action_keys = { -- ... but not here...
+    exec = '<CR>',
+    quit = 'q',
+  },
+  definition_action_keys = { -- ... NOR HERE...
+    edit = 'ge', -- go edit
+    split = 'gs', -- go in split
+    vsplit = 'gv', -- go in vertical split
+    tabe = 'gb', -- go to buftab
+    quit = 'q',
+  },
+  rename_action_quit = { '<C-c>', '<Esc><Esc>', '<Esc>q' }, -- ... BUT WORKS HERE, WTF
+
+  --- Look and feel ---
   border_style = "single", -- "single" | "double" | "rounded" | "bold" | "plus"
   saga_winblend = 0, -- transparecy between 0-100 (no need for extra imo)
-  move_in_saga = { prev = '<C-p>', next = '<C-n>' }, -- when cursor in saga window you config these to move
   -- Error, Warn, Info, Hint
   -- use emoji like
   -- { "🙀", "😿", "😾", "😺" }
@@ -170,36 +190,15 @@ saga.init_lsp_saga {
     link = '  ',
   },
   finder_request_timeout = 1500, -- finder do lsp request timeout -- if your project big enough or your server very slow you may need to increase this value
-  finder_action_keys = {
-    open = { 'o', '<CR>' },
-    vsplit = { 'v', 'y' },
-    split = { 's', 'x' },
-    tabe = { 't', 'i' },
-    quit = { 'q', '<ESC>' },
-  },
-  code_action_keys = {
-    exec = '<CR>',
-    quit = { 'q', '<Esc>' },
-  },
-  definition_action_keys = {
-    edit = { '<C-c>o', '<C-w>' },
-    vsplit = { '<C-c>v', '<C-c>y' },
-    split = { '<C-c>s', '<C-c>x' },
-    tabe = { '<C-c>t', '<C-c>i' },
-    quit = 'q',
-  },
-  rename_action_quit = '<C-c>',
   rename_in_select = true,
   symbol_in_winbar = { -- show symbols in winbar must nightly
     in_custom = false, -- mean use lspsaga api to get symbols and set it to your custom winbar or some winbar plugins.
     enable = true, -- if in_custom = true you must set enable to false
-    separator = ' ',
+    separator = '  ',
     show_file = true,
     -- define how to customize filename, eg: %:., %
-    -- if not set, use default value `%:t`
     -- more information see `vim.fn.expand` or `expand`
-    -- ## only valid after set `show_file = true`
-    file_formatter = "",
+    file_formatter = "%:t", -- default
     click_support = false,
   },
   show_outline = {
