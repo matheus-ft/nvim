@@ -108,12 +108,12 @@ return packer.startup({ function(use)
   use 'RRethy/vim-illuminate' -- highlights same words in scope
   use {
     'ray-x/lsp_signature.nvim', -- adds function signature helper pop-up
-    config = function() require('lsp_signature').setup() end
+    config = function() require('matheus.lsp.signature') end
   }
   use { 'glepnir/lspsaga.nvim', branch = 'main' }
   use { 'RishabhRD/nvim-lsputils',
     requires = 'RishabhRD/popfix', -- also requires `bat` to work properly
-    config = function() require('matheus.lsputils') end -- this makes the lsp actions behave a lil better (but I don't actually understand it)
+    config = function() require('matheus.lsp.utils') end -- this makes the lsp actions behave a lil better (but I don't actually understand it)
   }
   use {
     'rmagatti/goto-preview', -- opens definitions/declarations/etc in a pop-up window
