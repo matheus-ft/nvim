@@ -68,8 +68,8 @@ return packer.startup({ function(use)
     'nacro90/numb.nvim', -- to peek line jumps with `:<number>`
     config = function() require('numb').setup() end
   }
-  use 'karb94/neoscroll.nvim' -- smooth scrolling with <C-u> and <C-d> in terminal
-  use 'norcalli/nvim-colorizer.lua' -- colorize hexcodes
+  use 'karb94/neoscroll.nvim' -- smooth scrolling with <C-u> and <C-d>
+  use 'norcalli/nvim-colorizer.lua' -- colorize hexcodes and color-indicating text
   use 'rcarriga/nvim-notify'
 
   -- Actually useful
@@ -82,12 +82,13 @@ return packer.startup({ function(use)
     config = function() require('nvim-surround').setup() end
   }
   use 'numToStr/Comment.nvim' -- toggle comments easily
-  use 'NvChad/nvterm' -- floating terminal
-  -- use {
-  --   'stevearc/aerial.nvim', -- lists all functions in the file
-  --   config = function() require('aerial').setup() end
-  -- }
-  use { "cshuaimin/ssr.nvim", module = "ssr" }
+  -- use 'NvChad/nvterm' -- vscode-like horizontal/vertical terminal
+  use {
+    'stevearc/aerial.nvim', -- lists all functions in the file
+    config = function() require('aerial').setup() end
+  }
+  use { "cshuaimin/ssr.nvim", module = "ssr" } -- search and replace
+  use { 'mg979/vim-visual-multi', branch = 'master' } -- <C-n> marks same words successively
 
   -- Autocompletion stuff
   use 'hrsh7th/nvim-cmp'
@@ -105,11 +106,12 @@ return packer.startup({ function(use)
   use "williamboman/mason-lspconfig.nvim"
   use 'folke/trouble.nvim' -- lists problems like most IDEs
   use 'RRethy/vim-illuminate' -- highlights same words in scope
-  use { "glepnir/lspsaga.nvim", branch = "main" }
-  -- use {
-  --   'ray-x/lsp_signature.nvim', -- adds function signature helper pop-up
-  --   config = function() require('lsp_signature').setup() end
-  -- }
+  use {
+    'ray-x/lsp_signature.nvim', -- adds function signature helper pop-up
+    config = function() require('lsp_signature').setup() end
+  }
+  use { 'glepnir/lspsaga.nvim', branch = 'main' }
+  use { 'RishabhRD/nvim-lsputils', requires = 'RishabhRD/popfix' }
   use {
     'rmagatti/goto-preview', -- opens definitions/declarations/etc in a pop-up window
     config = function() require('goto-preview').setup({ default_mappings = true }) end
@@ -117,7 +119,6 @@ return packer.startup({ function(use)
 
   -- Sintax highlighting
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-  -- use 'romgrk/nvim-treesitter-context'
 
   -- Markdown, latex, etc.
   use {

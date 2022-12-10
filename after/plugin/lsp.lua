@@ -134,6 +134,8 @@ keymap("n", "<leader>out", "<cmd>LSoutlineToggle<CR>", opts) -- functions on the
 keymap("n", "<A-i>", "<cmd>Lspsaga open_floaterm<CR>", opts) -- if you want pass somc cli command into terminal you can put before <CR>
 keymap("t", "<A-i>", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], opts)
 
+require('matheus.lsputils')
+
 saga.init_lsp_saga {
   border_style = "single", -- "single" | "double" | "rounded" | "bold" | "plus"
   saga_winblend = 0, -- transparecy between 0-100 (no need for extra imo)
