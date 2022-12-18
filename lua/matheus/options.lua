@@ -41,8 +41,6 @@ vim.cmd [[set iskeyword+=-]] -- makes hifen separated "words" a single word
 
 if vim.g.neovide then
   require("matheus.neovide")
-else
-  require('neoscroll').setup()
 end
 
 vim.g.python3_host_prog = os.getenv("HOME") .. "/.local/venv/nvim/bin/python"

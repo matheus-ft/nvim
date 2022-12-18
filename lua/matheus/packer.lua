@@ -68,7 +68,6 @@ return packer.startup({ function(use)
     'nacro90/numb.nvim', -- to peek line jumps with `:<number>`
     config = function() require('numb').setup() end
   }
-  use 'karb94/neoscroll.nvim' -- smooth scrolling with <C-u> and <C-d>
   use 'norcalli/nvim-colorizer.lua' -- colorize hexcodes and color-indicating text
   use 'rcarriga/nvim-notify'
 
@@ -89,6 +88,7 @@ return packer.startup({ function(use)
   }
   use { "cshuaimin/ssr.nvim", module = "ssr" } -- search and replace
   use { 'mg979/vim-visual-multi', branch = 'master' } -- <C-n> marks same words successively
+  use 'folke/which-key.nvim'
 
   -- Autocompletion stuff
   use 'hrsh7th/nvim-cmp'
