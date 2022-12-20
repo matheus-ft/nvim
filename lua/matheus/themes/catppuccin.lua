@@ -39,9 +39,6 @@ require("catppuccin").setup({
   },
 })
 
--- toggle theme style
-vim.keymap.set("n", "<leader>tt", ":Catppuccin ", { noremap = true })
-
 vim.cmd.colorscheme "catppuccin"
 
 local ok, bufferline = pcall(require, "bufferline")

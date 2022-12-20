@@ -1,13 +1,12 @@
-local telescope = require("telescope")
-local noremap = { noremap = true }
-local key = vim.keymap.set
+local telescope = require('telescope')
+local noremap = require('matheus').noremap
 local actions = require('telescope.actions')
 
-key('n', '<leader>pf', ':lua require("telescope.builtin").find_files()<CR>', noremap)
-key('n', '<leader>ps', ':lua require("telescope.builtin").live_grep()<CR>', noremap)
-key('n', '<leader>pb', ':lua require("telescope.builtin").buffers()<CR>', noremap)
-key('n', '<leader>h', ':lua require("telescope.builtin").help_tags()<CR>', noremap)
-key('n', '<leader>pd', ':Telescope diagnostics<CR>', noremap)
+noremap('n', '<leader>pf', ':lua require("telescope.builtin").find_files()<CR>', 'Project files')
+noremap('n', '<leader>ps', ':lua require("telescope.builtin").live_grep()<CR>', 'Project search')
+noremap('n', '<leader>pb', ':lua require("telescope.builtin").buffers()<CR>', 'Project buffers')
+noremap('n', '<leader>h', ':lua require("telescope.builtin").help_tags()<CR>', 'Help')
+noremap('n', '<leader>pd', ':Telescope diagnostics<CR>', 'Project diagnostics')
 
 
 -- borrowed from NvChad

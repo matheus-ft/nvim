@@ -5,7 +5,7 @@ require('nvim-tree').setup {
 
   view = {
     adaptive_size = true,
-    signcolumn = "auto",
+    signcolumn = 'auto',
 
     mappings = {
       list = {
@@ -19,43 +19,43 @@ require('nvim-tree').setup {
   renderer = {
     add_trailing = true,
     group_empty = true,
-    highlight_opened_files = "all",
-    special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
+    highlight_opened_files = 'all',
+    special_files = { 'Cargo.toml', 'Makefile', 'README.md', 'readme.md' },
 
     indent_markers = {
       enable = true,
       icons = {
-        corner = "└ ",
-        edge = "│ ",
-        item = "│ ",
-        none = "  ",
+        corner = '└ ',
+        edge = '│ ',
+        item = '│ ',
+        none = '  ',
       },
     },
 
     icons = {
-      git_placement = "after",
+      git_placement = 'after',
       glyphs = {
-        default = "",
-        symlink = "",
-        bookmark = "",
+        default = '',
+        symlink = '',
+        bookmark = '',
         folder = {
-          arrow_closed = "",
-          arrow_open = "",
-          default = "",
-          open = "",
-          empty = "",
-          empty_open = "",
-          symlink = "",
-          symlink_open = "",
+          arrow_closed = '',
+          arrow_open = '',
+          default = '',
+          open = '',
+          empty = '',
+          empty_open = '',
+          symlink = '',
+          symlink_open = '',
         },
         git = {
-          unstaged = "✗",
-          staged = "✓",
-          unmerged = "",
-          renamed = "➜",
-          untracked = "★",
-          deleted = "",
-          ignored = "◌",
+          unstaged = '✗',
+          staged = '✓',
+          unmerged = '',
+          renamed = '➜',
+          untracked = '★',
+          deleted = '',
+          ignored = '◌',
         },
       },
     },
@@ -65,10 +65,10 @@ require('nvim-tree').setup {
     enable = true,
     show_on_dirs = true,
     icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
+      hint = '',
+      info = '',
+      warning = '',
+      error = '',
     },
   },
 
@@ -80,4 +80,4 @@ require('nvim-tree').setup {
   },
 }
 
-vim.keymap.set("n", "<leader>tr", ":NvimTreeToggle<CR>", { noremap = "true" })
+require('matheus').noremap('n', '<leader>t', ':NvimTreeToggle<CR>', 'Toggle filetree')

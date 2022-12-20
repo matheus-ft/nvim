@@ -1,4 +1,4 @@
-vim.opt.signcolumn = "yes" -- kinda weird this is not a boolean for neovim, but okay
+vim.opt.signcolumn = 'yes' -- kinda weird this is not a boolean for neovim, but okay
 
 require('gitsigns').setup({
   signs = {
@@ -29,8 +29,8 @@ require('gitsigns').setup({
   },
 })
 
-local noremap = { noremap = true }
-vim.keymap.set("n", "zi", "<cmd>Gitsigns preview_hunk<CR>", noremap)
-vim.keymap.set("n", "zd", "<cmd>Gitsigns diffthis<CR>", noremap)
-vim.keymap.set("n", "zj", "<cmd>Gitsigns next_hunk<CR>", noremap)
-vim.keymap.set("n", "zk", "<cmd>Gitsigns prev_hunk<CR>", noremap)
+local noremap = require('matheus').noremap
+noremap('n', 'zi', '<cmd>Gitsigns preview_hunk<CR>', 'Preview git diff')
+noremap('n', 'zd', '<cmd>Gitsigns diffthis<CR>', 'Open git diff buffer')
+noremap('n', 'zj', '<cmd>Gitsigns next_hunk<CR>', 'Next git hunk')
+noremap('n', 'zk', '<cmd>Gitsigns prev_hunk<CR>', 'Previous git hunk')

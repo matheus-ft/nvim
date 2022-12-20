@@ -1,95 +1,94 @@
 vim.g.mapleader = ' '
-local noremap = { noremap = true }
-local silent_noremap = { noremap = true, silent = true }
 local all_modes = { 'n', 'i', 'v', 'x' }
-local visual = { 'v', 'x' }
-local keymap = vim.keymap.set
+local noremap = require('matheus').noremap
+local map = require('matheus').map
 
-keymap('n', '<leader>', '<nop>')
-keymap('n', '<leader><leader>', ':', noremap)
-keymap({ 'n', 'i' }, '<F9>', '<cmd>so %<cr>', noremap)
-keymap('i', '<C-c>', '<Esc>')
-keymap('n', 'ZZ', '<nop>')
-keymap('n', 'Q', '<nop>')
-keymap('n', '<Esc>', '<cmd>nohlsearch<cr>', noremap)
-keymap('t', '<Esc>', '<C-\\><C-n>', noremap) -- to enter normal mode with a terminal open
 
-keymap('n', '<C-u>', '<C-u>zz')
-keymap('n', '<C-d>', '<C-d>zz')
-keymap('n', '<PageUp>', '<C-u>')
-keymap('n', '<PageDown>', '<C-d>')
+noremap('n', '<leader><leader>', ':', 'Command mode')
+noremap({ 'n', 'i' }, '<F9>', '<cmd>so %<cr>', 'Run script')
+
+noremap('n', '<leader>', '<nop>')
+noremap('n', 'Q', '<nop>')
+noremap('n', 'ZZ', '<nop>')
+
+map({ 'i', 'n' }, '<C-c>', '<Esc>', 'Escape')
+noremap('t', '<Esc>', '<C-\\><C-n>') -- to enter normal mode with a terminal open
+noremap('n', '<Esc>', '<cmd>nohlsearch<cr>')
+
+map('n', '<C-u>', '<C-u>zz', 'Scroll up')
+map('n', '<C-d>', '<C-d>zz', 'Scroll down')
+noremap('n', '<PageUp>', '<C-u>', 'Half page up') -- decreasing the jump amount
+noremap('n', '<PageDown>', '<C-d>', 'Half page down')
 
 -- Resize with arrows
-keymap(all_modes, '<C-Up>', ':resize -2<CR>', silent_noremap)
-keymap(all_modes, '<C-Down>', ':resize +2<CR>', silent_noremap)
-keymap(all_modes, '<C-Left>', ':vertical resize -2<CR>', silent_noremap)
-keymap(all_modes, '<C-Right>', ':vertical resize +2<CR>', silent_noremap)
-
--- Make splits
-keymap('n', '<leader>y', '<C-w>v', noremap)
-keymap('n', '<leader>x', '<C-w>s', noremap)
-keymap('n', '<leader>o', '<C-w>o', noremap)
+noremap(all_modes, '<C-Up>', ':resize -2<CR>', 'Decrease horizontal split')
+noremap(all_modes, '<C-Down>', ':resize +2<CR>', 'Increase horizontal split')
+noremap(all_modes, '<C-Left>', ':vertical resize -2<CR>', 'Decrease horizontal split')
+noremap(all_modes, '<C-Right>', ':vertical resize +2<CR>', 'Increase horizontal split')
 
 -- Splits navigation
-keymap('n', '<C-h>', '<C-w>h', noremap)
-keymap('n', '<C-j>', '<C-w>j', noremap)
-keymap('n', '<C-k>', '<C-w>k', noremap)
-keymap('n', '<C-l>', '<C-w>l', noremap)
+noremap('n', '<C-h>', '<C-w>h', 'Move to left split')
+noremap('n', '<C-j>', '<C-w>j', 'Move to bottom split')
+noremap('n', '<C-k>', '<C-w>k', 'Move to top split')
+noremap('n', '<C-l>', '<C-w>l', 'Move to right split')
+
+-- Make splits
+noremap('n', '<leader>y', '<C-w>v', 'Vertical split')
+noremap('n', '<leader>x', '<C-w>s', 'Horizontal split')
+noremap('n', '<leader>o', '<C-w>o', 'Close all except current window')
 
 -- Buffer handling
-keymap('n', '<A-h>', ':bprevious<CR>', silent_noremap)
-keymap('n', '<A-l>', ':bnext<CR>', silent_noremap)
-keymap('n', '<leader>cb', ':bdelete<CR>', silent_noremap)
-keymap('n', '<leader>q', ':q<CR>', silent_noremap)
-keymap('n', '<leader>w', ':w<CR>', silent_noremap)
-keymap({ 'n', 'i' }, '<C-s>', '<Esc>:w<CR>', silent_noremap)
-keymap('n', '<leader>e', ':edit<Space>', noremap)
+noremap('n', '<A-h>', ':bprevious<CR>', 'Previous buffer')
+noremap('n', '<A-l>', ':bnext<CR>', 'Next buffer')
+noremap('n', '<leader>q', ':q<CR>', 'Quit')
+noremap('n', '<leader>cb', ':bdelete<CR>', 'Close buffer')
+noremap('n', '<leader>w', ':w<CR>', 'Write buffer')
+noremap(all_modes, '<C-s>', '<Esc>:w<CR>', 'Write buffer')
+noremap('n', '<leader>e', ':edit<Space>', 'Edit buffer')
 
 -- indent/unindent with tab/shift-tab
-keymap('n', '<Tab>', '>>', noremap)
-keymap('n', '<S-tab>', '<<', noremap)
-keymap('i', '<S-Tab>', '<Esc><<i', noremap)
-keymap('v', '<Tab>', '>gv', noremap)
-keymap('v', '<S-Tab>', '<gv', noremap)
+noremap('n', '<Tab>', '>>', 'Indent line')
+noremap('n', '<S-tab>', '<<', 'Unindent line')
+noremap('i', '<S-Tab>', '<Esc><<i')
+noremap('v', '<Tab>', '>gv')
+noremap('v', '<S-Tab>', '<gv')
 
 -- Move the page but not the cursor with the arrow keys
-keymap('n', '<Down>', '<C-e>', noremap)
-keymap('n', '<Up>', '<C-y>', noremap)
-keymap('n', '<Left>', '<nop>', noremap)
-keymap('n', '<Right>', '<nop>', noremap)
+noremap('n', '<Down>', '<C-e>', 'Micro scroll down')
+noremap('n', '<Up>', '<C-y>', 'Micro scroll up')
+noremap('n', '<Left>', '<nop>')
+noremap('n', '<Right>', '<nop>')
 
 -- Move lines up and down
-keymap('i', '<A-j>', '<Esc>:m .+1<CR>==gi', noremap)
-keymap('i', '<A-k>', '<Esc>:m .-2<CR>==gi', noremap)
-keymap('v', '<A-j>', ":m '>+1<CR>gv=gv", silent_noremap)
-keymap('v', '<A-k>', ":m '<-2<CR>gv=gv", silent_noremap)
+noremap('i', '<A-j>', '<Esc>:m .+1<CR>==gi')
+noremap('i', '<A-k>', '<Esc>:m .-2<CR>==gi')
+noremap('v', '<A-j>', ":m '>+1<CR>gv=gv")
+noremap('v', '<A-k>', ":m '<-2<CR>gv=gv")
 
 -- Some insert mode keybindings that might be useful
-keymap('i', '<C-h>', '<Left>', noremap)
-keymap('i', '<C-j>', '<Down>', noremap)
-keymap('i', '<C-k>', '<Up>', noremap)
-keymap('i', '<C-l>', '<Right>', noremap)
+noremap('i', '<C-h>', '<Left>')
+noremap('i', '<C-j>', '<Down>')
+noremap('i', '<C-k>', '<Up>')
+noremap('i', '<C-l>', '<Right>')
 
 -- emacs-like bindings
-keymap('i', '<C-b>', '<Left>', noremap)
-keymap('i', '<C-f>', '<Right>', noremap)
-keymap('i', '<C-a>', '<Esc>^i', noremap)
-keymap('i', '<C-e>', '<Esc>$a', noremap)
+noremap('i', '<C-b>', '<Left>')
+noremap('i', '<C-f>', '<Right>')
+noremap('i', '<C-a>', '<Esc>^i')
+noremap('i', '<C-e>', '<Esc>$a')
 
-keymap(visual, 'H', '^', noremap)
-keymap(visual, 'L', '$', noremap)
-keymap('n', 'yH', 'y^', noremap) -- Y already does y$
-keymap('n', 'dH', 'd^', noremap) -- D already does d$
-keymap('n', 'cH', 'c^', noremap) -- C already does c$
+noremap('n', 'yY', 'y^', 'Start of line (non-blank)')
+noremap('n', 'dD', 'd^', 'Start of line (non-blank)')
+noremap('n', 'cC', 'c^', 'Start of line (non-blank)')
 
 -- paste what was last yanked, not what was deleted
-keymap('n', 'yp', '"0p', noremap)
-keymap('n', 'yP', '"0P', noremap)
+noremap('n', 'yp', '"0p', 'Paste last yanked')
+noremap('n', 'yP', '"0P', 'Paste last yanked before cursor')
 
 -- Interacting with system clipboard (don't forget to install utility to activate the registers)
-keymap(visual, '<C-c>', '"+y', noremap) -- copies into clipboard
-keymap('i', '<C-v>', '<C-r>+', noremap) -- pastes from clipboard
-keymap('n', 'cy', '"+y', noremap)
-keymap('n', 'cY', '"+Y', noremap)
-keymap('n', 'cp', '"+p', noremap)
-keymap('n', 'cP', '"+P', noremap)
+noremap({ 'v', 'x' }, '<C-c>', '"+y') -- copies into clipboard
+noremap('i', '<C-v>', '<C-r>+') -- pastes from clipboard
+noremap('n', 'my', '"+y', 'Copies into clipboard')
+noremap('n', 'mY', '"+Y', 'Copies rest of the line into clipboard')
+noremap('n', 'mp', '"+p', 'Paste from clipboard')
+noremap('n', 'mP', '"+P', 'Paste from clipboard before cursor')

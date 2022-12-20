@@ -1,4 +1,4 @@
-local keymap = vim.keymap.set
+local noremap = require('matheus').noremap
 local cmp = require('cmp')
 local lspconfig = require("lspconfig")
 local saga = require('lspsaga')
@@ -94,45 +94,50 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings
-  local bufopts = { noremap = true, silent = true, buffer = bufnr }
-  keymap('n', '<A-n>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', bufopts)
-  keymap('n', '<A-N>', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>', bufopts)
-  keymap('n', '<S-k>', vim.lsp.buf.hover, bufopts)
-  keymap('n', 'gt', vim.lsp.buf.type_definition, bufopts)
-  keymap('n', 'gd', vim.lsp.buf.definition, bufopts)
-  keymap('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  keymap('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  keymap('n', 'gr', vim.lsp.buf.references, bufopts)
-  keymap('n', '<leader>f', vim.lsp.buf.format, bufopts)
-  -- keymap('n', '<A-k>', vim.lsp.buf.signature_help, bufopts) -- never works
+  local bufopts = { silent = true, buffer = bufnr }
+  noremap('n', '<A-n>', '<cmd>lua require"illuminate".next_reference{wrap=true}<cr>', 'Jump to next occurance', bufopts)
+  noremap('n', '<A-N>', '<cmd>lua require"illuminate".next_reference{reverse=true,wrap=true}<cr>',
+    'Jump to next occurance', bufopts)
+  noremap('n', '<S-k>', vim.lsp.buf.hover, 'Hover docs', bufopts)
+  noremap('n', 'gt', vim.lsp.buf.type_definition, 'Go to type-definition', bufopts)
+  noremap('n', 'gd', vim.lsp.buf.definition, 'Go to definition', bufopts)
+  noremap('n', 'gD', vim.lsp.buf.declaration, 'Go to declaration', bufopts)
+  noremap('n', 'gi', vim.lsp.buf.implementation, 'Go to implementation', bufopts)
+  noremap('n', 'gr', vim.lsp.buf.references, 'Go to references', bufopts)
+  noremap('n', '<leader>f', vim.lsp.buf.format, 'Format code', bufopts)
+  -- keymap('n', '<A-k>', vim.lsp.buf.signature_help, 'Open function signature help', bufopts) -- never works
 end
 
-local opts = { noremap = true, silent = true }
+local opts = { silent = true }
 
-keymap("n", "gP", "<cmd>lua require('goto-preview').close_all_win()<CR>", opts)
-keymap("n", "gpt", "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>", opts)
-keymap("n", "gpi", "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>", opts)
-keymap("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>", opts) -- Only set if you have telescope installed
-keymap("n", "gpd", "<cmd>Lspsaga peek_definition<CR>", opts)
-keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", opts) -- use <C-t> to jump back
+noremap('n', 'gP', '<cmd>lua require("goto-preview").close_all_win()<CR>', 'Close all preview windows', opts)
+noremap('n', 'gpt', '<cmd>lua require("goto-preview").goto_preview_type_definition()<CR>', 'Preview type-definition',
+  opts)
+noremap('n', 'gpi', '<cmd>lua require("goto-preview").goto_preview_implementation()<CR>', 'Preview implementation', opts)
+noremap('n', 'gpr', '<cmd>lua require("goto-preview").goto_preview_references()<CR>', 'Preview references', opts) -- Only set if you have telescope installed
+noremap('n', 'gpd', '<cmd>Lspsaga peek_definition<CR>', 'Preview definition', opts)
+noremap('n', 'gh', '<cmd>Lspsaga lsp_finder<CR>', 'Find occurances', opts) -- use <C-t> to jump back
 
-keymap("n", "<leader>r", "<cmd>Lspsaga rename<CR>", opts)
-keymap({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts)
+noremap('n', '<leader>r', '<cmd>Lspsaga rename<CR>', 'Refactor symbol', opts)
+noremap({ 'n', 'v' }, "<leader>ca", '<cmd>Lspsaga code_action<CR>', 'Code actions', opts)
 
-keymap("n", "<leader>nd", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
-keymap("n", "<leader>Nd", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
-keymap("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
-keymap("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts)
+noremap('n', '<leader>nd', '<cmd>Lspsaga diagnostic_jump_next<CR>', 'Next diagnostic', opts)
+noremap('n', '<leader>Nd', '<cmd>Lspsaga diagnostic_jump_prev<CR>', 'Previous diagnostic', opts)
+noremap('n', '<leader>cd', '<cmd>Lspsaga show_line_diagnostics<CR>', 'Show line and cursor diagnostics', opts)
+noremap('n', '<leader>cd', '<cmd>Lspsaga show_cursor_diagnostics<CR>', 'Show line and cursor diagnostics', opts)
 -- Only jump to error
-keymap("n", "<leader>ne",
-  function() require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, opts)
-keymap("n", "<leader>Ne",
-  function() require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR }) end, opts)
+noremap('n', '<leader>ne',
+  function() require('lspsaga.diagnostic').goto_next({ severity = vim.diagnostic.severity.ERROR }) end, 'Next error',
+  opts)
+noremap('n', '<leader>Ne',
+  function() require('lspsaga.diagnostic').goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, 'Previous error'
+  , opts)
 
-keymap("n", "<leader>out", "<cmd>LSoutlineToggle<CR>", opts) -- functions on the right hand side
+noremap('n', '<leader>out', '<cmd>LSoutlineToggle<CR>', 'Show outline', opts) -- functions on the right hand side
 
-keymap("n", "<A-i>", "<cmd>Lspsaga open_floaterm<CR>", opts) -- if you want pass somc cli command into terminal you can put before <CR>
-keymap("t", "<A-i>", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], opts)
+noremap('n', "<A-i>", '<cmd>Lspsaga open_floaterm<CR>', 'Open floating terminal', opts)
+noremap('t', '<A-i>', [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], 'Close floating terminal', opts)
+-- if you want pass somc cli command into terminal you can put before <CR>
 
 saga.init_lsp_saga {
   --- Keybindings ---
