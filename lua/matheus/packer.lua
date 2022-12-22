@@ -1,7 +1,8 @@
 -- Bootstrapping
 local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  BOOTSTRAP = vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+  NEED_BOOTSRAP = vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
+    install_path })
 end
 
 -- This way the plugins are updated everytime this file is writen (don't know why, but it seems to not work if done purely in Lua)
@@ -20,7 +21,7 @@ local packer = require('packer')
 packer.init({
   display = {
     open_fn = function()
-      return require("packer.util").float { border = "rounded" }
+      return require('packer.util').float { border = 'rounded' }
     end,
   },
 })
@@ -32,96 +33,85 @@ return packer.startup({ function(use)
   use 'wbthomason/packer.nvim'
 
   -- To make neovim start faster (not sure it actually helps, tho)
-  use {
-    'lewis6991/impatient.nvim',
+  use { 'lewis6991/impatient.nvim',
     config = function()
-      require('impatient') -- this has to be called early in the config without `.setup()`
-    end
-  }
+      require('impatient') -- this has to be called early in the config and without `.setup()`
+    end }
 
-  -- Mason sub package manager
-  use {
-    "williamboman/mason.nvim",
+  -- "sub package manager"
+  use { 'williamboman/mason.nvim',
     config = function()
-      require("mason").setup({
+      require('mason').setup({
         ui = {
           icons = {
-            package_pending = " ",
-            package_installed = " ",
-            package_uninstalled = " ﮊ",
+            package_pending = ' ',
+            package_installed = ' ',
+            package_uninstalled = ' ﮊ',
           },
         }
       })
-    end
-  }
+    end }
+
+  -- Git
+  use 'lewis6991/gitsigns.nvim' -- git hints and git blame
+  use 'tpope/vim-fugitive'
+  use 'tpope/vim-rhubarb'
 
   -- Useful aesthetics
-  use 'lewis6991/gitsigns.nvim' -- git hints and git blame
-  use 'lukas-reineke/indent-blankline.nvim' -- indentation guides
   use {
     'nvim-lualine/lualine.nvim', -- status bar
     'akinsho/bufferline.nvim', -- tab bar
     { 'kyazdani42/nvim-tree.lua', -- file tree
-      requires = { 'kyazdani42/nvim-web-devicons', }, }
+      requires = { 'kyazdani42/nvim-web-devicons' } }
   }
-  use {
-    'nacro90/numb.nvim', -- to peek line jumps with `:<number>`
-    config = function() require('numb').setup() end
-  }
+  use 'lukas-reineke/indent-blankline.nvim' -- indentation guides
+  use { 'nacro90/numb.nvim', config = function() require('numb').setup() end } -- to peek line jumps with `:<number>`
   use 'norcalli/nvim-colorizer.lua' -- colorize hexcodes and color-indicating text
   use 'rcarriga/nvim-notify'
 
   -- Actually useful
-  use {
-    'windwp/nvim-autopairs', -- completes the pair of surrounding chars
-    config = function() require('nvim-autopairs').setup() end
-  }
-  use {
-    'kylechui/nvim-surround', -- to change surrounding characters easily
-    config = function() require('nvim-surround').setup() end
-  }
+  use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup() end } -- completes the pair of chars
+  use { 'kylechui/nvim-surround', config = function() require('nvim-surround').setup() end } -- to change surrounding chars easily
   use 'numToStr/Comment.nvim' -- toggle comments easily
-  -- use 'NvChad/nvterm' -- vscode-like horizontal/vertical terminal
-  use {
-    'stevearc/aerial.nvim', -- lists all functions in the file
-    config = function() require('aerial').setup() end
-  }
-  use { "cshuaimin/ssr.nvim", module = "ssr" } -- search and replace
-  use { 'mg979/vim-visual-multi', branch = 'master' } -- <C-n> marks same words successively
+  use { 'cshuaimin/ssr.nvim', module = 'ssr' } -- structural search and replace
   use 'folke/which-key.nvim'
-
-  -- Autocompletion stuff
-  use 'hrsh7th/nvim-cmp'
-  use 'hrsh7th/cmp-nvim-lsp'
-  use 'hrsh7th/cmp-buffer'
-  use 'hrsh7th/cmp-path'
-  use 'hrsh7th/cmp-nvim-lua'
-  use 'L3MON4D3/LuaSnip'
-  use 'saadparwaiz1/cmp_luasnip'
-  use 'rafamadriz/friendly-snippets'
-  use { 'kkoomen/vim-doge', run = ':call doge#install()' } -- docs
-
-  -- LSP stuff
-  use 'neovim/nvim-lspconfig'
-  use "williamboman/mason-lspconfig.nvim"
-  use 'folke/trouble.nvim' -- lists problems like most IDEs
-  use 'RRethy/vim-illuminate' -- highlights same words in scope
-  use {
-    'ray-x/lsp_signature.nvim', -- adds function signature helper pop-up
-    config = function() require('matheus.lsp.signature') end
-  }
-  use { 'glepnir/lspsaga.nvim', branch = 'main' }
-  use { 'RishabhRD/nvim-lsputils',
-    requires = 'RishabhRD/popfix', -- also requires `bat` to work properly
-    config = function() require('matheus.lsp.utils') end -- this makes the lsp actions behave a lil better (but I don't actually understand it)
-  }
-  use {
-    'rmagatti/goto-preview', -- opens definitions/declarations/etc in a pop-up window
-    config = function() require('goto-preview').setup({ default_mappings = true }) end
-  }
+  use { 'mg979/vim-visual-multi', branch = 'master' } -- <C-n> marks same words successively (like C-d in VSCo**)
+  use { 'stevearc/aerial.nvim', config = function() require('aerial').setup() end } -- lists all functions in the file
 
   -- Sintax highlighting
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' } -- Highlight, edit, and navigate code
+  use { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' } -- Additional text objects
+
+  -- LSP stuff
+  use { 'neovim/nvim-lspconfig',
+    requires = {
+      'williamboman/mason-lspconfig.nvim',
+      'folke/trouble.nvim', -- lists problems like most IDEs
+      'RRethy/vim-illuminate', -- highlights same words in scope
+      { 'glepnir/lspsaga.nvim', branch = 'main' },
+      'rmagatti/goto-preview', -- opens definitions/declarations/etc in a pop-up window
+      { 'RishabhRD/nvim-lsputils', -- this makes the lsp actions behave a lil better (but I don't actually understand it)
+        requires = 'RishabhRD/popfix', -- also requires `bat` to work properly
+      },
+      { 'j-hui/fidget.nvim', config = function() require('fidget').setup() end }, -- Useful status updates for LSP
+      { 'folke/neodev.nvim', config = function() require('neodev').setup() end }, -- Additional lua configuration, makes nvim stuff amazing
+      'ray-x/lsp_signature.nvim', -- adds function signature helper pop-up
+    }
+  }
+
+  -- Autocompletion stuff
+  use { 'hrsh7th/nvim-cmp',
+    requires = {
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-nvim-lua',
+      'L3MON4D3/LuaSnip',
+      'saadparwaiz1/cmp_luasnip',
+      'rafamadriz/friendly-snippets'
+    }
+  }
+  use { 'kkoomen/vim-doge', run = ':call doge#install()' } -- docs
 
   -- Markdown, latex, etc.
   use {
@@ -137,17 +127,17 @@ return packer.startup({ function(use)
   use {
     'nvim-telescope/telescope.nvim',
     requires = {
-      { 'nvim-lua/plenary.nvim' },
-      { 'nvim-telescope/telescope-fzy-native.nvim' } -- sorts the findings
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope-fzy-native.nvim' -- sorts the findings
     }
   }
 
   -- Themes
   use 'navarasu/onedark.nvim'
-  use { "catppuccin/nvim", as = "catppuccin" }
+  use { 'catppuccin/nvim', as = 'catppuccin' }
   use 'NTBBloodbath/doom-one.nvim'
 
-  if BOOTSTRAP then
+  if NEED_BOOTSRAP then
     require('packer').sync()
   end
 end })
