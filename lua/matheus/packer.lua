@@ -75,8 +75,9 @@ return packer.startup({ function(use)
   use 'numToStr/Comment.nvim' -- toggle comments easily
   use { 'cshuaimin/ssr.nvim', module = 'ssr' } -- structural search and replace
   use 'folke/which-key.nvim'
-  use { 'mg979/vim-visual-multi', branch = 'master' } -- <C-n> marks same words successively (like C-d in VSCo**)
+  use { 'mg979/vim-visual-multi', branch = 'master' } -- <C-n> marks same words successively (like <C-d> in VSCo**)
   use { 'stevearc/aerial.nvim', config = function() require('aerial').setup() end } -- lists all functions in the file
+  use { 'vimwiki/vimwiki', config = function() require('matheus.wiki') end }
 
   -- Sintax highlighting
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' } -- Highlight, edit, and navigate code
