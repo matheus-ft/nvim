@@ -1,5 +1,5 @@
 require('lsp_signature').setup({
-  toggle_key = '<A-x>', -- toggle signature on and off in insert mode
+  toggle_key = '<A><S-k>', -- toggle signature on and off in insert mode
   select_signature_key = '<A-n>', -- cycle to next signature
   floating_window = false, -- show hint in a floating window, set to false for virtual text only mode
   hint_enable = true, -- virtual hint enable
