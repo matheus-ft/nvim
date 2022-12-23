@@ -23,8 +23,9 @@ autocmd('BufWritePre', { pattern = '*', command = '%s/\\s\\+$//e', group = MATHE
 -- highligths yanked text
 autocmd('TextYankPost', {
   pattern  = '*',
-  callback = function()
-    vim.highlight.on_yank({ timeout = 200, higroup = 'IncSearch' })
-  end,
+  callback = function() vim.highlight.on_yank({ timeout = 200, higroup = 'IncSearch' }) end,
   group    = MATHEUS
 })
+
+-- Don't autocomment new lines -- adapted from https://github.com/nvim-lua/kickstart.nvim/pull/88
+autocmd('BufEnter', { pattern = '*', command = 'set fo-=c fo-=r fo-=o', group = MATHEUS }) -- mostly useful for Lua

@@ -7,7 +7,7 @@ local map = require('matheus').map
 noremap('n', '<leader><leader>', ':', 'Command mode')
 noremap({ 'n', 'i' }, '<F9>', '<cmd>so %<cr>', 'Run script')
 
-noremap('n', '<leader>', '<nop>')
+noremap({ 'n', 'v', 'x' }, '<leader>', '<nop>')
 noremap('n', 'Q', '<nop>')
 noremap('n', 'ZZ', '<nop>')
 
