@@ -60,7 +60,6 @@ return packer.startup({ function(use)
   -- Useful aesthetics
   use {
     'nvim-lualine/lualine.nvim', -- status bar
-    'akinsho/bufferline.nvim', -- tab bar
     { 'kyazdani42/nvim-tree.lua', -- file tree
       requires = { 'kyazdani42/nvim-web-devicons' } }
   }
