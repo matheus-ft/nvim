@@ -67,6 +67,7 @@ return packer.startup({ function(use)
   use { 'nacro90/numb.nvim', config = function() require('numb').setup() end } -- to peek line jumps with `:<number>`
   use 'norcalli/nvim-colorizer.lua' -- colorize hexcodes and color-indicating text
   use 'rcarriga/nvim-notify'
+  use { 'folke/todo-comments.nvim', requires = 'nvim-lua/plenary.nvim' }
 
   -- Actually useful
   use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup() end } -- completes the pair of chars
