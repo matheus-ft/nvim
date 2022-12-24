@@ -124,9 +124,12 @@ require('matheus.lsp.signature')
 require('matheus.lsp.utils')
 local saga = require('matheus.lsp.saga')
 local preview = require('goto-preview')
+local extra = require('matheus.lsp.extra')
 
 preview.setup()
 local preview_opts = { dismiss_on_move = true }
+local trouble = extra.trouble
+local todo = extra.todo
 local opts = { silent = true }
 
 noremap('n', 'gP', function() preview.close_all_win() end, 'Close all preview windows', opts)
@@ -136,6 +139,20 @@ noremap('n', 'gpr', function() preview.goto_preview_references() end, 'Preview r
 noremap('n', 'gpd', '<cmd>Lspsaga peek_definition<CR>', 'Preview definition', opts)
 noremap('n', 'gh', '<cmd>Lspsaga lsp_finder<CR>', 'Find occurances', opts) -- use <C-t> to jump back
 
+noremap('n', 'gR', '<cmd>TroubleToggle lsp_references<cr>', 'Toggle LSP references', opts)
+noremap('n', '<leader>tx', '<cmd>TroubleToggle<cr>', 'Toggle trouble list', opts)
+noremap('n', '<leader>tw', '<cmd>TroubleToggle workspace_diagnostics<cr>', 'Toggle workspace diagnostics', opts)
+noremap('n', '<leader>td', '<cmd>TroubleToggle document_diagnostics<cr>', 'Toggle document diagnostics', opts)
+noremap('n', '<leader>tl', '<cmd>TroubleToggle loclist<cr>', 'Trouble loclist', opts)
+noremap('n', '<leader>tq', '<cmd>TroubleToggle quickfix<cr>', 'Trouble quickfix', opts)
+noremap('n', '<leader>tn', function() trouble.next({ skip_groups = true, jump = true }) end, 'Next trouble', opts) -- jump to the next item, skipping the groups
+noremap('n', '<leader>tp', function() trouble.previous({ skip_groups = true, jump = true }) end, 'Previous trouble', opts) -- jump to the previous item, skipping the groups
+noremap('n', '<leader>tx', '<cmd>TodoTrouble<cr>', 'Toggle TODO in Trouble', opts)
+noremap('n', '<leader>t;', '<cmd>TodoLocList<cr>', 'TODO loclist', opts)
+noremap('n', '<leader>tf', '<cmd>TodoQuickFix<cr>', 'TODO quickfix', opts)
+noremap('n', '<leader>nc', function() todo.jump_next() end, 'Next todo comment', opts)
+noremap('n', '<leader>Nc', function() todo.jump_prev() end, 'Previous todo comment', opts)
+
 noremap('n', '<leader>r', '<cmd>Lspsaga rename<CR>', 'Refactor symbol', opts)
 noremap({ 'n', 'v' }, '<leader>ca', '<cmd>Lspsaga code_action<CR>', 'Code actions', opts)
 
@@ -143,7 +160,6 @@ noremap('n', '<leader>nd', '<cmd>Lspsaga diagnostic_jump_next<CR>', 'Next diagno
 noremap('n', '<leader>Nd', '<cmd>Lspsaga diagnostic_jump_prev<CR>', 'Previous diagnostic', opts)
 noremap('n', '<leader>cd', '<cmd>Lspsaga show_line_diagnostics<CR>', 'Show line and cursor diagnostics', opts)
 noremap('n', '<leader>cd', '<cmd>Lspsaga show_cursor_diagnostics<CR>', 'Show line and cursor diagnostics', opts)
--- Only jump to error
 noremap('n', '<leader>ne',
   function() saga.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end,
   'Next error', opts)

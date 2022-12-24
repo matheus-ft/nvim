@@ -1,4 +1,5 @@
 local telescope = require('telescope')
+local trouble = require('trouble.providers.telescope')
 local noremap = require('matheus').noremap
 local actions = require('telescope.actions')
 
@@ -7,7 +8,7 @@ noremap('n', '<leader>ps', ':lua require("telescope.builtin").live_grep()<CR>', 
 noremap('n', '<leader>pb', ':lua require("telescope.builtin").buffers()<CR>', 'Project buffers')
 noremap('n', '<leader>h', ':lua require("telescope.builtin").help_tags()<CR>', 'Help')
 noremap('n', '<leader>pd', ':Telescope diagnostics<CR>', 'Project diagnostics')
-
+noremap('n', '<leader>pt', ':TodoTelescope<CR>', 'Project TODOs')
 
 -- borrowed from NvChad
 local options = {
@@ -48,14 +49,16 @@ local options = {
     set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
     path_display = { 'truncate' },
     mappings = {
-      n = { ['q'] = actions.close },
+      n = {
+        ['q'] = actions.close,
+        ["<c-t>"] = trouble.open_with_trouble
+      },
+      i = { ["<c-t>"] = trouble.open_with_trouble },
     },
   },
 
   extensions_list = { 'fzy_native' },
 }
-
-telescope.setup(options)
 
 -- load extensions
 pcall(function()
@@ -63,3 +66,5 @@ pcall(function()
     telescope.load_extension(ext)
   end
 end)
+
+telescope.setup(options)

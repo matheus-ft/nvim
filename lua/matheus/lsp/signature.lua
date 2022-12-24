@@ -3,7 +3,7 @@ require('lsp_signature').setup({
   select_signature_key = '<A-n>', -- cycle to next signature
   floating_window = false, -- show hint in a floating window, set to false for virtual text only mode
   hint_enable = true, -- virtual hint enable
-  hint_prefix = '🐼 ', -- Panda for parameter, NOTE: for the terminal not support emoji, might crash
+  hint_prefix = '🐼 ',
 
   bind = true, -- This is mandatory, otherwise border config won't get registered --- If you want to hook lspsaga or other signature handler, pls set to false
   handler_opts = {
