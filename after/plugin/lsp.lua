@@ -1,7 +1,11 @@
 ---------------------------------------------------------------------------------------
--- Autocompletion with nvim-cmp
+-- Autocompletion, snippets and autogen-docs
 ---------------------------------------------------------------------------------------
 local cmp = require('cmp')
+
+-- <leader>d generates documentation
+vim.g.doge_comment_jump_modes = { 'n', 's' } -- removing i to use tab-completion
+vim.g.doge_doc_standard_python = 'numpy'
 
 -- borrowed from NvChad
 local function border(hl_name)
@@ -18,6 +22,13 @@ local function border(hl_name)
 end
 
 vim.opt.completeopt:append { 'menu', 'menuone', 'noselect' }
+
+-- If you want insert `(` after select function or method item
+local autopairs = require('nvim-autopairs.completion.cmp')
+cmp.event:on(
+  'confirm_done',
+  autopairs.on_confirm_done()
+)
 
 cmp.setup({
   window = {

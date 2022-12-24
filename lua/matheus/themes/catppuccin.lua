@@ -1,14 +1,14 @@
-require("catppuccin").setup({
-  flavour = "macchiato", -- latte, frappe, macchiato, mocha
+require('catppuccin').setup({
+  flavour = 'macchiato', -- latte, frappe, macchiato, mocha
   background = { -- :h background
-    light = "latte",
-    dark = "mocha",
+    light = 'latte',
+    dark = 'mocha',
   },
   transparent_background = true,
   term_colors = true,
   styles = {
-    comments = { "italic" },
-    conditionals = { "italic" },
+    comments = { 'italic' },
+    conditionals = { 'italic' },
     loops = {},
     functions = {},
     keywords = {},
@@ -39,15 +39,15 @@ require("catppuccin").setup({
   },
 })
 
-vim.cmd.colorscheme "catppuccin"
+vim.cmd.colorscheme 'catppuccin'
 
-local ok, bufferline = pcall(require, "bufferline")
+local ok, bufferline = pcall(require, 'bufferline')
 if ok then
   bufferline.setup({
-    highlights = require("catppuccin.groups.integrations.bufferline").get()
+    highlights = require('catppuccin.groups.integrations.bufferline').get()
   })
 end
 
-vim.api.nvim_set_hl(0, "LineNr", { fg = "#5b6268" }) -- original grey was too light
+vim.api.nvim_set_hl(0, 'LineNr', { fg = '#5b6268' }) -- original grey was too light
 
-return "catppuccin"
+return 'catppuccin'

@@ -11,7 +11,7 @@ require('nvim-tree').setup {
       list = {
         -- user mappings go here
         -- but these mappings only work on the tree
-        -- below this setup are some general keybindings
+        -- below this setup are general keybindings
       },
     },
   },

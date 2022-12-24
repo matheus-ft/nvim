@@ -77,7 +77,7 @@ return packer.startup({ function(use)
   use 'folke/which-key.nvim'
   use { 'mg979/vim-visual-multi', branch = 'master' } -- <C-n> marks same words successively (like <C-d> in VSCo**)
   use { 'stevearc/aerial.nvim', config = function() require('aerial').setup() end } -- lists all functions in the file
-  use { 'vimwiki/vimwiki', config = function() require('matheus.wiki') end }
+  use { 'vimwiki/vimwiki', config = function() require('matheus.wiki') end } -- needs to be called before plugin actually loads
 
   -- Sintax highlighting
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' } -- Highlight, edit, and navigate code
@@ -109,10 +109,10 @@ return packer.startup({ function(use)
       'hrsh7th/cmp-nvim-lua',
       'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
-      'rafamadriz/friendly-snippets'
+      'rafamadriz/friendly-snippets',
+      { 'kkoomen/vim-doge', run = ':call doge#install()' }
     }
   }
-  use { 'kkoomen/vim-doge', run = ':call doge#install()' } -- docs
 
   -- Markdown, latex, etc.
   use {

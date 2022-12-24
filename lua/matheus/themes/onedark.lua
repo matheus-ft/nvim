@@ -4,4 +4,4 @@ require('onedark').setup({
 
 require('onedark').load()
 
-return "onedark"
+return 'onedark'

@@ -8,15 +8,15 @@ noremap({ 'n', 'i' }, '<C-f>', '<Esc>/', 'Search')
 noremap({ 'v', 'x' }, '<C-f>', '"sy/<C-r>s', 'Find selection') -- using the 's' register
 noremap({ 'v', 'x' }, '/', '"sy/<C-r>s', 'Find selection')
 
-noremap({ "n", "x" }, "<leader>sr", function() ssr.open() end, 'Structural search and replace')
+noremap({ 'n', 'x' }, '<leader>sr', function() ssr.open() end, 'Structural search and replace')
 
 ssr.setup {
   min_width = 50,
   min_height = 5,
   keymaps = {
-    close = "q",
-    next_match = "n",
-    prev_match = "N",
-    replace_all = "<leader><cr>",
+    close = 'q',
+    next_match = 'n',
+    prev_match = 'N',
+    replace_all = '<leader><cr>',
   },
 }

@@ -5,20 +5,20 @@ vim.cmd([[ filetype plugin indent on ]])
 
 local theme = require('matheus.themes.onedark')
 
-vim.api.nvim_set_hl(0, "IndentBlanklineChar", { fg = "#42464e" })
-vim.api.nvim_set_hl(0, "IndentBlanklineContextChar", { fg = "#5b606b" })
-vim.api.nvim_set_hl(0, "IndentBlanklineContextSpaceChar", { fg = "#42464e" })
-vim.api.nvim_set_hl(0, "IndentBlanklineSpaceChar", { fg = "#42464e" })
+vim.api.nvim_set_hl(0, 'IndentBlanklineChar', { fg = '#42464e' })
+vim.api.nvim_set_hl(0, 'IndentBlanklineContextChar', { fg = '#5b606b' })
+vim.api.nvim_set_hl(0, 'IndentBlanklineContextSpaceChar', { fg = '#42464e' })
+vim.api.nvim_set_hl(0, 'IndentBlanklineSpaceChar', { fg = '#42464e' })
 
 -------------------------------------------------------------------------------
 -- Indentline
 vim.opt.list = true
-vim.opt.listchars:append "lead:⋅,tab:> ,trail: " -- only shows leading spaces (amonst them, indentation)
--- vim.opt.listchars:append "eol:↴"
+vim.opt.listchars:append 'lead:⋅,tab:> ,trail: ' -- only shows leading spaces (amonst them, indentation)
+-- vim.opt.listchars:append 'eol:↴'
 
-require("indent_blankline").setup({
-  char = "▏",
-  context_char = "▏",
+require('indent_blankline').setup({
+  char = '▏',
+  context_char = '▏',
   show_current_context = true,
   show_first_indent_level = false,
   show_trailing_blankline_indent = false,
@@ -29,7 +29,7 @@ require("indent_blankline").setup({
 vim.opt.laststatus = 3 -- globalstatus for any bar
 
 local y_section = {}
-if theme == "onedark" then
+if theme == 'onedark' then
   y_section = { 'buffers' }
 end
 
@@ -53,14 +53,14 @@ require('lualine').setup({
 })
 
 -------------------------------------------------------------------------------
--- "Tabs"
+-- 'Tabs'
 vim.opt.termguicolors = true
 
-if theme ~= "onedark" then
+if theme ~= 'onedark' then
   require('bufferline').setup({
     options = {
       close_command = 'bdelete %d',
-      right_mouse_command = nil,
+      -- right_mouse_command = nil,
       left_mouse_command = 'buffer %d',
       middle_mouse_command = 'write',
 
@@ -72,7 +72,7 @@ if theme ~= "onedark" then
 
       offsets = { { filetype = 'NvimTree', text = 'File Tree', text_align = 'center' } },
       show_close_icon = false, -- removes an useless icon in the right corner of the line
-      separator_style = "slant"
+      separator_style = 'slant'
     },
   })
 end
