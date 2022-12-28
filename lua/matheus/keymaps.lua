@@ -35,16 +35,15 @@ noremap('n', '<C-l>', '<C-w>l', 'Move to right split')
 -- Make splits
 noremap('n', '<leader>y', '<C-w>v', 'Vertical split')
 noremap('n', '<leader>x', '<C-w>s', 'Horizontal split')
-noremap('n', '<leader>o', '<C-w>o', 'Close all except current window')
 
 -- Buffer handling
 noremap('n', '<A-h>', ':bprevious<CR>', 'Previous buffer')
 noremap('n', '<A-l>', ':bnext<CR>', 'Next buffer')
 noremap('n', '<leader>q', ':q<CR>', 'Quit')
 noremap('n', '<leader>cb', ':bdelete<CR>', 'Close buffer')
-noremap('n', '<leader>w', ':w<CR>', 'Write buffer')
-noremap(all_modes, '<C-s>', '<Esc>:w<CR>', 'Write buffer')
-noremap('n', '<leader>e', ':edit<Space>', 'Edit buffer')
+noremap('n', '<leader>w', ':up<CR>', 'Write buffer')
+noremap(all_modes, '<C-s>', '<Esc>:up<CR>', 'Save buffer')
+noremap('n', '<leader>o', ':edit<Space>', 'Open buffer')
 
 -- indent/unindent with tab/shift-tab
 noremap('n', '<Tab>', '>>', 'Indent line')
@@ -87,7 +86,7 @@ noremap('n', 'yP', '"0P', 'Paste last yanked before cursor')
 
 -- Interacting with system clipboard (don't forget to install utility to activate the registers)
 noremap({ 'v', 'x' }, '<C-c>', '"+y') -- copies into clipboard
-noremap('i', '<C-v>', '<C-r>+') -- pastes from clipboard
+-- noremap('i', '<C-v>', '<C-r>+') -- pastes from clipboard
 noremap('n', 'my', '"+y', 'Copies into clipboard')
 noremap('n', 'mY', '"+Y', 'Copies rest of the line into clipboard')
 noremap('n', 'mp', '"+p', 'Paste from clipboard')
