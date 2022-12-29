@@ -1,4 +1,4 @@
-M = { trouble = require('trouble'), todo = require('todo-comments') }
+M = { trouble = require('trouble'), todo = require('todo-comments'), fidget = require('fidget') }
 
 M.trouble.setup({
   position = 'bottom', -- position of the list can be: bottom, top, left, right
@@ -28,7 +28,7 @@ M.trouble.setup({
     open_folds = { 'zR', 'zr' }, -- open all folds
     toggle_fold = { 'zA', 'za' }, -- toggle fold of current file
     previous = 'k', -- previous item
-    next = 'j' -- next item
+    next = 'j', -- next item
   },
   indent_lines = true, -- add an indent guide below the fold icons
   auto_open = false, -- automatically open the list when you have diagnostics
@@ -42,11 +42,10 @@ M.trouble.setup({
     warning = '',
     hint = '',
     information = '',
-    other = '﫠'
+    other = '﫠',
   },
-  use_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
+  use_diagnostic_signs = false, -- enabling this will use the signs defined in your lsp client
 })
-
 
 M.todo.setup({
   signs = true, -- show icons in the signs column
@@ -95,7 +94,7 @@ M.todo.setup({
     info = { 'DiagnosticInfo', '#2563EB' },
     hint = { 'DiagnosticHint', '#10B981' },
     default = { 'Identifier', '#7C3AED' },
-    test = { 'Identifier', '#FF00FF' }
+    test = { 'Identifier', '#FF00FF' },
   },
   search = {
     command = 'rg',
@@ -112,5 +111,7 @@ M.todo.setup({
     -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
   },
 })
+
+M.fidget.setup()
 
 return M
