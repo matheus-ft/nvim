@@ -1,10 +1,17 @@
-local function formatters_for(ft)
-  return require('formatter.filetypes.' .. ft)
+---@diagnostic disable: lowercase-global
+
+-- Formats the file and blocks modifications until the formatting is finished
+-- Wrapper function for the command :FormatLock
+function formatter()
+  vim.cmd([[ FormatLock ]])
 end
 
----@diagnostic disable-next-line: lowercase-global
-function formatter()
-  vim.cmd([[ Format ]])
+local autocmd = vim.api.nvim_create_autocmd
+local FORMATTER = vim.api.nvim_create_augroup('FORMATTER', { clear = true })
+autocmd('BufWritePost', { pattern = '*', command = 'FormatWrite', group = FORMATTER }) -- formatting on write
+
+local function formatters_for(ft)
+  return require('formatter.filetypes.' .. ft)
 end
 
 local python = formatters_for('python')
