@@ -12,8 +12,6 @@ vim.opt.relativenumber = true -- to easily jump vertically in the file
 vim.opt.hidden = true -- keeps edited buffers in the background, so there's no need to always save before navigating away from it
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undofile = true
--- vim.opt.undodir = os.getenv('HOME') .. '/.vim/undodir'
 
 vim.opt.ignorecase = true -- ignore case while searching...
 vim.opt.smartcase = true -- ... unless there's a capital letter

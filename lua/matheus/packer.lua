@@ -54,15 +54,11 @@ return packer.startup({ function(use)
 
   -- Git
   use 'lewis6991/gitsigns.nvim' -- git hints and git blame
-  use 'tpope/vim-fugitive'
-  use 'tpope/vim-rhubarb'
+  use 'tpope/vim-fugitive' -- git commands
 
   -- Useful aesthetics
-  use {
-    'nvim-lualine/lualine.nvim', -- status bar
-    { 'kyazdani42/nvim-tree.lua', -- file tree
-      requires = { 'kyazdani42/nvim-web-devicons' } }
-  }
+  use 'nvim-lualine/lualine.nvim'
+  use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }
   use 'lukas-reineke/indent-blankline.nvim' -- indentation guides
   use { 'nacro90/numb.nvim', config = function() require('numb').setup() end } -- to peek line jumps with `:<number>`
   use 'norcalli/nvim-colorizer.lua' -- colorize hexcodes and color-indicating text
@@ -78,6 +74,7 @@ return packer.startup({ function(use)
   use { 'mg979/vim-visual-multi', branch = 'master' } -- <C-n> marks same words successively (like <C-d> in VSCo**)
   use { 'stevearc/aerial.nvim', config = function() require('aerial').setup() end } -- lists all functions in the file
   use { 'vimwiki/vimwiki', config = function() require('matheus.wiki') end } -- needs to be called before plugin actually loads
+  use 'mbbill/undotree'
 
   -- Sintax highlighting
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' } -- Highlight, edit, and navigate code

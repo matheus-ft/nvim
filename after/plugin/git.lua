@@ -27,10 +27,28 @@ require('gitsigns').setup({
     row = 0,
     col = 1
   },
+
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
+    local noremap = require('matheus').noremap
+    local ok, wk = pcall(require, 'which-key')
+    local opts = { buffer = bufnr }
+
+    if ok then wk.register({ ['<leader>g'] = 'Git' }, { mode = 'n' }) end
+
+    -- Actions
+    noremap('n', '<leader>gA', gs.stage_buffer, 'Add/Stage buffer', opts)
+    noremap('n', '<leader>gR', gs.reset_buffer, 'Restore buffer', opts)
+    noremap({ 'n', 'v' }, '<leader>ga', ':Gitsigns stage_hunk<CR>', 'Add/Stage hunk', opts)
+    noremap({ 'n', 'v' }, '<leader>gr', ':Gitsigns reset_hunk<CR>', 'Restore hunk', opts)
+    noremap('n', '<leader>gu', gs.undo_stage_hunk, 'Unstage hunk', opts)
+    noremap('n', '<leader>gd', gs.preview_hunk, 'Preview diff', opts)
+    noremap('n', '<leader>gb', gs.toggle_current_line_blame, 'Toggle line blame', opts)
+    noremap('n', '<leader>go', gs.diffthis, 'Open diff buffer', opts)
+    noremap('n', '<leader>gt', gs.toggle_deleted, 'Toggle deleted', opts)
+    noremap('n', '<leader>gn', gs.next_hunk, 'Next git hunk', opts)
+    noremap('n', '<leader>gp', gs.prev_hunk, 'Previous git hunk', opts)
+    noremap({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', 'Git hunk', opts)
+  end
 })
 
-local noremap = require('matheus').noremap
-noremap('n', 'zi', '<cmd>Gitsigns preview_hunk<CR>', 'Preview git diff')
-noremap('n', 'zd', '<cmd>Gitsigns diffthis<CR>', 'Open git diff buffer')
-noremap('n', 'zj', '<cmd>Gitsigns next_hunk<CR>', 'Next git hunk')
-noremap('n', 'zk', '<cmd>Gitsigns prev_hunk<CR>', 'Previous git hunk')
