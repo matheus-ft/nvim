@@ -35,16 +35,16 @@ require('catppuccin').setup({
     notify = true,
     harpoon = true,
     indent_blankline = { enabled = true },
-    native_lsp = { enabled = true }
+    native_lsp = { enabled = true },
   },
 })
 
-vim.cmd.colorscheme 'catppuccin'
+vim.cmd.colorscheme('catppuccin')
 
 local ok, bufferline = pcall(require, 'bufferline')
 if ok then
   bufferline.setup({
-    highlights = require('catppuccin.groups.integrations.bufferline').get()
+    highlights = require('catppuccin.groups.integrations.bufferline').get(),
   })
 end
 

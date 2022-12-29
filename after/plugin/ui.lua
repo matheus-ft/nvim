@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- Colorscheme
-vim.cmd [[ syntax on ]]
-vim.cmd [[ filetype plugin indent on ]]
+vim.cmd([[ syntax on ]])
+vim.cmd([[ filetype plugin indent on ]])
 
 local theme = require('matheus.themes.onedark')
 
@@ -13,7 +13,7 @@ vim.api.nvim_set_hl(0, 'IndentBlanklineSpaceChar', { fg = '#42464e' })
 -------------------------------------------------------------------------------
 -- Indentline
 vim.opt.list = true
-vim.opt.listchars:append 'lead:⋅,tab:> ,trail: ' -- only shows leading spaces (amonst them, indentation)
+vim.opt.listchars:append('lead:⋅,tab:> ,trail: ') -- only shows leading spaces (amonst them, indentation)
 -- vim.opt.listchars:append 'eol:↴'
 
 require('indent_blankline').setup({
@@ -32,7 +32,7 @@ require('lualine').setup({
   options = {
     component_separators = { left = '', right = '' },
     section_separators = { left = '', right = '' },
-    theme = theme
+    theme = theme,
   },
 
   sections = {
@@ -41,8 +41,8 @@ require('lualine').setup({
     lualine_c = { 'diff', 'filename', 'diagnostics' },
     lualine_x = { 'encoding', 'fileformat' },
     lualine_y = { 'buffers' },
-    lualine_z = { 'location' }
+    lualine_z = { 'location' },
   },
 
-  extensions = { 'nvim-tree' }
+  extensions = { 'nvim-tree' },
 })

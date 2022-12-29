@@ -3,7 +3,6 @@ local all_modes = { 'n', 'i', 'v', 'x' }
 local noremap = require('matheus').noremap
 local map = require('matheus').map
 
-
 noremap('n', '<leader><leader>', ':', 'Command mode')
 noremap({ 'n', 'i' }, '<F9>', '<cmd>so %<cr>', 'Run script')
 

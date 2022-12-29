@@ -4,7 +4,9 @@ local trouble = require('trouble.providers.telescope')
 local ok, wk = pcall(require, 'which-key')
 local noremap = require('matheus').noremap
 
-if ok then wk.register({ ['<leader>p'] = 'Telescope' }, { mode = 'n' }) end
+if ok then
+  wk.register({ ['<leader>p'] = 'Telescope' }, { mode = 'n' })
+end
 noremap('n', '<leader>pf', ':lua require("telescope.builtin").find_files()<CR>', 'Project files')
 noremap('n', '<leader>ps', ':lua require("telescope.builtin").live_grep()<CR>', 'Project search')
 noremap('n', '<leader>pb', ':lua require("telescope.builtin").buffers()<CR>', 'Project buffers')
@@ -53,9 +55,9 @@ local options = {
     mappings = {
       n = {
         ['q'] = actions.close,
-        ["<c-t>"] = trouble.open_with_trouble
+        ['<c-t>'] = trouble.open_with_trouble,
       },
-      i = { ["<c-t>"] = trouble.open_with_trouble },
+      i = { ['<c-t>'] = trouble.open_with_trouble },
     },
   },
 

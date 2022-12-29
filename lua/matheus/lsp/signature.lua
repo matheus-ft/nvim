@@ -7,7 +7,7 @@ require('lsp_signature').setup({
 
   bind = true, -- This is mandatory, otherwise border config won't get registered --- If you want to hook lspsaga or other signature handler, pls set to false
   handler_opts = {
-    border = 'rounded' -- double, rounded, single, shadow, none, or a table of borders
+    border = 'rounded', -- double, rounded, single, shadow, none, or a table of borders
   },
   transparency = 20, -- disabled by default, allow floating win transparent value 1~100
   shadow_blend = 80, -- if you using shadow as border use this set the opacity

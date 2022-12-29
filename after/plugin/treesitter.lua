@@ -2,7 +2,7 @@ require('nvim-treesitter.configs').setup({
   ensure_installed = { 'help', 'lua', 'bash', 'python', 'markdown' },
   highlight = {
     enable = true,
-    additional_vim_regex_highlighting = false
+    additional_vim_regex_highlighting = false,
   },
   -- grabbed the below from kickstart.nvim
   indent = { enable = true, disable = { 'python' } },

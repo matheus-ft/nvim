@@ -1,7 +1,7 @@
-require('nvim-tree').setup {
+require('nvim-tree').setup({
   open_on_setup = true,
   hijack_cursor = true,
-  update_focused_file = { enable = true, },
+  update_focused_file = { enable = true },
 
   view = {
     adaptive_size = true,
@@ -78,6 +78,6 @@ require('nvim-tree').setup {
       resize_window = true,
     },
   },
-}
+})
 
 require('matheus').noremap('n', '<leader>t', ':NvimTreeToggle<CR>', 'Filetree')

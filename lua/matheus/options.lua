@@ -21,7 +21,7 @@ vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 8
 
 -- allows for 'native fuzzy finding' if nvim is opened at project root
-vim.opt.path:append { '**' }
+vim.opt.path:append({ '**' })
 vim.opt.wildmenu = true
 vim.opt.completeopt = { 'menuone', 'preview', 'noinsert' }
 
@@ -35,7 +35,7 @@ vim.opt.equalalways = false
 vim.opt.cursorline = true
 vim.opt.mouse = 'nv'
 vim.opt.showmode = false
-vim.cmd [[set iskeyword+=-]] -- makes hifen separated 'words' a single word
+vim.cmd([[set iskeyword+=-]]) -- makes hifen separated 'words' a single word
 
 if vim.g.neovide then
   require('matheus.neovide')

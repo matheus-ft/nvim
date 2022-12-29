@@ -2,12 +2,12 @@ vim.opt.signcolumn = 'yes' -- kinda weird this is not a boolean for neovim, but 
 
 require('gitsigns').setup({
   signs = {
-    add          = { hl = 'GitSignsAdd', text = '│', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
-    change       = { hl = 'GitSignsChange', text = '│', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
-    delete       = { hl = 'GitSignsDelete', text = '_', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
-    topdelete    = { hl = 'GitSignsDelete', text = '‾', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
+    add = { hl = 'GitSignsAdd', text = '│', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
+    change = { hl = 'GitSignsChange', text = '│', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
+    delete = { hl = 'GitSignsDelete', text = '_', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
+    topdelete = { hl = 'GitSignsDelete', text = '‾', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
     changedelete = { hl = 'GitSignsChange', text = '~', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
-    untracked    = { hl = 'GitSignsAdd', text = '┆', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
+    untracked = { hl = 'GitSignsAdd', text = '┆', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
   },
   numhl = true,
 
@@ -25,7 +25,7 @@ require('gitsigns').setup({
     style = 'minimal',
     relative = 'cursor',
     row = 0,
-    col = 1
+    col = 1,
   },
 
   on_attach = function(bufnr)
@@ -34,7 +34,9 @@ require('gitsigns').setup({
     local ok, wk = pcall(require, 'which-key')
     local opts = { buffer = bufnr }
 
-    if ok then wk.register({ ['<leader>g'] = 'Git' }, { mode = 'n' }) end
+    if ok then
+      wk.register({ ['<leader>g'] = 'Git' }, { mode = 'n' })
+    end
 
     -- Actions
     noremap('n', '<leader>gA', gs.stage_buffer, 'Add/Stage buffer', opts)
@@ -49,6 +51,5 @@ require('gitsigns').setup({
     noremap('n', '<leader>gn', gs.next_hunk, 'Next git hunk', opts)
     noremap('n', '<leader>gp', gs.prev_hunk, 'Previous git hunk', opts)
     noremap({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', 'Git hunk', opts)
-  end
+  end,
 })
-
