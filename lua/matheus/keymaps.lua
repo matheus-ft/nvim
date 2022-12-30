@@ -2,6 +2,7 @@ vim.g.mapleader = ' '
 local all_modes = { 'n', 'i', 'v', 'x' }
 local noremap = require('matheus').noremap
 local map = require('matheus').map
+local silent = { silent = true }
 
 noremap('n', '<leader><leader>', ':', 'Command mode')
 noremap({ 'n', 'i' }, '<F9>', '<cmd>so %<cr>', 'Run script')
@@ -36,12 +37,12 @@ noremap('n', '<leader>y', '<C-w>v', 'Vertical split')
 noremap('n', '<leader>x', '<C-w>s', 'Horizontal split')
 
 -- Buffer handling
-noremap('n', '<A-h>', ':bprevious<CR>', 'Previous buffer')
-noremap('n', '<A-l>', ':bnext<CR>', 'Next buffer')
-noremap('n', '<leader>q', ':q<CR>', 'Quit')
-noremap('n', '<leader>cb', ':bdelete<CR>', 'Close buffer')
-noremap('n', '<leader>w', ':up<CR>', 'Write buffer')
-noremap(all_modes, '<C-s>', '<Esc>:up<CR>', 'Save buffer')
+noremap('n', '<A-h>', ':bprevious<CR>', 'Previous buffer', silent)
+noremap('n', '<A-l>', ':bnext<CR>', 'Next buffer', silent)
+noremap('n', '<leader>q', ':q<CR>', 'Quit', silent)
+noremap('n', '<leader>cb', ':bdelete<CR>', 'Close buffer', silent)
+noremap('n', '<leader>w', ':up<CR>', 'Write buffer', silent)
+noremap(all_modes, '<C-s>', '<Esc>:up<CR>', 'Save buffer', silent)
 noremap('n', '<leader>o', ':edit<Space>', 'Open buffer')
 
 -- indent/unindent with tab/shift-tab

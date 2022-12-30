@@ -3,19 +3,20 @@ local actions = require('telescope.actions')
 local trouble = require('trouble.providers.telescope')
 local ok, wk = pcall(require, 'which-key')
 local noremap = require('matheus').noremap
+local silent = { silent = true }
 
 if ok then
   wk.register({ ['<leader>p'] = 'Telescope' }, { mode = 'n' })
 end
-noremap('n', '<leader>pf', ':lua require("telescope.builtin").find_files()<CR>', 'Project files')
-noremap('n', '<leader>ps', ':lua require("telescope.builtin").live_grep()<CR>', 'Project search')
-noremap('n', '<leader>pb', ':lua require("telescope.builtin").buffers()<CR>', 'Project buffers')
-noremap('n', '<leader>h', ':lua require("telescope.builtin").help_tags()<CR>', 'Help')
-noremap('n', '<leader>pd', ':Telescope diagnostics<CR>', 'Project diagnostics')
-noremap('n', '<leader>pt', ':TodoTelescope<CR>', 'Project TODOs')
+noremap('n', '<leader>pf', ':lua require("telescope.builtin").find_files()<CR>', 'Project files', silent)
+noremap('n', '<leader>ps', ':lua require("telescope.builtin").live_grep()<CR>', 'Project search', silent)
+noremap('n', '<leader>pb', ':lua require("telescope.builtin").buffers()<CR>', 'Project buffers', silent)
+noremap('n', '<leader>h', ':lua require("telescope.builtin").help_tags()<CR>', 'Help', silent)
+noremap('n', '<leader>pd', ':Telescope diagnostics<CR>', 'Project diagnostics', silent)
+noremap('n', '<leader>pt', ':TodoTelescope<CR>', 'Project TODOs', silent)
 
 -- borrowed from NvChad
-local options = {
+telescope.setup({
   defaults = {
     vimgrep_arguments = {
       'rg',
@@ -60,15 +61,10 @@ local options = {
       i = { ['<c-t>'] = trouble.open_with_trouble },
     },
   },
-
-  extensions_list = { 'fzy_native' },
-}
+})
 
 -- load extensions
-pcall(function()
-  for _, ext in ipairs(options.extensions_list) do
-    telescope.load_extension(ext)
-  end
-end)
-
-telescope.setup(options)
+local extensions_list = { 'fzy_native' }
+for _, ext in ipairs(extensions_list) do
+  telescope.load_extension(ext)
+end

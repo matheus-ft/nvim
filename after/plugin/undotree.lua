@@ -1,4 +1,4 @@
-require('matheus').noremap('n', '<leader>u', '<cmd>UndotreeToggle', 'Undotree')
+require('matheus').noremap('n', '<leader>u', '<cmd>UndotreeToggle', 'Undotree', { silent = true })
 
 vim.opt.undofile = true
 vim.opt.undodir = os.getenv('HOME') .. '/.vim/undodir'

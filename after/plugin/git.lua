@@ -32,7 +32,7 @@ require('gitsigns').setup({
     local gs = package.loaded.gitsigns
     local noremap = require('matheus').noremap
     local ok, wk = pcall(require, 'which-key')
-    local opts = { buffer = bufnr }
+    local opts = { silent = true, buffer = bufnr }
 
     if ok then
       wk.register({ ['<leader>g'] = 'Git' }, { mode = 'n' })
@@ -50,6 +50,7 @@ require('gitsigns').setup({
     noremap('n', '<leader>gt', gs.toggle_deleted, 'Toggle deleted', opts)
     noremap('n', '<leader>gn', gs.next_hunk, 'Next git hunk', opts)
     noremap('n', '<leader>gp', gs.prev_hunk, 'Previous git hunk', opts)
+    noremap('n', '<leader>gc', ':Git ', 'Commands', opts)
     noremap({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', 'Git hunk', opts)
   end,
 })
