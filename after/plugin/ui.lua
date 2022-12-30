@@ -157,30 +157,28 @@ if ok then
       enabled = true,
       view = 'notify',
     },
+
     lsp = {
       progress = {
-        enabled = true,
-        -- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
-        -- See the section on formatting for more details on how to customize.
-        --- @type NoiceFormat|string
-        format = 'lsp_progress',
-        --- @type NoiceFormat|string
+        enabled = false, -- disabled until it stops making the terminal tab name behave weirdly
+        format = { -- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
+          '({data.progress.percentage}%) ',
+          { '{spinner} ', hl_group = 'NoiceLspProgressSpinner' },
+          { '{data.progress.title} ', hl_group = 'NoiceLspProgressTitle' },
+          { '{data.progress.client} ', hl_group = 'NoiceLspProgressClient' },
+        },
         format_done = 'lsp_progress_done',
         throttle = 1000 / 30, -- frequency to update lsp progress message
         view = 'mini',
       },
       override = {
-        -- override the default lsp markdown formatter with Noice
-        ['vim.lsp.util.convert_input_to_markdown_lines'] = false,
-        -- override the lsp markdown formatter with Noice
-        ['vim.lsp.util.stylize_markdown'] = false,
-        -- override cmp documentation with Noice (needs the other options to work)
-        ['cmp.entry.get_documentation'] = false,
+        ['vim.lsp.util.convert_input_to_markdown_lines'] = true, -- override the default lsp markdown formatter with Noice
+        ['vim.lsp.util.stylize_markdown'] = true, -- override the lsp markdown formatter with Noice
+        ['cmp.entry.get_documentation'] = true, -- override cmp documentation with Noice (needs the other options to work)
       },
       hover = {
         enabled = true,
         view = nil, -- when nil, use defaults from documentation
-        ---@type NoiceViewOptions
         opts = {}, -- merged with defaults from documentation
       },
       signature = {
@@ -192,7 +190,6 @@ if ok then
           throttle = 50, -- Debounce lsp signature help request by 50ms
         },
         view = nil, -- when nil, use defaults from documentation
-        ---@type NoiceViewOptions
         opts = {}, -- merged with defaults from documentation
       },
       message = {
@@ -204,7 +201,6 @@ if ok then
       -- defaults for hover and signature help
       documentation = {
         view = 'hover',
-        ---@type NoiceViewOptions
         opts = {
           lang = 'markdown',
           replace = true,
@@ -214,6 +210,7 @@ if ok then
         },
       },
     },
+
     markdown = {
       hover = {
         ['|(%S-)|'] = vim.cmd.help, -- vim help links

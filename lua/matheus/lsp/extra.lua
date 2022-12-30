@@ -1,4 +1,8 @@
-M = { trouble = require('trouble'), todo = require('todo-comments'), fidget = require('fidget') }
+M = {
+  trouble = require('trouble'),
+  todo = require('todo-comments'),
+  fidget = require('fidget'),
+}
 
 M.trouble.setup({
   position = 'bottom', -- position of the list can be: bottom, top, left, right
@@ -112,6 +116,11 @@ M.todo.setup({
   },
 })
 
-M.fidget.setup()
+M.fidget.setup({
+  -- text = { spinner = 'pipe' }, -- default
+  -- text = { spinner = 'dots' }, -- same as Noice
+  text = { spinner = 'circle_halves' },
+  -- text = { spinner = 'dots_pulse' },
+})
 
 return M
