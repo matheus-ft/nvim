@@ -119,6 +119,7 @@ return packer.startup({
         'saadparwaiz1/cmp_luasnip',
         'rafamadriz/friendly-snippets',
         { 'kkoomen/vim-doge', run = ':call doge#install()' },
+        'lukas-reineke/cmp-under-comparator',
       },
     })
 

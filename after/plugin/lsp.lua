@@ -4,6 +4,7 @@ local noremap = require('matheus').noremap
 -- Autocompletion, snippets and autogen-docs
 ---------------------------------------------------------------------------------------
 local cmp = require('cmp')
+local lspkind = require('matheus.lsp.kind')
 
 noremap('n', '<leader>d', '<Plug>(doge-generate)', 'Insert documentation')
 vim.g.doge_comment_jump_modes = { 'n', 's' } -- removing i to use tab-completion
@@ -61,8 +62,7 @@ cmp.setup({
     ['<C-d>'] = cmp.mapping.scroll_docs(4),
   },
 
-  -- sources of autocompletion (in order of priority)
-  sources = {
+  sources = { -- in order of priority
     { name = 'nvim_lua' }, -- only works for lua, so won't fuck up the priority
     { name = 'nvim_lsp' },
     { name = 'path' },
@@ -70,8 +70,7 @@ cmp.setup({
     { name = 'buffer', keyword_length = 3 },
   },
 
-  -- to get snippets enabled
-  snippet = {
+  snippet = { -- to get snippets enabled
     expand = function(args)
       require('luasnip').lsp_expand(args.body)
     end,
@@ -80,6 +79,35 @@ cmp.setup({
   experimental = {
     native_menu = false,
     ghost_text = true,
+  },
+
+  sorting = {
+    comparators = {
+      cmp.config.compare.offset,
+      cmp.config.compare.exact,
+      cmp.config.compare.score,
+      require('cmp-under-comparator').under,
+      cmp.config.compare.kind,
+      cmp.config.compare.sort_text,
+      cmp.config.compare.length,
+      cmp.config.compare.order,
+    },
+  },
+
+  formatting = {
+    format = function(entry, vim_item)
+      -- Kind icons
+      vim_item.kind = string.format('%s %s', lspkind[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+      -- Source
+      vim_item.menu = ({
+        buffer = '[Buffer]',
+        nvim_lsp = '[LSP]',
+        luasnip = '[LuaSnip]',
+        nvim_lua = '[Lua]',
+        latex_symbols = '[LaTeX]',
+      })[entry.source.name]
+      return vim_item
+    end,
   },
 })
 
