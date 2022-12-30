@@ -148,9 +148,6 @@ local on_attach = function(client, bufnr)
     illuminate.next_reference({ reverse = true, wrap = true })
   end, 'Jump to previous occurance', bufopts)
 
-  noremap('n', '<S-k>', lsp.hover, 'Hover docs', bufopts)
-  noremap('i', '<A><S-k>', lsp.signature_help, 'Open function signature help', bufopts)
-
   noremap('n', 'gD', lsp.declaration, 'Go to declaration', bufopts)
   noremap('n', 'gd', lsp.definition, 'Go to definition', bufopts)
   noremap('n', 'gpd', '<cmd>Lspsaga peek_definition<CR>', 'Preview definition', bufopts)
@@ -176,6 +173,7 @@ local on_attach = function(client, bufnr)
   end
   noremap('n', 'go', '<cmd>Lspsaga lsp_finder<CR>', 'Find all occurances', bufopts)
 
+  noremap('n', 'K', lsp.hover, 'Hover docs', bufopts)
   noremap('n', '<leader>f', formatter, 'Format file', bufopts)
   noremap('n', '<leader>r', '<cmd>Lspsaga rename<CR>', 'Rename symbol', bufopts)
   noremap({ 'n', 'v' }, '<leader>ca', '<cmd>Lspsaga code_action<CR>', 'Code actions', bufopts)
