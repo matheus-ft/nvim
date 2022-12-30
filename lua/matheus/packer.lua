@@ -56,6 +56,7 @@ return packer.startup({
     use('norcalli/nvim-colorizer.lua') -- colorize hexcodes and color-indicating text
     use('rcarriga/nvim-notify')
     use({ 'folke/todo-comments.nvim', requires = 'nvim-lua/plenary.nvim' })
+    use({ 'folke/noice.nvim', requires = 'MunifTanjim/nui.nvim' })
 
     -- Actually useful
     use({
@@ -74,7 +75,6 @@ return packer.startup({
     use({ 'cshuaimin/ssr.nvim', module = 'ssr' }) -- structural search and replace
     use('folke/which-key.nvim')
     use({ 'mg979/vim-visual-multi', branch = 'master' }) -- <C-n> marks same words successively (like <C-d> in VSCo**)
-    use('stevearc/aerial.nvim') -- lists all functions in the file
     use({
       'vimwiki/vimwiki',
       config = function()
