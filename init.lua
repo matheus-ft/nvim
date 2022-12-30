@@ -18,7 +18,7 @@ local autocmd = vim.api.nvim_create_autocmd
 MATHEUS = augroup('MATHEUS', { clear = true })
 
 -- trims all trailing whitespaces on save
-autocmd('BufWritePre', { pattern = '*', command = '%s/\\s\\+$//e', group = MATHEUS })
+autocmd('BufWritePre', { pattern = '*', command = [[ %s/\s\+$//e ]], group = MATHEUS })
 
 -- highligths yanked text
 autocmd('TextYankPost', {
