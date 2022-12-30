@@ -2,6 +2,8 @@ M = {
   trouble = require('trouble'),
   todo = require('todo-comments'),
   fidget = require('fidget'),
+  preview = require('goto-preview'),
+  neodev = require('neodev'),
 }
 
 M.trouble.setup({
@@ -121,6 +123,46 @@ M.fidget.setup({
   -- text = { spinner = 'dots' }, -- same as Noice
   text = { spinner = 'circle_halves' },
   -- text = { spinner = 'dots_pulse' },
+})
+
+M.preview.setup({
+  width = 120, -- Width of the floating window
+  height = 15, -- Height of the floating window
+  border = { '↖', '─', '┐', '│', '┘', '─', '└', '│' }, -- Border characters of the floating window
+  default_mappings = false, -- Bind default mappings
+  debug = false, -- Print debug information
+  opacity = nil, -- 0-100 opacity level of the floating window where 100 is fully transparent.
+  resizing_mappings = false, -- Binds arrow keys to resizing the floating window.
+  post_open_hook = nil, -- A function taking two arguments, a buffer and a window to be ran as a hook.
+  references = { -- Configure the telescope UI for slowing the references cycling window.
+    telescope = require('telescope.themes').get_dropdown({ hide_preview = false }),
+  },
+  -- These two configs can also be passed down to the goto-preview definition and implementation calls for one off "peak" functionality.
+  focus_on_open = true, -- Focus the floating window when opening it.
+  dismiss_on_move = true, -- Dismiss the floating window when moving the cursor.
+  force_close = true, -- passed into vim.api.nvim_win_close's second argument. See :h nvim_win_close
+  bufhidden = 'wipe', -- the bufhidden option to set on the floating window. See :h bufhidden
+})
+
+M.neodev.setup({
+  library = {
+    enabled = true, -- when not enabled, neodev will not change any settings to the LSP server
+    -- these settings will be used for your Neovim config directory
+    runtime = true, -- runtime path
+    types = true, -- full signature, docs and completion of vim.api, vim.treesitter, vim.lsp and others
+    plugins = true, -- installed opt or start plugins in packpath
+    -- you can also specify the list of plugins to make available as a workspace library
+    -- plugins = { "nvim-treesitter", "plenary.nvim", "telescope.nvim" },
+  },
+  setup_jsonls = true, -- configures jsonls to provide completion for project specific .luarc.json files
+  -- for your Neovim config directory, the config.library settings will be used as is
+  -- for plugin directories (root_dirs having a /lua directory), config.library.plugins will be disabled
+  -- for any other directory, config.library.enabled will be set to false
+  override = function(root_dir, options) end,
+  -- With lspconfig, Neodev will automatically setup your lua-language-server
+  -- If you disable this, then you have to set {before_init=require("neodev.lsp").before_init}
+  -- in your lsp start options
+  lspconfig = true,
 })
 
 return M

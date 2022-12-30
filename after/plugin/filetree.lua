@@ -80,4 +80,4 @@ require('nvim-tree').setup({
   },
 })
 
-require('matheus').noremap('n', '<leader>t', ':NvimTreeToggle<CR>', 'Filetree', { silent = true })
+require('matheus').noremap('n', '<leader>t', vim.cmd.NvimTreeToggle, 'Filetree', { silent = true })

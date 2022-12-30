@@ -51,6 +51,7 @@ require('gitsigns').setup({
     noremap('n', '<leader>gn', gs.next_hunk, 'Next git hunk', opts)
     noremap('n', '<leader>gp', gs.prev_hunk, 'Previous git hunk', opts)
     noremap('n', '<leader>gc', ':Git ', 'Commands', opts)
+    noremap('n', '<leader>gs', vim.cmd.Git, 'Status', opts)
     noremap({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', 'Git hunk', opts)
   end,
 })

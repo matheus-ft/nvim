@@ -22,7 +22,7 @@ vim.g.doom_one_plugin_indent_blankline = true
 vim.g.doom_one_plugin_vim_illuminate = true
 vim.g.doom_one_plugin_lspsaga = true
 
-vim.cmd([[colorscheme doom-one]])
+vim.cmd.colorscheme('doom-one')
 
 vim.api.nvim_set_hl(0, 'LineNr', { bg = 'bg', fg = '#5b6268' }) -- original grey was too light
 vim.api.nvim_set_hl(0, 'Comment', { fg = '#5b6268', italic = true }) -- original grey was too light

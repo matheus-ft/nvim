@@ -1,11 +1,3 @@
----@diagnostic disable: lowercase-global
-
--- Formats the file and blocks modifications until the formatting is finished
--- Wrapper function for the command :FormatLock
-function formatter()
-  vim.cmd([[ FormatLock ]])
-end
-
 local autocmd = vim.api.nvim_create_autocmd
 local FORMATTER = vim.api.nvim_create_augroup('FORMATTER', { clear = true })
 autocmd('BufWritePost', { pattern = '*', command = 'FormatWrite', group = FORMATTER }) -- formatting on write
@@ -67,5 +59,3 @@ require('formatter').setup({ -- Provides the Format, FormatWrite, FormatLock, an
   --   }
   -- }
 })
-
-return formatter

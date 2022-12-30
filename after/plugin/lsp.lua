@@ -42,13 +42,12 @@ cmp.setup({
   },
 
   mapping = {
-    ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), -- default vim behavior
-    ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), -- default vim behavior
+    ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), -- default vim behavior
+    ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), -- default vim behavior
     ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
     ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
     ['<CR>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }), -- accept the explicitly selected item
-    ['<C-Space>'] = cmp.mapping.complete({ behavior = cmp.SelectBehavior.Insert }),
-
+    ['<C-Space>'] = cmp.mapping.complete({ behavior = cmp.SelectBehavior.Insert }), -- this does not work rn :/
     ['<C-y>'] = cmp.mapping( -- borrowed from Teej
       cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Insert,
@@ -56,10 +55,7 @@ cmp.setup({
       }),
       { 'i', 'c' }
     ),
-
     ['<C-e>'] = cmp.mapping.abort(),
-    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-d>'] = cmp.mapping.scroll_docs(4),
   },
 
   sources = { -- in order of priority
@@ -124,13 +120,14 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 ---------------------------------------------------------------------------------------
 local lspconfig = require('lspconfig')
 local illuminate = require('illuminate')
-local preview = require('goto-preview')
-local saga = require('matheus.lsp.saga')
-local todo = require('matheus.lsp.extra').todo -- extra sets up 3 additional plugins
-local formatter = require('matheus.lsp.formatter')
+local extra = require('matheus.lsp.extra')
+local preview = extra.preview
+local todo = extra.todo
 local ok, wk = pcall(require, 'which-key')
+require('matheus.lsp.formatter')
+require('matheus.lsp.saga')
 require('matheus.lsp.signature')
-require('matheus.lsp.utils') -- sets up 3 utility plugins
+require('matheus.lsp.utils')
 
 local on_attach = function(client, bufnr)
   illuminate.on_attach(client)
@@ -139,7 +136,6 @@ local on_attach = function(client, bufnr)
   -- Mappings
   local lsp = vim.lsp.buf
   local bufopts = { silent = true, buffer = bufnr }
-  local preview_opts = { dismiss_on_move = true }
 
   noremap('n', '<A-n>', function()
     illuminate.next_reference({ wrap = true })
@@ -153,20 +149,14 @@ local on_attach = function(client, bufnr)
   noremap('n', 'gpd', '<cmd>Lspsaga peek_definition<CR>', 'Preview definition', bufopts)
 
   noremap('n', 'gt', lsp.type_definition, 'Go to type-definition', bufopts)
-  noremap('n', 'gpt', function()
-    preview.goto_preview_type_definition(preview_opts)
-  end, 'Preview type-def', bufopts)
+  noremap('n', 'gpt', preview.goto_preview_type_definition, 'Preview type-def', bufopts)
 
   noremap('n', 'gi', lsp.implementation, 'Go to implementation', bufopts)
-  noremap('n', 'gpi', function()
-    preview.goto_preview_implementation(preview_opts)
-  end, 'Preview implementation', bufopts)
+  noremap('n', 'gpi', preview.goto_preview_implementation, 'Preview implementation', bufopts)
 
   noremap('n', 'gR', '<cmd>TroubleToggle lsp_references<cr>', 'Go to references', bufopts)
   noremap('n', 'gr', lsp.references, 'Open references', bufopts)
-  noremap('n', 'gpr', function()
-    preview.goto_preview_references()
-  end, 'Preview references in Telescope', bufopts)
+  noremap('n', 'gpr', preview.goto_preview_references, 'Preview references in Telescope', bufopts)
 
   if ok then
     wk.register({ ['gp'] = 'Go to preview' }, { mode = 'n' })
@@ -174,37 +164,27 @@ local on_attach = function(client, bufnr)
   noremap('n', 'go', '<cmd>Lspsaga lsp_finder<CR>', 'Find all occurances', bufopts)
 
   noremap('n', 'K', lsp.hover, 'Hover docs', bufopts)
-  noremap('n', '<leader>f', formatter, 'Format file', bufopts)
+  noremap('n', '<leader>f', vim.cmd.FormatLock, 'Format file', bufopts)
   noremap('n', '<leader>r', '<cmd>Lspsaga rename<CR>', 'Rename symbol', bufopts)
   noremap({ 'n', 'v' }, '<leader>ca', '<cmd>Lspsaga code_action<CR>', 'Code actions', bufopts)
 
   if ok then
-    wk.register({ ['<leader>e'] = 'Diagnostics', ['<leader>et'] = 'TODO comments' }, { mode = 'n' })
+    wk.register({ ['<leader>e'] = 'Diagnostics' }, { mode = 'n' })
   end
-  noremap('n', '<leader>en', '<cmd>Lspsaga diagnostic_jump_next<CR>', 'Next diagnostic', bufopts)
-  noremap('n', '<leader>ep', '<cmd>Lspsaga diagnostic_jump_prev<CR>', 'Previous diagnostic', bufopts)
-  noremap('n', '<leader>eN', function()
-    saga.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
-  end, 'Next error', bufopts)
-  noremap('n', '<leader>eP', function()
-    saga.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
-  end, 'Previous error', bufopts)
-  noremap('n', '<leader>el', '<cmd>TroubleToggle<cr>', 'List in Trouble', bufopts)
+  noremap('n', '<leader>el', '<cmd>TroubleToggle<cr>', 'List diagnostics', bufopts)
   noremap('n', '<leader>ew', '<cmd>TroubleToggle workspace_diagnostics<cr>', 'Workspace diagnostics', bufopts)
   noremap('n', '<leader>ef', '<cmd>TroubleToggle document_diagnostics<cr>', 'File diagnostics', bufopts)
-  noremap('n', '<leader>ett', '<cmd>TodoTrouble<cr>', 'Toggle TODOs', bufopts)
-  noremap('n', '<leader>etn', function()
-    todo.jump_next()
-  end, 'Next todo comment', bufopts)
-  noremap('n', '<leader>etp', function()
-    todo.jump_prev()
-  end, 'Previous todo comment', bufopts)
+  noremap('n', '<leader>et', '<cmd>TodoTrouble<cr>', 'TODOs', bufopts)
+
+  noremap('n', ']d', vim.diagnostic.goto_next, 'Next diagnostic', bufopts)
+  noremap('n', '[d', vim.diagnostic.goto_prev, 'Previous diagnostic', bufopts)
+  noremap('n', ']t', todo.jump_next, 'Next todo comment', bufopts)
+  noremap('n', '[t', todo.jump_prev, 'Previous todo comment', bufopts)
 end
 
-local opts = { silent = true }
-noremap('n', '<A-i>', '<cmd>Lspsaga open_floaterm<CR>', 'Open floating terminal', opts)
+noremap('n', '<A-i>', '<cmd>Lspsaga open_floaterm<CR>', 'Open floating terminal')
 -- if you want pass somc cli command into terminal you can put before <CR>
-noremap('t', '<A-i>', [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], 'Close floating terminal', opts)
+noremap('t', '<A-i>', [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], 'Close floating terminal')
 
 ---------------------------------------------------------------------------------------
 -- Languages settings

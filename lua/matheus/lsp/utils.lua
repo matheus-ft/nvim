@@ -1,8 +1,3 @@
--- here some plugins setup
-require('goto-preview').setup()
-require('neodev').setup()
-
--- here the actual lsp-utils plugin
 if vim.fn.has('nvim-0.5.1') == 1 then
   vim.lsp.handlers['textDocument/codeAction'] = require('lsputil.codeAction').code_action_handler
   vim.lsp.handlers['textDocument/references'] = require('lsputil.locations').references_handler

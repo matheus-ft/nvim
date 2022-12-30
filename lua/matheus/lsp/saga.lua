@@ -80,8 +80,6 @@ M.init_lsp_saga({
     -- auto refresh when change buffer
     auto_refresh = true,
   },
-  custom_kind = {}, -- custom lsp kind -- usage { Field = 'color code'} or {Field = {your icon, your color code}}
-  server_filetype_map = {}, -- if you don't use nvim-lspconfig you must pass your server name and the related filetypes into this table
 })
 
 return M

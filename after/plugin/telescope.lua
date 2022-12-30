@@ -8,12 +8,29 @@ local silent = { silent = true }
 if ok then
   wk.register({ ['<leader>p'] = 'Telescope' }, { mode = 'n' })
 end
-noremap('n', '<leader>pf', ':lua require("telescope.builtin").find_files()<CR>', 'Project files', silent)
-noremap('n', '<leader>ps', ':lua require("telescope.builtin").live_grep()<CR>', 'Project search', silent)
-noremap('n', '<leader>pb', ':lua require("telescope.builtin").buffers()<CR>', 'Project buffers', silent)
-noremap('n', '<leader>h', ':lua require("telescope.builtin").help_tags()<CR>', 'Help', silent)
-noremap('n', '<leader>pd', ':Telescope diagnostics<CR>', 'Project diagnostics', silent)
-noremap('n', '<leader>pt', ':TodoTelescope<CR>', 'Project TODOs', silent)
+
+noremap('n', '<leader>pf', function()
+  vim.cmd.Telescope('find_files')
+end, 'Project files', silent)
+
+noremap('n', '<leader>ps', function()
+  vim.cmd.Telescope('live_grep')
+end, 'Project search', silent)
+
+noremap('n', '<leader>pb', function()
+  vim.cmd.Telescope('buffers')
+end, 'Project buffers', silent)
+
+noremap('n', '<leader>h', function()
+  vim.cmd.Telescope('help_tags')
+end, 'Help tags', silent)
+
+noremap('n', '<leader>pd', function()
+  vim.cmd.Telescope('diagnostics')
+end, 'Project diagnostics', silent)
+
+noremap('n', '<leader>pt', vim.cmd.TodoTelescope, 'Project TODOs', silent)
+noremap('n', '<leader>pp', vim.cmd.Telescope, 'Telescope', silent)
 
 -- borrowed from NvChad
 telescope.setup({

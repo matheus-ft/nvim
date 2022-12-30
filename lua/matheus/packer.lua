@@ -5,7 +5,8 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
 end
 
--- This way the plugins are updated everytime this file is writen (don't know why, but it seems to not work if done purely in Lua)
+-- This way the plugins are updated everytime this file is writen
+-- (don't know why, but it seems to not work if done purely in Lua)
 vim.cmd([[
   augroup packer
     autocmd!
@@ -152,7 +153,7 @@ return packer.startup({
     use('NTBBloodbath/doom-one.nvim')
 
     if NEED_BOOTSRAP then
-      require('packer').sync()
+      packer.sync()
     end
   end,
 })
