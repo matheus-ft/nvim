@@ -1,21 +1,19 @@
 --------------------------------------------------------------------------------------
--- Plugins
---------------------------------------------------------------------------------------
-require('matheus.packer')
-
---------------------------------------------------------------------------------------
 -- Settings
 --------------------------------------------------------------------------------------
 require('matheus.keymaps')
 require('matheus.options')
 
 --------------------------------------------------------------------------------------
+-- Plugins
+--------------------------------------------------------------------------------------
+require('matheus.packer')
+
+--------------------------------------------------------------------------------------
 -- Auto commands
 --------------------------------------------------------------------------------------
-local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
-
-MATHEUS = augroup('MATHEUS', { clear = true })
+local MATHEUS = vim.api.nvim_create_augroup('MATHEUS', { clear = true })
 
 -- trims all trailing whitespaces on save
 autocmd('BufWritePre', { pattern = '*', command = [[ %s/\s\+$//e ]], group = MATHEUS })
