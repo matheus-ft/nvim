@@ -32,7 +32,7 @@ require('gitsigns').setup({
     local gs = package.loaded.gitsigns
     local noremap = require('matheus').noremap
     local ok, wk = pcall(require, 'which-key')
-    local opts = { silent = true, buffer = bufnr }
+    local opts = { buffer = bufnr }
 
     if ok then
       wk.register({ ['<leader>g'] = 'Git' }, { mode = 'n' })
@@ -46,12 +46,14 @@ require('gitsigns').setup({
     noremap('n', '<leader>gu', gs.undo_stage_hunk, 'Unstage hunk', opts)
     noremap('n', '<leader>gd', gs.preview_hunk, 'Preview diff', opts)
     noremap('n', '<leader>gb', gs.toggle_current_line_blame, 'Toggle line blame', opts)
-    noremap('n', '<leader>go', gs.diffthis, 'Open diff buffer', opts)
     noremap('n', '<leader>gt', gs.toggle_deleted, 'Toggle deleted', opts)
     noremap('n', '<leader>gn', gs.next_hunk, 'Next git hunk', opts)
     noremap('n', '<leader>gp', gs.prev_hunk, 'Previous git hunk', opts)
     noremap('n', '<leader>gc', ':Git ', 'Commands', opts)
     noremap('n', '<leader>gs', vim.cmd.Git, 'Status', opts)
+    noremap('n', '<leader>gm', '<Plug>(git-messenger)', 'Open last message', opts)
     noremap({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', 'Git hunk', opts)
+    -- noremap('n', '<leader>gD', gs.diffthis, 'Open diff buffer', opts)
+    noremap('n', '<leader>gD', vim.cmd.DiffviewOpen, 'Open diff buffer', opts)
   end,
 })

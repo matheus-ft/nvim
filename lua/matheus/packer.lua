@@ -48,6 +48,8 @@ return packer.startup({
     -- Git
     use('lewis6991/gitsigns.nvim') -- git hints and git blame
     use('tpope/vim-fugitive') -- git commands
+    use('rhysd/git-messenger.vim')
+    use({ 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' })
 
     -- Useful aesthetics
     use('nvim-lualine/lualine.nvim')
