@@ -58,6 +58,7 @@ return packer.startup({
     use('rcarriga/nvim-notify')
     use({ 'folke/todo-comments.nvim', requires = 'nvim-lua/plenary.nvim' })
     use({ 'folke/noice.nvim', requires = 'MunifTanjim/nui.nvim' })
+    use('folke/twilight.nvim')
 
     -- Actually useful
     use({
