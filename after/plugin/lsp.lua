@@ -109,9 +109,6 @@ cmp.setup({
 
 require('luasnip.loaders.from_vscode').lazy_load() -- funny, huh?
 
--- Set configuration for specific filetype
--- cmp.setup.filetype()
-
 -- integration with LSP
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
@@ -120,18 +117,19 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 ---------------------------------------------------------------------------------------
 local lspconfig = require('lspconfig')
 local illuminate = require('illuminate')
+local saga = require('matheus.lsp.saga')
 local extra = require('matheus.lsp.extra')
-local preview = extra.preview
+local trouble = extra.trouble
 local todo = extra.todo
+local preview = extra.preview
 local ok, wk = pcall(require, 'which-key')
 require('matheus.lsp.formatter')
-require('matheus.lsp.saga')
 require('matheus.lsp.signature')
 require('matheus.lsp.utils')
 
 local on_attach = function(client, bufnr)
-  illuminate.on_attach(client)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc') -- Enable completion triggered by <c-x><c-o>
+  illuminate.on_attach(client)
 
   -- Mappings
   local lsp = vim.lsp.buf
@@ -146,7 +144,7 @@ local on_attach = function(client, bufnr)
 
   noremap('n', 'gD', lsp.declaration, 'Go to declaration', bufopts)
   noremap('n', 'gd', lsp.definition, 'Go to definition', bufopts)
-  noremap('n', 'gpd', '<cmd>Lspsaga peek_definition<CR>', 'Preview definition', bufopts)
+  noremap('n', 'gpd', saga.lsp.preview_definition, 'Preview definition', bufopts)
 
   noremap('n', 'gt', lsp.type_definition, 'Go to type-definition', bufopts)
   noremap('n', 'gpt', preview.goto_preview_type_definition, 'Preview type-def', bufopts)
@@ -154,27 +152,27 @@ local on_attach = function(client, bufnr)
   noremap('n', 'gi', lsp.implementation, 'Go to implementation', bufopts)
   noremap('n', 'gpi', preview.goto_preview_implementation, 'Preview implementation', bufopts)
 
-  noremap('n', 'gR', '<cmd>TroubleToggle lsp_references<cr>', 'Go to references', bufopts)
+  noremap('n', 'gR', trouble.lsp.references, 'Go to references', bufopts)
   noremap('n', 'gr', lsp.references, 'Open references', bufopts)
   noremap('n', 'gpr', preview.goto_preview_references, 'Preview references in Telescope', bufopts)
 
   if ok then
     wk.register({ ['gp'] = 'Go to preview' }, { mode = 'n' })
   end
-  noremap('n', 'go', '<cmd>Lspsaga lsp_finder<CR>', 'Find all occurances', bufopts)
+  noremap('n', 'go', saga.lsp.finder, 'Find all occurances', bufopts)
 
   noremap('n', 'K', lsp.hover, 'Hover docs', bufopts)
   noremap('n', '<leader>f', vim.cmd.FormatLock, 'Format file', bufopts)
-  noremap('n', '<leader>r', '<cmd>Lspsaga rename<CR>', 'Rename symbol', bufopts)
-  noremap({ 'n', 'v' }, '<leader>ca', '<cmd>Lspsaga code_action<CR>', 'Code actions', bufopts)
+  noremap('n', '<leader>r', saga.lsp.rename, 'Rename symbol', bufopts)
+  noremap({ 'n', 'v' }, '<leader>ca', saga.lsp.code_action, 'Code actions', bufopts)
 
   if ok then
     wk.register({ ['<leader>e'] = 'Diagnostics' }, { mode = 'n' })
   end
-  noremap('n', '<leader>el', '<cmd>TroubleToggle<cr>', 'List diagnostics', bufopts)
-  noremap('n', '<leader>ew', '<cmd>TroubleToggle workspace_diagnostics<cr>', 'Workspace diagnostics', bufopts)
-  noremap('n', '<leader>ef', '<cmd>TroubleToggle document_diagnostics<cr>', 'File diagnostics', bufopts)
-  noremap('n', '<leader>et', '<cmd>TodoTrouble<cr>', 'TODOs', bufopts)
+  noremap('n', '<leader>el', vim.cmd.TroubleToggle, 'List diagnostics', bufopts)
+  noremap('n', '<leader>ew', trouble.lsp.workspace_diagnostics, 'Workspace diagnostics', bufopts)
+  noremap('n', '<leader>ef', trouble.lsp.document_diagnostics, 'File diagnostics', bufopts)
+  noremap('n', '<leader>et', vim.cmd.TodoTrouble, 'TODOs', bufopts)
 
   noremap('n', ']d', vim.diagnostic.goto_next, 'Next diagnostic', bufopts)
   noremap('n', '[d', vim.diagnostic.goto_prev, 'Previous diagnostic', bufopts)
@@ -183,13 +181,12 @@ local on_attach = function(client, bufnr)
 end
 
 noremap('n', '<A-i>', '<cmd>Lspsaga open_floaterm<CR>', 'Open floating terminal')
--- if you want pass somc cli command into terminal you can put before <CR>
 noremap('t', '<A-i>', [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], 'Close floating terminal')
 
 ---------------------------------------------------------------------------------------
 -- Languages settings
 ---------------------------------------------------------------------------------------
-local servers = { 'bashls', 'pyright', 'marksman' } -- Lua is set later
+local servers = { 'bashls', 'pyright', 'marksman' } -- Lua one is set later
 
 -- this have to be done before any servers are set up
 require('mason-lspconfig').setup({
@@ -203,6 +200,9 @@ for _, server in ipairs(servers) do
     on_attach = on_attach,
   })
 end
+
+-- Set configurations for specific filetype
+-- cmp.setup.filetype()
 
 -- got below from https://github.com/neovim/nvim-lspconfig/issues/319#issuecomment-1236123717
 local start_sumneko_lua = true

@@ -1,5 +1,27 @@
 M = require('lspsaga')
 
+local function Lspsaga(action)
+  return vim.cmd.Lspsaga(action)
+end
+
+M.lsp = {
+  rename = function()
+    return Lspsaga('rename')
+  end,
+
+  preview_definition = function()
+    return Lspsaga('peek_definition')
+  end,
+
+  finder = function()
+    return Lspsaga('lsp_finder')
+  end,
+
+  code_action = function()
+    return Lspsaga('code_action')
+  end,
+}
+
 M.init_lsp_saga({
   --- Keybindings ---
   move_in_saga = { prev = '<C-p>', next = '<C-n>' }, -- when cursor in saga window you config these to move

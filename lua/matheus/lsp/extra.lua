@@ -6,6 +6,24 @@ M = {
   neodev = require('neodev'),
 }
 
+local function Trouble(action)
+  return vim.cmd.TroubleToggle(action)
+end
+
+M.trouble.lsp = {
+  references = function()
+    return Trouble('lsp_references')
+  end,
+
+  workspace_diagnostics = function()
+    return Trouble('workspace_diagnostics')
+  end,
+
+  document_diagnostics = function()
+    return Trouble('document_diagnostics')
+  end,
+}
+
 M.trouble.setup({
   position = 'bottom', -- position of the list can be: bottom, top, left, right
   height = 10, -- height of the trouble list when position is top or bottom
