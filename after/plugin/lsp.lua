@@ -6,7 +6,8 @@ local noremap = require('matheus').noremap
 local cmp = require('cmp')
 local lspkind = require('matheus.lsp.kind')
 
-noremap('n', '<leader>d', '<Plug>(doge-generate)', 'Insert documentation')
+noremap('n', '<leader>d', '<nop>', 'Diagnostics')
+noremap('n', '<leader>i', '<Plug>(doge-generate)', 'Insert documentation')
 vim.g.doge_comment_jump_modes = { 'n', 's' } -- removing i to use tab-completion
 vim.g.doge_doc_standard_python = 'numpy'
 
@@ -167,13 +168,12 @@ local on_attach = function(client, bufnr)
   noremap({ 'n', 'v' }, '<leader>ca', saga.lsp.code_action, 'Code actions', bufopts)
 
   if ok then
-    wk.register({ ['<leader>e'] = 'Diagnostics' }, { mode = 'n' })
+    wk.register({ ['<leader>d'] = 'Diagnostics' }, { mode = 'n' })
   end
-  noremap('n', '<leader>el', vim.cmd.TroubleToggle, 'List diagnostics', bufopts)
-  noremap('n', '<leader>ew', trouble.lsp.workspace_diagnostics, 'Workspace diagnostics', bufopts)
-  noremap('n', '<leader>ef', trouble.lsp.document_diagnostics, 'File diagnostics', bufopts)
-  noremap('n', '<leader>et', vim.cmd.TodoTrouble, 'TODOs', bufopts)
-
+  noremap('n', '<leader>dl', vim.cmd.TroubleToggle, 'List diagnostics', bufopts)
+  noremap('n', '<leader>dw', trouble.lsp.workspace_diagnostics, 'Workspace diagnostics', bufopts)
+  noremap('n', '<leader>df', trouble.lsp.document_diagnostics, 'File diagnostics', bufopts)
+  noremap('n', '<leader>dt', vim.cmd.TodoTrouble, 'TODOs', bufopts)
   noremap('n', ']d', vim.diagnostic.goto_next, 'Next diagnostic', bufopts)
   noremap('n', '[d', vim.diagnostic.goto_prev, 'Previous diagnostic', bufopts)
   noremap('n', ']t', todo.jump_next, 'Next todo comment', bufopts)
