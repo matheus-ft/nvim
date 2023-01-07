@@ -21,6 +21,7 @@ require('indent_blankline').setup({
 
 vim.opt.list = true
 vim.opt.listchars:append('lead:⋅,tab:> ,trail: ') -- only shows leading spaces (amonst them, indentation)
+vim.opt.fillchars = { foldopen = '', foldclose = '' }
 
 -------------------------------------------------------------------------------
 -- Other plugins

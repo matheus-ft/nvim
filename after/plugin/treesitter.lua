@@ -1,3 +1,4 @@
+require('hlargs').setup()
 require('nvim-treesitter.configs').setup({
   ensure_installed = { 'help', 'lua', 'bash', 'python', 'markdown', 'markdown_inline' },
   highlight = {

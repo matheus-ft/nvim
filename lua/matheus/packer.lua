@@ -48,33 +48,23 @@ return packer.startup({
     -- Git
     use('lewis6991/gitsigns.nvim') -- git hints and git blame
     use('tpope/vim-fugitive') -- git commands
-    use('rhysd/git-messenger.vim')
-    use({ 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' })
+    use('rhysd/git-messenger.vim') -- git messages on top of line blame
+    use({ 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }) -- better diff buffer
 
     -- Useful aesthetics
     use('nvim-lualine/lualine.nvim')
     use({ 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' })
     use('lukas-reineke/indent-blankline.nvim') -- indentation guides
     use('nacro90/numb.nvim') -- to peek line jumps with `:<number>`
-    use('norcalli/nvim-colorizer.lua') -- colorize hexcodes and color-indicating text
+    use('NvChad/nvim-colorizer.lua') -- colorize hexcodes and color-indicating text
     use('rcarriga/nvim-notify')
     use({ 'folke/todo-comments.nvim', requires = 'nvim-lua/plenary.nvim' })
     use({ 'folke/noice.nvim', requires = 'MunifTanjim/nui.nvim' })
     use('folke/twilight.nvim')
 
     -- Actually useful
-    use({
-      'windwp/nvim-autopairs',
-      config = function()
-        require('nvim-autopairs').setup()
-      end,
-    }) -- completes the pair of chars
-    use({
-      'kylechui/nvim-surround',
-      config = function()
-        require('nvim-surround').setup()
-      end,
-    }) -- to change surrounding chars easily
+    use('windwp/nvim-autopairs') -- completes the pair of chars
+    use('kylechui/nvim-surround') -- to change surrounding chars easily
     use('numToStr/Comment.nvim') -- toggle comments easily
     use({ 'cshuaimin/ssr.nvim', module = 'ssr' }) -- structural search and replace
     use('folke/which-key.nvim')
@@ -86,10 +76,17 @@ return packer.startup({
       end,
     })
     use('mbbill/undotree')
+    use({
+      'andymass/vim-matchup',
+      setup = function()
+        vim.g.matchup_matchparen_offscreen = { method = 'popup' }
+      end,
+    })
 
     -- Sintax highlighting
     use({ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }) -- Highlight, edit, and navigate code
     use({ 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' }) -- Additional text objects
+    use({ 'm-demare/hlargs.nvim', requires = 'nvim-treesitter/nvim-treesitter' })
 
     -- LSP stuff
     use({
@@ -102,7 +99,7 @@ return packer.startup({
         'rmagatti/goto-preview', -- opens definitions/declarations/etc in a pop-up window
         {
           'RishabhRD/nvim-lsputils', -- this makes the lsp actions behave a lil better (but I don't actually understand it)
-          requires = 'RishabhRD/popfix', -- also requires `bat` to work properly
+          requires = 'RishabhRD/popfix', -- also needs `bat` to work properly
         },
         'j-hui/fidget.nvim', -- Useful status updates for LSP
         'folke/neodev.nvim', -- Additional lua configuration, makes nvim stuff amazing
