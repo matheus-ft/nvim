@@ -133,6 +133,12 @@ return packer.startup({
       end,
       ft = { 'markdown' },
     })
+    use({
+      'lervag/vimtex',
+      config = function()
+        require('matheus.tex')
+      end,
+    })
 
     -- Notebooks
     use('goerz/jupytext.vim')
