@@ -5,17 +5,20 @@ require(Gruvbox).setup({
   underline = true,
   bold = true,
   italic = true,
-  strikethrough = true,
-  invert_selection = false,
-  invert_signs = false,
-  invert_tabline = false,
-  invert_intend_guides = false,
   inverse = true, -- invert background for search, diffs, statuslines and errors
-  contrast = '', -- can be "hard", "soft" or empty string
-  palette_overrides = {},
-  overrides = {},
-  dim_inactive = false,
-  transparent_mode = false,
+  contrast = 'soft', -- can be "hard", "soft" or empty string
+  overrides = {
+    String = { italic = false },
+    -- keeping the SignColumn with same color as background
+    GruvboxRedSign = { bg = '#282828' },
+    GruvboxGreenSign = { bg = '#282828' },
+    GruvboxYellowSign = { bg = '#282828' },
+    GruvboxBlueSign = { bg = '#282828' },
+    GruvboxPurpleSign = { bg = '#282828' },
+    GruvboxAquaSign = { bg = '#282828' },
+    GruvboxOrangeSign = { bg = '#282828' },
+  },
+  transparent_mode = true,
 })
 
 vim.o.background = 'dark'
