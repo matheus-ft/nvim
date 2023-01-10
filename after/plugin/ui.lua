@@ -2,7 +2,7 @@
 -- Colorscheme
 vim.cmd([[ syntax on ]])
 vim.cmd([[ filetype plugin indent on ]])
-local theme = require('matheus.themes.onedark')
+local theme = require('matheus.themes.gruvbox')
 
 -------------------------------------------------------------------------------
 -- Indentation guides
@@ -25,7 +25,7 @@ vim.opt.fillchars = { foldopen = '', foldclose = '' }
 
 -------------------------------------------------------------------------------
 -- Other plugins
-require('colorizer').setup()
+require('colorizer').setup({})
 require('numb').setup()
 local notify = require('notify')
 notify.setup({ background_colour = '#000000' })

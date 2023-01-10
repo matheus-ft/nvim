@@ -157,6 +157,7 @@ return packer.startup({
     use('navarasu/onedark.nvim')
     use({ 'catppuccin/nvim', as = 'catppuccin' })
     use('NTBBloodbath/doom-one.nvim')
+    use('ellisonleao/gruvbox.nvim')
 
     if NEED_BOOTSRAP then
       packer.sync()
