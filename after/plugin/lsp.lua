@@ -186,20 +186,22 @@ noremap('t', '<A-i>', [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], 'Close floa
 ---------------------------------------------------------------------------------------
 -- Languages settings
 ---------------------------------------------------------------------------------------
-local servers = { 'bashls', 'pyright', 'marksman' } -- Lua one is set later
+local mason_lspconfig = require('mason-lspconfig')
+local must_have_servers = { 'bashls', 'pyright', 'marksman' } -- Lua one is set later
 
--- this have to be done before any servers are set up
-require('mason-lspconfig').setup({
-  ensure_installed = servers,
+mason_lspconfig.setup({ -- this have to be done before any servers are set up
+  ensure_installed = must_have_servers,
   automatic_installtion = true,
 })
 
-for _, server in ipairs(servers) do
-  lspconfig[server].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-  })
-end
+mason_lspconfig.setup_handlers({ -- this sets up all installed servers
+  function(server_name)
+    lspconfig[server_name].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
+    })
+  end,
+})
 
 -- Set configurations for specific filetype
 -- cmp.setup.filetype()
