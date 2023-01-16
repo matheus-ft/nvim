@@ -22,7 +22,7 @@ M.lsp = {
   end,
 }
 
-M.init_lsp_saga({
+M.setup({
   --- Keybindings ---
   move_in_saga = { prev = '<C-p>', next = '<C-n>' }, -- when cursor in saga window you config these to move
   finder_action_keys = { -- apparently, tables work here...

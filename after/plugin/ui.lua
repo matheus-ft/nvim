@@ -25,7 +25,11 @@ vim.opt.fillchars = { foldopen = '', foldclose = '' }
 
 -------------------------------------------------------------------------------
 -- Other plugins
-require('colorizer').setup({})
+require('colorizer').setup({
+  user_default_options = {
+    names = false,
+  },
+})
 require('numb').setup()
 local notify = require('notify')
 notify.setup({ background_colour = '#000000' })

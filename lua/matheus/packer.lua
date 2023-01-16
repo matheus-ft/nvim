@@ -82,6 +82,7 @@ return packer.startup({
         vim.g.matchup_matchparen_offscreen = { method = 'popup' }
       end,
     })
+    use('NvChad/nvterm')
 
     -- Sintax highlighting
     use({ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }) -- Highlight, edit, and navigate code
@@ -157,7 +158,8 @@ return packer.startup({
     use('navarasu/onedark.nvim')
     use({ 'catppuccin/nvim', as = 'catppuccin' })
     use('NTBBloodbath/doom-one.nvim')
-    use('ellisonleao/gruvbox.nvim')
+    use({ 'ellisonleao/gruvbox.nvim', as = 'old_gruvbox' })
+    use('xbt573/gruvbox.nvim') -- using this for the fix in the transparecy
 
     if NEED_BOOTSRAP then
       packer.sync()
