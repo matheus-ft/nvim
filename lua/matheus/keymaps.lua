@@ -61,8 +61,8 @@ noremap('n', '<Right>', '<nop>')
 -- Move lines up and down
 noremap('i', '<A-j>', '<Esc>:m .+1<CR>==gi')
 noremap('i', '<A-k>', '<Esc>:m .-2<CR>==gi')
-noremap('v', '<A-j>', [[ :m '>+1<CR>gv=gv ]])
-noremap('v', '<A-k>', [[ :m '<-2<CR>gv=gv ]])
+noremap('v', '<A-j>', [[:m '>+1<CR>gv=gv]])
+noremap('v', '<A-k>', [[:m '<-2<CR>gv=gv]])
 
 -- Some insert mode keybindings that might be useful
 noremap('i', '<C-h>', '<Left>')
@@ -81,13 +81,13 @@ noremap('n', 'dD', 'd^', 'Start of line (non-blank)')
 noremap('n', 'cC', 'c^', 'Start of line (non-blank)')
 
 -- paste what was last yanked, not what was deleted
-noremap('n', 'yp', [[ "0p ]], 'Paste last yanked')
-noremap('n', 'yP', [[ "0P ]], 'Paste last yanked before cursor')
+noremap('n', 'yp', [["0p]], 'Paste last yanked')
+noremap('n', 'yP', [["0P]], 'Paste last yanked before cursor')
 
 -- Interacting with system clipboard (don't forget to install utility to activate the registers)
-noremap({ 'v', 'x' }, '<C-c>', [[ "+y ]], 'Copies into clipboard')
+noremap({ 'v', 'x' }, '<C-c>', [["+y]], 'Copies into clipboard')
 -- noremap('i', '<C-v>', '<C-r>+', 'Pastes from clipboard')
-noremap('n', 'my', [[ "+y ]], 'Copies into clipboard')
-noremap('n', 'mY', [[ "+Y ]], 'Copies rest of the line into clipboard')
-noremap('n', 'mp', [[ "+p ]], 'Paste from clipboard')
-noremap('n', 'mP', [[ "+P ]], 'Paste from clipboard before cursor')
+noremap('n', 'my', [["+y]], 'Copies into clipboard')
+noremap('n', 'mY', [["+Y]], 'Copies rest of the line into clipboard')
+noremap('n', 'mp', [["+p]], 'Paste from clipboard')
+noremap('n', 'mP', [["+P]], 'Paste from clipboard before cursor')

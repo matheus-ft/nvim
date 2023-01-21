@@ -72,7 +72,7 @@ return packer.startup({
     use({
       'vimwiki/vimwiki',
       config = function()
-        require('matheus.wiki') -- needs to be called before plugin actually loads
+        require('plugin.wiki') -- needs to be called before plugin actually loads
       end,
     })
     use('mbbill/undotree')
@@ -137,7 +137,7 @@ return packer.startup({
     use({
       'lervag/vimtex',
       config = function()
-        require('matheus.tex')
+        require('plugin.tex')
       end,
     })
 

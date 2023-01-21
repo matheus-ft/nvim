@@ -4,7 +4,7 @@ local noremap = require('matheus').noremap
 -- Autocompletion, snippets and autogen-docs
 ---------------------------------------------------------------------------------------
 local cmp = require('cmp')
-local lspkind = require('matheus.lsp.kind')
+local lspkind = require('plugin.lsp.kind')
 
 noremap('n', '<leader>d', '<nop>', 'Diagnostics')
 noremap('n', '<leader>i', '<Plug>(doge-generate)', 'Insert documentation')
@@ -118,15 +118,15 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 ---------------------------------------------------------------------------------------
 local lspconfig = require('lspconfig')
 local illuminate = require('illuminate')
-local saga = require('matheus.lsp.saga')
-local extra = require('matheus.lsp.extra')
+local saga = require('plugin.lsp.saga')
+local extra = require('plugin.lsp.extra')
 local trouble = extra.trouble
 local todo = extra.todo
 local preview = extra.preview
 local ok, wk = pcall(require, 'which-key')
-require('matheus.lsp.formatter')
-require('matheus.lsp.signature')
-require('matheus.lsp.utils')
+require('plugin.lsp.formatter')
+require('plugin.lsp.signature')
+require('plugin.lsp.utils')
 
 local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc') -- Enable completion triggered by <c-x><c-o>
@@ -180,23 +180,19 @@ local on_attach = function(client, bufnr)
   noremap('n', '[t', todo.jump_prev, 'Previous todo comment', bufopts)
 end
 
-noremap('n', '<A-i>', '<cmd>Lspsaga open_floaterm<CR>', 'Open floating terminal')
-noremap('t', '<A-i>', [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], 'Close floating terminal')
-
 ---------------------------------------------------------------------------------------
 -- Languages settings
 ---------------------------------------------------------------------------------------
 local mason_lspconfig = require('mason-lspconfig')
-local must_have_servers = { 'bashls', 'pyright', 'marksman' } -- Lua one is set later
 
 mason_lspconfig.setup({ -- this have to be done before any servers are set up
-  ensure_installed = must_have_servers,
+  ensure_installed = { 'sumneko_lua', 'bashls', 'pyright', 'marksman' },
   automatic_installtion = true,
 })
 
 mason_lspconfig.setup_handlers({ -- this sets up all installed servers
-  function(server_name)
-    lspconfig[server_name].setup({
+  function(server)
+    lspconfig[server].setup({
       capabilities = capabilities,
       on_attach = on_attach,
     })
@@ -207,35 +203,35 @@ mason_lspconfig.setup_handlers({ -- this sets up all installed servers
 -- cmp.setup.filetype()
 
 -- got below from https://github.com/neovim/nvim-lspconfig/issues/319#issuecomment-1236123717
-local start_sumneko_lua = true
-local current_buf_id = vim.api.nvim_get_current_buf()
-local servers_attached_to_current_buf = vim.lsp.get_active_clients({ bufnr = current_buf_id })
-
-for _, server in ipairs(servers_attached_to_current_buf) do
-  if server.name == 'sumneko_lua' then -- an instance of sumneko_lua is already attached to the buffer
-    start_sumneko_lua = false
-  end
-end
-
-if start_sumneko_lua then
-  -- borrowed below from NvChad
-  lspconfig['sumneko_lua'].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-    settings = {
-      Lua = {
-        diagnostics = {
-          globals = { 'vim' },
-        },
-        workspace = {
-          library = {
-            [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-            [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-          },
-          maxPreload = 100000,
-          preloadFileSize = 10000,
-        },
-      },
-    },
-  })
-end
+-- local start_sumneko_lua = true
+-- local current_buf_id = vim.api.nvim_get_current_buf()
+-- local servers_attached_to_current_buf = vim.lsp.get_active_clients({ bufnr = current_buf_id })
+--
+-- for _, server in ipairs(servers_attached_to_current_buf) do
+--   if server.name == 'sumneko_lua' then -- an instance of sumneko_lua is already attached to the buffer
+--     start_sumneko_lua = false
+--   end
+-- end
+--
+-- if start_sumneko_lua then
+--   -- borrowed below from NvChad
+--   lspconfig['sumneko_lua'].setup({
+--     capabilities = capabilities,
+--     on_attach = on_attach,
+--     settings = {
+--       Lua = {
+--         diagnostics = {
+--           globals = { 'vim' },
+--         },
+--         workspace = {
+--           library = {
+--             [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+--             [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+--           },
+--           maxPreload = 100000,
+--           preloadFileSize = 10000,
+--         },
+--       },
+--     },
+--   })
+-- end

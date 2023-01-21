@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- Colorscheme
-vim.cmd([[ syntax on ]])
-vim.cmd([[ filetype plugin indent on ]])
+vim.cmd([[syntax on]])
+vim.cmd([[filetype plugin indent on]])
 local theme = require('matheus.themes.gruvbox')
 
 -------------------------------------------------------------------------------
@@ -138,7 +138,7 @@ if ok then
     popupmenu = {
       enabled = true, -- enables the Noice popupmenu UI
       backend = 'nui', -- backend to use to show regular cmdline completions
-      kind_icons = require('matheus.lsp.kind'),
+      kind_icons = require('plugin.lsp.kind'),
     },
     notify = {
       -- Noice can be used as `vim.notify` so you can route any notification like other messages

@@ -1,11 +1,11 @@
 require('hlargs').setup()
 require('nvim-treesitter.configs').setup({
-  ensure_installed = { 'help', 'lua', 'bash', 'python', 'markdown', 'markdown_inline' },
+  ensure_installed = { 'vim', 'help', 'lua', 'bash', 'python', 'markdown', 'markdown_inline' },
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
   },
-  -- grabbed the below from kickstart.nvim
+  -- grabbed everything the below from kickstart.nvim
   indent = { enable = true, disable = { 'python' } },
   incremental_selection = {
     enable = true,

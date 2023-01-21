@@ -35,10 +35,10 @@ vim.opt.equalalways = false
 vim.opt.cursorline = true
 vim.opt.mouse = 'nv'
 vim.opt.showmode = false
-vim.cmd([[ set iskeyword+=- ]]) -- makes hifen separated 'words' a single word
+vim.cmd([[set iskeyword+=-]]) -- makes hifen separated 'words' a single word
 
 if vim.g.neovide then
-  require('matheus.neovide')
+  require('plugin.neovide')
 end
 
 vim.g.python3_host_prog = os.getenv('HOME') .. '/.local/venv/nvim/bin/python'

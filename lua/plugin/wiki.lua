@@ -1,4 +1,4 @@
-vim.g.vimwiki_map_prefix = [[ \w ]]
+vim.g.vimwiki_map_prefix = [[\w]]
 vim.g.vimwiki_list = { {
   path = '~/Documents/vimwiki/',
   syntax = 'markdown',
