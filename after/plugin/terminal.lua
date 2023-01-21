@@ -40,8 +40,8 @@ local mappings = {
       require('nvterm.terminal').toggle('vertical')
     end,
   },
-  { 'n', '<A-i>', [[ <cmd>lua require('nvterm.terminal').toggle('float')<cr><C-\><C-n><cmd>set winblend=10<cr>i ]] },
-  { 't', '<A-i>', [[ <cmd>lua require('nvterm.terminal').toggle('float')<cr><C-\><C-n><cmd>set winblend=10<cr> ]] },
+  { 'n', '<A-i>', [[<cmd>lua require('nvterm.terminal').toggle('float')<cr><C-\><C-n><cmd>set winblend=10<cr>i]] },
+  { 't', '<A-i>', [[<cmd>lua require('nvterm.terminal').toggle('float')<cr><C-\><C-n><cmd>set winblend=10<cr>]] },
 }
 local opts = { noremap = true, silent = true }
 for _, mapping in ipairs(mappings) do
