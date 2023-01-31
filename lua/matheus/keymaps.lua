@@ -12,7 +12,6 @@ noremap('n', 'Q', '<nop>')
 noremap('n', 'ZZ', '<nop>')
 
 map({ 'i', 'n' }, '<C-c>', '<Esc>', 'Escape')
-noremap('t', '<Esc>', '<C-\\><C-n>') -- to enter normal mode with a terminal open
 noremap('n', '<Esc>', '<cmd>nohlsearch<cr>')
 
 map('n', '<C-u>', '<C-u>zz', 'Scroll up')
@@ -43,7 +42,7 @@ noremap('n', '<leader>q', ':q<CR>', 'Quit', silent)
 noremap('n', '<leader>cb', ':bdelete<CR>', 'Close buffer', silent)
 noremap('n', '<leader>w', ':up<CR>', 'Write buffer', silent)
 noremap(all_modes, '<C-s>', '<Esc>:up<CR>', 'Save buffer', silent)
-noremap('n', '<leader>o', ':edit<Space>', 'Open buffer')
+noremap('n', '<A-e>', ':edit ', 'Edit buffer')
 
 -- indent/unindent with tab/shift-tab
 noremap('n', '<Tab>', '>>', 'Indent line')

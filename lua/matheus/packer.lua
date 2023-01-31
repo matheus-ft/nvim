@@ -158,8 +158,7 @@ return packer.startup({
     use('navarasu/onedark.nvim')
     use({ 'catppuccin/nvim', as = 'catppuccin' })
     use('NTBBloodbath/doom-one.nvim')
-    use({ 'ellisonleao/gruvbox.nvim', as = 'old_gruvbox' })
-    use('xbt573/gruvbox.nvim') -- using this for the fix in the transparecy
+    use('ellisonleao/gruvbox.nvim')
 
     if NEED_BOOTSRAP then
       packer.sync()

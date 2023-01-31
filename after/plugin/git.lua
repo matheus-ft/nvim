@@ -52,9 +52,7 @@ require('gitsigns').setup({
     noremap({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', 'Git hunk', opts)
     noremap('n', '<leader>gD', vim.cmd.DiffviewOpen, 'Open diff buffer', opts)
     noremap('n', '<leader>gm', '<Plug>(git-messenger)', 'Open last message', opts)
-
-    noremap('n', '<leader>gn', gs.next_hunk, 'Next git hunk', opts)
-    noremap('n', '<leader>gp', gs.prev_hunk, 'Previous git hunk', opts)
+    noremap('n', '<A-z>', ':Git checkout ', 'Change branch', opts)
     noremap('n', ']g', gs.next_hunk, 'Next git hunk', opts)
     noremap('n', '[g', gs.prev_hunk, 'Previous git hunk', opts)
   end,
