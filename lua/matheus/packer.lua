@@ -43,7 +43,12 @@ return packer.startup({
     })
 
     -- "sub package manager"
-    use('williamboman/mason.nvim')
+    use({
+      'williamboman/mason.nvim',
+      config = function()
+        require('mason').setup()
+      end,
+    })
 
     -- Git
     use('lewis6991/gitsigns.nvim') -- git hints and git blame

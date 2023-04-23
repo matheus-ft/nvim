@@ -99,7 +99,7 @@ cmp.setup({
       vim_item.menu = ({
         buffer = '[Buffer]',
         nvim_lsp = '[LSP]',
-        luasnip = '[LuaSnip]',
+        luasnip = '[Snip]',
         nvim_lua = '[Lua]',
         latex_symbols = '[LaTeX]',
       })[entry.source.name]
@@ -163,7 +163,7 @@ local on_attach = function(client, bufnr)
   noremap('n', 'go', saga.lsp.finder, 'Find all occurances', bufopts)
 
   noremap('n', 'K', lsp.hover, 'Hover docs', bufopts)
-  noremap('n', '<leader>f', vim.cmd.FormatLock, 'Format file', bufopts)
+  noremap('n', '<A-f>', vim.cmd.FormatLock, 'Format file', bufopts)
   noremap('n', '<leader>r', saga.lsp.rename, 'Rename symbol', bufopts)
   noremap({ 'n', 'v' }, '<leader>ca', saga.lsp.code_action, 'Code actions', bufopts)
 
@@ -186,7 +186,7 @@ end
 local mason_lspconfig = require('mason-lspconfig')
 
 mason_lspconfig.setup({ -- this have to be done before any servers are set up
-  ensure_installed = { 'sumneko_lua', 'bashls', 'pyright', 'marksman' },
+  ensure_installed = { 'lua_ls', 'bashls', 'pyright', 'marksman' },
   automatic_installtion = true,
 })
 
@@ -203,35 +203,35 @@ mason_lspconfig.setup_handlers({ -- this sets up all installed servers
 -- cmp.setup.filetype()
 
 -- got below from https://github.com/neovim/nvim-lspconfig/issues/319#issuecomment-1236123717
--- local start_sumneko_lua = true
--- local current_buf_id = vim.api.nvim_get_current_buf()
--- local servers_attached_to_current_buf = vim.lsp.get_active_clients({ bufnr = current_buf_id })
---
--- for _, server in ipairs(servers_attached_to_current_buf) do
---   if server.name == 'sumneko_lua' then -- an instance of sumneko_lua is already attached to the buffer
---     start_sumneko_lua = false
---   end
--- end
---
--- if start_sumneko_lua then
---   -- borrowed below from NvChad
---   lspconfig['sumneko_lua'].setup({
---     capabilities = capabilities,
---     on_attach = on_attach,
---     settings = {
---       Lua = {
---         diagnostics = {
---           globals = { 'vim' },
---         },
---         workspace = {
---           library = {
---             [vim.fn.expand('$VIMRUNTIME/lua')] = true,
---             [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
---           },
---           maxPreload = 100000,
---           preloadFileSize = 10000,
---         },
---       },
---     },
---   })
--- end
+local start_lua_ls = true
+local current_buf_id = vim.api.nvim_get_current_buf()
+local servers_attached_to_current_buf = vim.lsp.get_active_clients({ bufnr = current_buf_id })
+
+for _, server in ipairs(servers_attached_to_current_buf) do
+  if server.name == 'lua_ls' then -- an instance of lua_ls is already attached to the buffer
+    start_lua_ls = false
+  end
+end
+
+if start_lua_ls then
+  -- borrowed below from NvChad
+  lspconfig['lua_ls'].setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+    settings = {
+      Lua = {
+        diagnostics = {
+          globals = { 'vim' },
+        },
+        workspace = {
+          library = {
+            [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+            [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+          },
+          maxPreload = 100000,
+          preloadFileSize = 10000,
+        },
+      },
+    },
+  })
+end
