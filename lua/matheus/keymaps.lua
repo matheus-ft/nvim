@@ -7,7 +7,6 @@ local silent = { silent = true }
 noremap('n', '<leader><leader>', ':', 'Command mode')
 noremap({ 'n', 'i' }, '<F9>', '<cmd>so %<cr>', 'Run script')
 
-noremap({ 'n', 'v', 'x' }, '<leader>', '<nop>')
 noremap('n', 'Q', '<nop>')
 noremap('n', 'ZZ', '<nop>')
 
@@ -34,15 +33,21 @@ noremap('n', '<C-l>', '<C-w>l', 'Move to right split')
 -- Make splits
 noremap('n', '<leader>y', '<C-w>v', 'Vertical split')
 noremap('n', '<leader>x', '<C-w>s', 'Horizontal split')
+noremap('n', '<leader>o', '<C-w>o', 'Only keep current window')
 
 -- Buffer handling
 noremap('n', '<A-h>', ':bprevious<CR>', 'Previous buffer', silent)
 noremap('n', '<A-l>', ':bnext<CR>', 'Next buffer', silent)
 noremap('n', '<leader>q', ':q<CR>', 'Quit', silent)
-noremap('n', '<leader>cb', ':bdelete<CR>', 'Close buffer', silent)
-noremap('n', '<leader>w', ':up<CR>', 'Write buffer', silent)
-noremap(all_modes, '<C-s>', '<Esc>:up<CR>', 'Save buffer', silent)
+noremap('n', '<C-->', ':bdelete<CR>', 'Delete buffer', silent)
+noremap('n', '<A-w>', ':up<CR>', 'Write buffer', silent)
 noremap('n', '<A-e>', ':edit ', 'Edit buffer')
+noremap('n', '<leader>e', ':e ', 'Edit buffer')
+noremap('n', '<A-o>', ':!cp % ', 'Rename buffer (keep the original)')
+noremap('n', '<A-O>', ':!mv % ', 'Rename buffer (dont keep the original)')
+noremap(all_modes, '<C-s>', '<Esc>:up<CR>', 'Save buffer', silent)
+noremap(all_modes, '<C-z>', '<Esc>u', 'Undo')
+noremap({ 'n', 'i' }, '<F5>', '<Esc>yyp', silent)
 
 -- indent/unindent with tab/shift-tab
 noremap('n', '<Tab>', '>>', 'Indent line')
@@ -75,11 +80,7 @@ noremap('i', '<C-f>', '<Right>')
 noremap('i', '<C-a>', '<Esc>^i')
 noremap('i', '<C-e>', '<Esc>$a')
 
-noremap('n', 'yY', 'y^', 'Start of line (non-blank)')
-noremap('n', 'dD', 'd^', 'Start of line (non-blank)')
-noremap('n', 'cC', 'c^', 'Start of line (non-blank)')
-
--- paste what was last yanked, not what was deleted
+-- paste what was last yanked
 noremap('n', 'yp', [["0p]], 'Paste last yanked')
 noremap('n', 'yP', [["0P]], 'Paste last yanked before cursor')
 

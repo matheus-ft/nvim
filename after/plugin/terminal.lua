@@ -35,7 +35,7 @@ local mappings = {
   },
   {
     toggle_modes,
-    '<A-y>',
+    '<A-v>',
     function()
       require('nvterm.terminal').toggle('vertical')
     end,

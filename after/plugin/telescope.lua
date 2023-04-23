@@ -17,7 +17,7 @@ noremap('n', '<leader>ps', function()
   vim.cmd.Telescope('live_grep')
 end, 'Project search', silent)
 
-noremap('n', '<leader>pb', function()
+noremap('n', '<A-b>', function()
   vim.cmd.Telescope('buffers')
 end, 'Project buffers', silent)
 
