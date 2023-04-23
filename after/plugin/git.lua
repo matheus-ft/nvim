@@ -1,4 +1,6 @@
-vim.opt.signcolumn = 'yes' -- kinda weird this is not a boolean for neovim, but okay
+require('neogit').setup({
+  integrations = { diffview = true },
+})
 
 require('gitsigns').setup({
   signs = {
@@ -29,6 +31,7 @@ require('gitsigns').setup({
   },
 
   on_attach = function(bufnr)
+    vim.opt.signcolumn = 'yes' -- kinda weird this is not a boolean for neovim, but okay
     local gs = package.loaded.gitsigns
     local noremap = require('matheus').noremap
     local ok, wk = pcall(require, 'which-key')
@@ -46,14 +49,18 @@ require('gitsigns').setup({
     noremap('n', '<leader>gu', gs.undo_stage_hunk, 'Unstage hunk', opts)
     noremap('n', '<leader>gd', gs.preview_hunk, 'Preview diff', opts)
     noremap('n', '<leader>gb', gs.toggle_current_line_blame, 'Toggle line blame', opts)
+    noremap('n', '<leader>gB', '<cmd>Git blame<cr>', 'Open blame side window', opts)
     noremap('n', '<leader>gt', gs.toggle_deleted, 'Toggle deleted', opts)
-    noremap('n', '<leader>gc', ':Git ', 'Commands', opts)
+    noremap('n', '<leader>gg', ':Git ', 'Commands', opts)
     noremap('n', '<leader>gs', vim.cmd.Git, 'Status', opts)
     noremap({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', 'Git hunk', opts)
     noremap('n', '<leader>gD', vim.cmd.DiffviewOpen, 'Open diff buffer', opts)
+    noremap('n', '<leader>gq', vim.cmd.DiffviewClose, 'Close diff buffer', opts)
     noremap('n', '<leader>gm', '<Plug>(git-messenger)', 'Open last message', opts)
     noremap('n', '<A-z>', ':Git checkout ', 'Change branch', opts)
     noremap('n', ']g', gs.next_hunk, 'Next git hunk', opts)
     noremap('n', '[g', gs.prev_hunk, 'Previous git hunk', opts)
+    noremap('n', '<A-y>', vim.cmd.Neogit, 'Neogit', opts)
+    noremap('n', '<leader>gc', '<cmd>Neogit commit<cr>', 'Open commit popup', opts)
   end,
 })

@@ -50,6 +50,7 @@ return packer.startup({
     use('tpope/vim-fugitive') -- git commands
     use('rhysd/git-messenger.vim') -- git messages on top of line blame
     use({ 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }) -- better diff buffer
+    use({ 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }) -- git tui (magit like)
 
     -- Useful aesthetics
     use('nvim-lualine/lualine.nvim')
