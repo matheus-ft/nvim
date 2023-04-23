@@ -146,6 +146,7 @@ return packer.startup({
         require('plugin.tex')
       end,
     })
+    use('brymer-meneses/grammar-guard.nvim')
 
     -- Notebooks
     use('goerz/jupytext.vim')
