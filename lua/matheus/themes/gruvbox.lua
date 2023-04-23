@@ -4,7 +4,9 @@ require(Gruvbox).setup({
   undercurl = true,
   underline = true,
   bold = true,
-  italic = true,
+  italic = {
+    comments = true,
+  },
   inverse = true, -- invert background for search, diffs, statuslines and errors
   contrast = 'soft', -- can be "hard", "soft" or empty string
   overrides = {
