@@ -16,4 +16,4 @@ noremap('n', '<leader>j', ':MagmaShowOutput<CR>', 'Python: show run', silent)
 -- noremap('n', '<leader>?', ':noautocmd MagmaEnterOutput<CR>', 'Python: enter output window', silent)
 
 vim.g.magma_automatically_open_output = false
-vim.g.magma_image_provider = 'ueberzug' -- TODO: change this, because ueberzug is deprecated
+vim.g.magma_image_provider = 'kitty'

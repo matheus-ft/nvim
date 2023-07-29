@@ -108,7 +108,7 @@ return packer.startup({
           'RishabhRD/nvim-lsputils', -- this makes the lsp actions behave a lil better (but I don't actually understand it)
           requires = 'RishabhRD/popfix', -- also needs `bat` to work properly
         },
-        'j-hui/fidget.nvim', -- Useful status updates for LSP
+        { 'j-hui/fidget.nvim', tag = 'legacy' }, -- Useful status updates for LSP
         'folke/neodev.nvim', -- Additional lua configuration, makes nvim stuff amazing
         'ray-x/lsp_signature.nvim', -- adds function signature helper pop-up
         'mhartington/formatter.nvim',
