@@ -1,0 +1,22 @@
+{
+    "name": "nvim-snippets",
+    "author": "matheus-ft",
+    "engines": {
+        "vscode": "^1.11.0"
+    },
+    "contributes": {
+        "snippets": [
+            {
+                "language": "tex",
+                "path": "./snippets/tex.json"
+            },
+            {
+                "language": [
+                    "markdown",
+                    "vimwiki"
+                ],
+                "path": "./snippets/markdown.json"
+            }
+        ]
+    }
+}

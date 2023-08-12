@@ -1,0 +1,52 @@
+{
+    "Definition": {
+        "prefix": ["definition"],
+        "body": [
+            "\\begin{definition}[${1:name of the definition}]",
+            "\t$0",
+            "\\label{def:}",
+            "\\end{definition}"
+        ],
+        "description": "Insert a definition, whose style is already defined in the template. The serial number is automatically generated according to the section."
+    },
+    "Align": {
+        "prefix": ["align"],
+        "body": [
+            "\\begin{align}",
+            "\t$0",
+            "\\label{eq:}",
+            "\\end{align}"
+        ],
+        "description": ""
+    },
+    "Equation": {
+        "prefix": ["equation"],
+        "body": [
+            "\\begin{equation}",
+            "\t$0",
+            "\\label{eq:}",
+            "\\end{equation}"
+        ],
+        "description": ""
+    },
+    "Theorem": {
+        "prefix": ["theorem"],
+        "body": [
+            "\\begin{theorem}",
+            "\t$0",
+            "\\label{the:}",
+            "\\end{theorem}"
+        ],
+        "description": ""
+    },
+    "Lemma": {
+        "prefix": ["lemma"],
+        "body": [
+            "\\begin{lemma}",
+            "\t$0",
+            "\\label{lem:}",
+            "\\end{lemma}"
+        ],
+        "description": ""
+    }
+}
