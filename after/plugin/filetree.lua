@@ -5,14 +5,6 @@ require('nvim-tree').setup({
   view = {
     adaptive_size = true,
     signcolumn = 'auto',
-
-    mappings = {
-      list = {
-        -- user mappings go here
-        -- but these mappings only work on the tree
-        -- below this setup are general keybindings
-      },
-    },
   },
 
   renderer = {
