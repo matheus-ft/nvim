@@ -2,7 +2,7 @@
 -- Colorscheme
 vim.cmd([[syntax on]])
 vim.cmd([[filetype plugin indent on]])
-local theme = require('matheus.themes.gruvbox')
+local theme = require('matheus.themes.onedark')
 
 -------------------------------------------------------------------------------
 -- Indentation guides
@@ -11,12 +11,10 @@ vim.api.nvim_set_hl(0, 'IndentBlanklineContextChar', { fg = '#5b606b' })
 vim.api.nvim_set_hl(0, 'IndentBlanklineContextSpaceChar', { fg = '#42464e' })
 vim.api.nvim_set_hl(0, 'IndentBlanklineSpaceChar', { fg = '#42464e' })
 
-require('indent_blankline').setup({
-  char = '▏',
-  context_char = '▏',
-  show_current_context = true,
-  show_first_indent_level = false,
-  show_trailing_blankline_indent = false,
+require('ibl').setup({
+  indent = {
+    char = '▏',
+  },
 })
 
 vim.opt.list = true
