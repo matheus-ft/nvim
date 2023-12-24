@@ -7,4 +7,5 @@ vim.cmd([[filetype plugin indent on]])
 -- info).
 vim.cmd([[syntax enable]])
 
-vim.g.vimtex_view_general_viewer = 'evince' -- GNOME's document viewer
+-- vim.g.vimtex_view_general_viewer = 'evince' -- GNOME's document viewer
+vim.g.vimtex_view_general_viewer = 'okular' -- KDE's universal document viewer (can render GIFs)
