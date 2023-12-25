@@ -48,16 +48,6 @@ M.setup({
   --- Look and feel ---
   border_style = 'single', -- 'single' | 'double' | 'rounded' | 'bold' | 'plus'
   saga_winblend = 0, -- transparecy between 0-100 (no need for extra imo)
-  -- Error, Warn, Info, Hint
-  -- use emoji like
-  -- { '🙀', '😿', '😾', '😺' }
-  -- or
-  -- { '😡', '😥', '😤', '😐' }
-  -- and diagnostic_header can be a function type
-  -- must return a string and when diagnostic_header
-  -- is function type it will have a param `entry`
-  -- entry is a table type has these filed
-  -- { bufnr, code, col, end_col, end_lnum, lnum, message, severity, source }
   diagnostic_header = { ' ', ' ', ' ', 'ﴞ ' },
   preview_lines_above = 0, -- preview lines above of lsp_finder
   max_preview_lines = 10, -- preview lines of lsp_finder and definition preview
@@ -79,28 +69,23 @@ M.setup({
   },
   finder_request_timeout = 1500, -- finder do lsp request timeout -- if your project big enough or your server very slow you may need to increase this value
   rename_in_select = true,
-  symbol_in_winbar = { -- show symbols in winbar must nightly
+  symbol_in_winbar = {
     in_custom = false, -- mean use lspsaga api to get symbols and set it to your custom winbar or some winbar plugins.
     enable = true, -- if in_custom = true you must set enable to false
     separator = '  ',
     show_file = true,
-    -- define how to customize filename, eg: %:., %
-    -- more information see `vim.fn.expand` or `expand`
-    file_formatter = '%:t', -- default
-    click_support = false,
+    file_formatter = '%:t', -- more information see `vim.fn.expand` or `expand`
+    click_support = true,
   },
   show_outline = {
     win_position = 'right',
-    --set special filetype win that outline window split.like NvimTree neotree
-    -- defx, db_ui
     win_with = '',
     win_width = 30,
     auto_enter = true,
     auto_preview = true,
     virt_text = '┃',
     jump_key = 'o',
-    -- auto refresh when change buffer
-    auto_refresh = true,
+    auto_refresh = true, -- auto refresh when change buffer
   },
 })
 

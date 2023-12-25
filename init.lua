@@ -1,31 +1,17 @@
---------------------------------------------------------------------------------------
--- Settings
---------------------------------------------------------------------------------------
-require('matheus.keymaps')
-require('matheus.options')
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
---------------------------------------------------------------------------------------
--- Plugins
---------------------------------------------------------------------------------------
-require('matheus.packer')
+require("matheus").setup()
 
---------------------------------------------------------------------------------------
--- Auto commands
---------------------------------------------------------------------------------------
-local autocmd = vim.api.nvim_create_autocmd
-local MATHEUS = vim.api.nvim_create_augroup('MATHEUS', { clear = true })
+require("lazy").setup("plugins")
 
--- trims all trailing whitespaces on save
-autocmd('BufWritePre', { pattern = '*', command = [[%s/\s\+$//e]], group = MATHEUS })
-
--- highligths yanked text
-autocmd('TextYankPost', {
-  pattern = '*',
-  callback = function()
-    vim.highlight.on_yank({ timeout = 200, higroup = 'IncSearch' })
-  end,
-  group = MATHEUS,
-})
-
--- Don't autocomment new lines -- adapted from https://github.com/nvim-lua/kickstart.nvim/pull/88
-autocmd('BufEnter', { pattern = '*', command = 'set fo-=c fo-=r fo-=o', group = MATHEUS }) -- mostly useful for Lua

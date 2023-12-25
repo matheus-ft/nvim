@@ -8,6 +8,7 @@ vim.opt.wrap = false
 
 vim.opt.nu = true
 vim.opt.relativenumber = true -- to easily jump vertically in the file
+vim.opt.signcolumn = 'yes' -- kinda weird this is not a boolean for neovim, but okay
 
 vim.opt.hidden = true -- keeps edited buffers in the background, so there's no need to always save before navigating away from it
 vim.opt.swapfile = false
@@ -16,6 +17,7 @@ vim.opt.backup = false
 vim.opt.ignorecase = true -- ignore case while searching...
 vim.opt.smartcase = true -- ... unless there's a capital letter
 vim.opt.incsearch = true
+vim.opt.inccommand = 'nosplit' -- preview incremental substitute
 
 vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 8
@@ -24,6 +26,7 @@ vim.opt.sidescrolloff = 8
 vim.opt.path:append({ '**' })
 vim.opt.wildmenu = true
 vim.opt.completeopt = { 'menuone', 'preview', 'noinsert' }
+vim.opt.wildmode = 'longest:full,list:full' -- Command-line completion mode
 
 vim.opt.title = true -- to show file name in titlebar
 vim.opt.cmdheight = 1
@@ -34,15 +37,15 @@ vim.opt.equalalways = false
 
 vim.opt.cursorline = true
 vim.opt.mouse = 'nv'
-vim.opt.showmode = false
 vim.cmd([[set iskeyword+=-]]) -- makes hifen separated 'words' a single word
 
 if vim.g.neovide then
-  require('plugin.neovide')
+  require('matheus.neovide')
 end
 
 vim.g.python3_host_prog = os.getenv('HOME') .. '/.local/venv/nvim/bin/python'
-vim.opt.termguicolors = true
+
+vim.opt.virtualedit = 'block' -- Allow cursor to move where there is no text in visual block mode
 
 -- disable not used plugins -- shaving off some ms
 vim.g.loaded_gzip = 1

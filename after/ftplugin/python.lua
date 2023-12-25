@@ -1,6 +1,7 @@
----@diagnostic disable: redundant-parameter
+local noremap = require('matheus').noremap
+
 -- make sure you activate your venv before entering nvim!!
-vim.keymap.set({ 'n', 'i' }, '<F9>', '<cmd>!python3 %<cr>', { noremap = true })
+noremap({ 'n', 'i' }, '<F9>', '<cmd>!python3 %<cr>', 'Run script')
 
 local ok, autopairs = pcall(require, 'nvim-autopairs')
 if ok then

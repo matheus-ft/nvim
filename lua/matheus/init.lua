@@ -14,4 +14,10 @@ M.map = function(mode, lhs, rhs, desc, opts)
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 
+M.setup = function(table)
+  require('matheus.options')
+  require('matheus.keymaps')
+  require('matheus.autocmds')
+end
+
 return M
